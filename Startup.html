@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id= "titlename">Banned Books Club</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container" style="align-items: center; overflow-y: hidden; justify-content: center; text-align: center">
+   <div class="vstack">
+       <h3 class="closeText" style="font-family: 'Homemade Apple', serif; font-size: xx-large">The Banned Books Club</h3>
+       <img src="Images/logo.png" alt="Banned Books Club Logo" class="circularImage" width="200px" height="200px" style="align-items: center; justify-content: center; border: black 3px solid;">
+   </div>
+    <h1 style="text-align: center; ">Welcome!</h1>
+    <h2 style="text-align: center">We're so happy you're here.</h2>
+    <div  style="text-align: center">
+        <button id="login-btn">Log In</button>
+        <button id="signup-btn">Sign Up</button>
+        <script>
+            document.getElementById("login-btn").addEventListener("click", async () => {
+                window.location.href = 'Login.html'
+            })
+            document.getElementById("signup-btn").addEventListener("click", async () => {
+                window.location.href = 'Signup.html'
+            })
+        </script>
+    </div>
+</div>
+<script>
+    // window.addEventListener("load", async() =>{
+    //     let t;
+    //     let num = Math.random();
+    //     if(num>.5)
+    //         t= "Big number";
+    //     else
+    //         t = "Small number"
+    //     console.log(num);
+    //     document.getElementById("titlename").value = t;
+    //     console.log('Current page',document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf(".")));
+    // });
+    document.getElementById("login-btn").addEventListener("click", async () => {
+        window.location.href = 'Login.html'
+    });
+    document.getElementById("signup-btn").addEventListener("click", async () => {
+        window.location.href = 'Signup.html'
+    });
+</script>
+</body>
+<footer>
+    <div class="hstack" style="margin-left: 5%; margin-top: 10px">
+            <div id="logos" class="hstack" style="width: 50%">
+        <img src="Images/logo.png" class="circularImage" width="65" height="65" style="border-color: #303030; border-width: 1px; border-style: solid">
+        <div class="vstack">
+            <h3 class="closeText" style="font-family: 'Homemade Apple', serif; color: black">The Banned Books Club</h3>
+            <i class="closeText" style="color: black">Est. 2024</i>
+        </div>
+            </div>
+        <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 5%">
+        </div>
+    </div>
+
+</footer>
+<script src="allScreenFunctions.js"></script>
+</html>

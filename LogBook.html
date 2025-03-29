@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log Book</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="hstack" style="margin-bottom: 5px; vertical-align: center; margin-left: 3.5%">
+    <button id="backBtn" class="backBtn">< Back</button>
+    <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 5%">
+        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="30" height="30" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
+        <div class = vstack>
+            <h3 id="displayName" class="closeText" style="font-size: small">TestName</h3>
+            <h4 id="username" class="closeText" style="font-size: x-small">@testUser</h4>
+        </div>
+    </div>
+</div>
+<div class="vstack container" style="width: 90%">
+    <h1>Log Book</h1>
+    <div class="hstack">
+        <img src="Images/defaultBook.png" id="bookCover" width="250px" height="375px" style="border-width: 1px; border-color: black; border-style: solid; z-index: 0; position: absolute; margin-right: 10px">
+        <input type="image" src="Images/bookPlus.png" id="bookPlus" class="hoverable" width="250px" height="375px" style="z-index: 1; border-width: 1px; border-color: black; border-style: solid; margin-right: 10px">
+        <div class="vstack" style="align-items: start">
+            <h3 class="closeText">Title:</h3>
+            <input type="text" id="bookTitle" class="closeText" placeholder="Title" style="font-size: larger ">
+            <h3 class="closeText">Review:</h3>
+            <textarea id="bookReview" class="closeText" placeholder="Review" style="width: 100%; resize: none; overflow:auto; text-wrap: auto; word-break: break-word; overflow-wrap: break-word; word-wrap: break-word; min-height: 5%; max-height: 100%; overflow-y: hidden"></textarea>
+        </div>
+    </div>
+    <button id="submitBtn" style="margin-top: 20px; margin-bottom: 10px">Submit</button>
+</div>
+</body>
+<footer>
+    <div class="hstack" style="margin-left: 5%; margin-top: 10px">
+        <div id="logos" class="hstack"style="width: 50%">
+        <img src="Images/logo.png" class="circularImage" width="65" height="65" style="border-color: #303030; border-width: 1px; border-style: solid">
+        <div class="vstack">
+            <h3 class="closeText" style="font-family: 'Homemade Apple', serif;">The Banned Books Club</h3>
+            <i class="closeText">Est. 2024</i>
+        </div>
+        </div>
+        <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 5%">
+
+    </div>
+
+</footer>
+<script src="allScreenFunctions.js"></script>
+</html>

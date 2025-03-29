@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose a file...</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container vstack" style="align-items: center; text-align: center">
+        <h1>Upload a file...</h1>
+        <input id="file" name="file" type="file" style="font-size: 23px; font-family: 'Trebuchet MS',serif">
+        <button id="uploadBtn" style="margin-top: 10px">Upload</button>
+        <h3 id="err-mes" class="error-msg" style="display: none"></h3>
+    </div>
+<script>
+
+    window.onload = async() => {
+        window.resizeTo(window.screen.availWidth / 2, window.screen.availHeight / 2);
+    }
+    //let uploadedImg = null;
+    document.getElementById("uploadBtn").addEventListener("click", async() =>{
+        if(document.getElementById("file").files[0] == null){
+            document.getElementById("err-mes").display = "block";
+            document.getElementById("err-mes").value = "No file selected"
+        }else{
+            document.getElementById("err-mes").display = "none";
+            window.opener.uploadedImg = document.getElementById("file").files[0];
+            //window.opener
+            console.log(window.opener.uploadedImg);
+            window.close();
+        }
+    })
+</script>
+</body>
+</html>

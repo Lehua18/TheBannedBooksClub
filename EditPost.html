@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+
+  <title>Create a new post!</title>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+<div class="hstack" style="margin-bottom: 5px; vertical-align: center; display: flex; justify-content: space-between; width: 100%; color: black">
+  <button id="backBtn" class="backBtn" style="margin-left: 2.5%; text-align: center">< Back</button>
+  <div id = "profileBtn" class="hstack" style="display: flex; margin-right: 2.5%; justify-content: space-between">
+    <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="40" height="40" style="border-color: #303030; border-width: 1px; border-style: solid">
+    <div class = vstack>
+      <h3 id="displayName" class="closeText" style="font-size: medium">TestName</h3>
+      <h4 id="username" class="closeText" style="font-size: small">@testUser</h4>
+    </div>
+  </div>
+</div>
+<div class="vstack container">
+  <h1 id="heading">Create a new post:</h1>
+  <div class="hstack">
+    <h2>Title:</h2>
+  <input type="text" id="title" style="margin-bottom: 0; margin-top: 10px; font-size: x-large">
+  </div>
+  <div class="hstack">
+    <h2>Text:</h2>
+  <input type="text" id="postText" style="max-width: 75%; overflow-wrap: normal; margin-bottom: 10px; margin-top: 10px; font-size: medium">
+  </div>
+  <button id="submitProfile" style="margin-top: 5px">Submit</button>
+</div>
+<div class="hstack" style="margin-bottom: 5px; vertical-align: center; display: flex; justify-content: space-between; width: 90%; margin-top: 20px">
+  <div id="logos" class="hstack" style="margin-bottom: 0; display: flex; justify-content: flex-start;">
+    <img src="Images/logo.png" class="circularImage" width="65" height="65" style="border-color: #303030; border-width: 1px; border-style: solid; align-items: center; justify-content: center;">
+    <div class="vstack" style=" position: relative;">
+      <h3 class="closeText" style="font-family: 'Homemade Apple', serif; text-align: center">The Banned Books Club</h3>
+      <i class="closeText">Est. 2024</i>
+    </div>
+  </div>
+  <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="">
+
+</div>
+</body>
+<footer>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="editPost.js"></script>
+<script src="Data.js"></script>
+<script src="allScreenFunctions.js"></script>
+</html>

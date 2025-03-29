@@ -1,0 +1,181 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: linear-gradient(180deg,#ffe7e7,#ffedde,#ffffe5,#eafff3,#e6ffff, #eddef1);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*color: white;*/
+    color: black;
+}
+.hstack{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.vstack{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    vertical-align: center;
+}
+.circularImage{
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.closeText{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.backBtn{
+    align-items: start;
+    margin-bottom: 5px;
+    background-color: lightblue;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    width: 75px;
+    height: 30px;
+    font-size: 14px;
+    padding: 5px;
+
+}
+.backBtn:hover{
+    background-color: royalblue;
+    color: white;
+}
+button{
+    background-color: #ffbe69;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    width: 75px;
+    height: 30px;
+    font-size: 14px;
+    padding: 5px;
+    font-family: "Trebuchet MS", serif;
+    cursor: pointer;
+}
+button:hover{
+    background-color: #d16c00;
+    color: white;
+}
+.container{
+    display: flex;
+    /*position: relative;*/
+    align-items: center;
+    /*background-color: #151959 ;*/
+    background-color: #83cea3 ;
+    width: 95%;
+    height: 95%;
+    min-width: 300px;
+    /*min-height: 150px;*/
+    padding: 2%;
+    overflow-y: auto;
+    /*display: flex;*/
+    /*justify-content: space-around;*/
+    margin: 0 auto;
+    border-radius: 25px;
+    flex-direction: column;
+    justify-content: center;
+    vertical-align: center;
+
+
+
+}
+.posts{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+    align-items: start;
+    max-width: 100%;
+
+
+}
+.date{
+font-size: x-small;
+}
+/*.pfp{*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*}*/
+hr{
+    background-color: purple ;
+}
+.hoverable{
+    opacity: 0.4;
+    brightness: 200%;
+}
+.hoverable:hover{
+    opacity: 0.6;
+    cursor: pointer;
+}
+.error-msg{
+    color: red;
+}
+
+::file-selector-button{
+    background-color: #ffa697;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    width: 100px;
+    height: 30px;
+    font-size: 17px;
+    padding: 5px;
+    font-family: "Trebuchet MS", serif;
+}
+
+.navButton{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 300px;
+    align-items: center;
+    justify-content: center;
+    background-color: #a795c6;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    font-size: 20px;
+    padding: 5px;
+    font-family: "Trebuchet MS", serif;
+    vertical-align: center;
+    text-align: center;
+    margin-left: 2%;
+    margin-right: 2%;
+    cursor: pointer;
+
+}
+
+.navButton:hover{
+    background-color: #7559a6;
+}
+.error-msg{
+    color: red;
+}
+#error-msg{
+    color: red;
+}
+#err-mes{
+    color: red;
+}
+
+#logos{
+    color: black;
+}
+
+.header{
+    color: black;
+}
+
+.goToProfile{
+
+}
+
+.goToProfile:hover{
+    cursor: pointer;
+}

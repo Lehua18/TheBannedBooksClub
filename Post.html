@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="postTitle">Post</title> <!--change to variable -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<div>
+    <div id="opInfo" class="hstack" style="margin-bottom: 5px; vertical-align: center; margin-left: 3.5%">
+        <button id="backBtn" class="backBtn">< Back</button>
+        <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 5%; cursor: pointer">
+            <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="30" height="30" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
+            <div class = vstack>
+                <h3 id="displayName" class="closeText" style="font-size: small">TestName</h3>
+                <h4 id="username" class="closeText" style="font-size: x-small">@testUser</h4>
+            </div>
+        </div>
+    </div>
+    <div class="vstack container">
+        <div class="hstack" style="vertical-align: top">
+            <img id="profile-pic" class="pfp, circularImage" src="Images/profilePic.png" width="50px" height="50px" alt="Profile picture" style=" border-color: #303030; border-width: 1px; border-style: solid; margin-left: 5px">
+            <div class="vstack" style="max-width: 15%; vertical-align: top; margin-right: 5%; align-items: center">
+            <h3 id="author" class="closeText" style="margin-left: 0; text-align: center" >Display Name</h3>
+            <p id="authorUser" class="closeText" style="margin-left: 0; text-align: start; font-size: small">@testuser</p>
+            <p id="datePosted" class="closeText date" style="margin-left: 0; text-align: center ">March 10th, 2025 @7:50 AM</p>
+            </div>
+                <div class="vstack" style="align-items: start; vertical-align: top">
+                <h1 id="title" style="margin-bottom: 0; margin-top: 10px; font-size: xxx-large">Title of post</h1>
+                <p id="postText" style="max-width: 75%; overflow-wrap: normal; margin-bottom: 10px; margin-top: 10px">This is a sample paragraph. Posts here may include news on book banning, book of the month posts, resources to read books, or other social aspects.</p>
+            </div>
+        </div>
+<!--        <hr id="top-split" style="width: 80%">-->
+        <div id="replies" class="vstack" style="margin-top: 10px; align-items: start; width: 75%">
+<!--            <div id="replies1" class="hstack" style="align-items: start; vertical-align: top; max-width: 75%; overflow-wrap: normal; margin-bottom: 10px">-->
+<!--                <div class="hstack" style="vertical-align: center; width: 30%; float: left">-->
+<!--                <img id="profile-pic" class="pfp, circularImage" src="Images/profilePic.png" width="50px" height="50px" alt="Profile picture">-->
+<!--                <div class="vstack" style="margin-right: 10px; align-items: start; vertical-align: center">-->
+<!--                    <h3 id="author" class="closeText" style="margin-left: 0; text-align: start" >Display Name</h3>-->
+<!--                    <p id="authorUser" class="closeText" style="margin-left: 0; text-align: start; font-size: small">@testuser</p>-->
+<!--                    <p id="dateJoined" class="closeText date" style="margin-left: 0; text-align: start ">January 28th, 2025 @8:46 AM</p>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--                <p class="closeText" style="float: left">This is a sample comment. Users can share their thoughts, opinions, and questions about the book of the month, post, or other content!</p>-->
+<!--            </div>-->
+
+        </div>
+        <hr style="width: 80%">
+        <div style="align-items: start; width: 75%; margin-top: 10px" class="vstack">
+        <h3 style="margin-bottom: 0; text-align: start; margin-top: 0">Reply to post...</h3>
+        <input id="commentTextBox" type="text" placeholder="Begin typing here..." style="width: 100%; max-width: 100%; overflow-wrap: normal; margin-top: 5px">
+        <button id="submitBtn" style="margin-top: 5px; margin-bottom: 10px">Submit</button>
+        </div>
+    </div>
+</div>
+</body>
+<footer>
+    <div class="hstack" style="margin-left: 5%; margin-top: 10px">
+        <div id="logos" class="hstack"style="width: 50%">
+        <img src="Images/logo.png" class="circularImage" width="65" height="65" style="border-color: #303030; border-width: 1px; border-style: solid" alt="Logo">
+        <div class="vstack">
+            <h3 class="closeText" style="font-family: 'Homemade Apple', serif;">The Banned Books Club</h3>
+            <i class="closeText">Est. 2024</i>
+        </div>
+        </div>
+        <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 5%" alt="Discord logo">
+
+    </div>
+
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="post.js"></script>
+<script src="Data.js"></script>
+<script src="allScreenFunctions.js"></script>
+</html>
