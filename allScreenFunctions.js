@@ -3,6 +3,17 @@
 //     const supabaseURL = "https://kjwtprjrlzyvthlfbgrq.supabase.co";
 //     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtqd3RwcmpybHp5dnRobGZiZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1ODk5MDEsImV4cCI6MjA1NDE2NTkwMX0.4wA0k6qly4LPUYae2bQz1To1SImnS00WyB9n3zb6ejE";
 //     const supabase = createClient(supabaseURL, supabaseAnonKey);
+
+//const isMobile = {window.navigator.maxTouchPoints > 0;};
+window.onload = () => {
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.href = "Images/logoCircle.png";
+    link.type = 'image/x-icon';
+
+    document.getElementsByTagName('head')[0].appendChild(link);
+}
+
 window.addEventListener( "DOMContentLoaded", function() { //Might not work if user gets link from other website (cookies?)
     console.log("Window history:", window.history)
     console.log("document referrer", document.referrer)
@@ -13,7 +24,7 @@ window.addEventListener( "DOMContentLoaded", function() { //Might not work if us
 
 if(document.getElementById("discordLogo") != null){
     document.getElementById("discordLogo").addEventListener("click", async () => {
-        window.open("https://discord.com/", '_blank').focus()
+        window.open("https://discord.gg/yqt8kkEukA", '_blank').focus()
     })
 }
 
@@ -23,14 +34,14 @@ if(document.getElementById("logos") != null){
     })
 }
 
-if(document.getElementById("backBtn") != null) {
+if(document.getElementById("backBtn") != null) { //Fix this oh boy
 
     if (((!document.referrer.includes("Signup") && !document.referrer.includes("Login")) || (window.location.href.includes("Signup") || window.location.href.includes("Login"))) && !document.referrer.includes("EditProfile")) { //window.history? (gets referrer, which may not be actual last page)
         document.getElementById("backBtn").addEventListener("click", async () => {
             window.history.back();
         })
     }else if(!document.referrer.includes("EditPost")) {
-        window.location.href //fix
+        window.location.href = 'Home.html';//fix
 }else{
         document.getElementById("backBtn").addEventListener("click", async () => {
             window.location.href = 'Home.html';

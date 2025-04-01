@@ -6,6 +6,7 @@ body{
     background-size: cover;
     /*color: white;*/
     color: black;
+    overflow: hidden;
 }
 .hstack{
     display: flex;
@@ -59,6 +60,7 @@ button{
 button:hover{
     background-color: #d16c00;
     color: white;
+    cursor: pointer;
 }
 .container{
     display: flex;

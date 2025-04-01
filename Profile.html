@@ -55,8 +55,9 @@
     </div>
 
 </footer>
-<script src="allScreenFunctions.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="allScreenFunctions.js"></script>
 <script>
     const {createClient} = window.supabase;
     const supabaseURL = "https://kjwtprjrlzyvthlfbgrq.supabase.co";
@@ -77,8 +78,12 @@
         }
         console.log('User profile:', userProfile);
 
+        document.getElementById("displayName").textContent = userProfile[0].displayName;
+        document.getElementById("username").textContent = "@"+ userProfile[0].username;
         document.getElementById("bio").textContent = userProfile[0].bio;
         document.getElementById("pronouns").textContent = userProfile[0].pronouns;
+        const dateInfo = await formatTimestamp(userProfile[0].created_at);
+       document.getElementById("dateJoined").textContent = "Joined "+ dateInfo.monthStr+" "+dateInfo.day+", "+dateInfo.year;
         // document.getElementById("booksRead").textContent = userProfile[0].booksRead.stringify();
         // document.getElementById("dateJoined").textContent = "Joined "+ userProfile[0].dateJoined.stringify();
         const timestamp = new Date().getTime(); // Unique value
@@ -90,4 +95,5 @@
     });
 </script>
 <script src="Data.js"></script>
+
 </html>

@@ -62,7 +62,7 @@ window.onload = async() => { //specify for profile vs edit profile
         // console.log(img);
         //  = userProfile[0].pfp;
         // console.log("Data:", data);
-        userProfile = await getUserProfile(session);
+        //userProfile = await getUserProfile(session);
         const timestamp = new Date().getTime(); // Unique value
         document.getElementById("profile-pic").src = imgUrl.substring(imgUrl.indexOf('h'), imgUrl.lastIndexOf("\""))+`?t=${timestamp}`;
 
@@ -313,7 +313,7 @@ async function uploadImg(){
     const timestamp = new Date().getTime(); // Unique value
     console.log("uploadedimg",uploadedImg.name)
     userProfile[0].pfp = uploadedImg.name;
-    document.getElementById("profile-pic").src = getPublicUrl(`${userProfile[0].username}`+`?t=${timestamp}`);
+    document.getElementById("profile-pic").src = getPublicUrl(`${userProfile[0].username}`+`?t=${timestamp}`); //fix to link to supoabase storage with all the letters
     // await supabase.from('userRecords').update({pfp: imgUrl /* image path from bucket */}).eq('id', userId);
     // document.getElementById("profile-pic").src = await supabase.storage.from('pfps').download(userProfile[0].username+'.png');
 

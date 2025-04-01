@@ -7,6 +7,7 @@ const supabase = createClient(supabaseURL, supabaseAnonKey);
 //Login
 const loginBtn=document.getElementById("login-btn")
 loginBtn?.addEventListener("click",async () => {
+    console.log("Clicked");
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
         //  let account;
@@ -102,4 +103,5 @@ if(document.getElementById("go-to-signup-btn") != null) {
         window.location.href = 'Signup.html';
     });
 }
+
 
