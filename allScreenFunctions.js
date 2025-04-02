@@ -13,7 +13,7 @@ window.addEventListener( "DOMContentLoaded", function() { //Might not work if us
 
 if(document.getElementById("discordLogo") != null){
     document.getElementById("discordLogo").addEventListener("click", async () => {
-        window.open("https://discord.com/", '_blank').focus()
+        window.open("https://discord.gg/yqt8kkEukA", '_blank').focus()
     })
 }
 

@@ -6,27 +6,27 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Homemade+Apple&family=Lexend:wght@100..900&family=Ultra&display=swap" rel="stylesheet">
 
 </head>
-<body style="overflow-y: scroll; margin-top: 2%">
-<div class="hstack header" style="display: flex">
+<body style="overflow-y: scroll;">
+<div class="hstack header">
     <button id="backBtn" class="backBtn" style="margin-left: 15px">< Back</button>
     <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 15px">
-        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="40" height="40" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
+        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="45" height="45" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
         <div class = vstack>
-            <h2 id="displayName" class="closeText" style="font-size: small">TestName</h2>
-            <h3 id="username" class="closeText" style="font-size: x-small">@testUser</h3>
+            <h2 id="displayName" class="closeText" style="font-size: large">TestName</h2>
+            <h3 id="username" class="closeText" style="font-size: medium">@testUser</h3>
         </div>
     </div>
 </div>
-<div class="vstack">
-    <div class="container hstack" style="align-items: center; width: 100%; padding: 10px 20px; display: flex; justify-content: space-between; margin-bottom: 0; vertical-align: center">
+<div class="vstack" style="display: flex; flex-direction: column; flex-grow: 1">
+    <div class="container hstack" style="align-items: center; width: 100%; padding: 10px 20px; display: flex; justify-content: space-between; margin-bottom: 0; vertical-align: center; flex-grow: 1">
 <!--        <div class="hstack" style="position: relative">-->
-        <h1 id="page-title" style="text-align: center; white-space: nowrap; width: auto; left: 0; position: absolute; margin: 0 0 20% 10%;">Book Of The Month</h1> 
-            <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="50px" height="50px" style="right: 0; position: absolute; margin-right: 10%">
+        <h1 id="page-title" style="text-align: center; white-space: nowrap; width: auto; left: 0; position: absolute; margin: 0 0 20% 10%; font-family:'Ultra',serif; color: #006400; font-size: 400%; font-weight: 250 ">Book Of The Month</h1>
+            <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="80px" height="80px" style="right: 0; position: absolute; margin-right: 10%">
 <!--        </div>-->
-        <div id="posts" style="align-items: start; width: 80%; position:relative;">
+        <div id="posts" style="align-items: start; width: 80%; position:relative; margin-top:90px">
 <!--            <div id="post1" class="posts hstack" style="align-items: start; max-width: 100%">-->
 <!--                <img src="Images/profilePic.png" class="circularImage" width="50px" height="50p" alt="Profile picture">-->
 <!--                <div class="vstack" style="align-items: start">-->
@@ -43,21 +43,20 @@
             </div>
         </div>
     </div>
-</body>
-<footer>
-    <div class="hstack" style="margin-left: 5%; margin-top: 10px">
-        <div id="logos" class="hstack"style="width: 50%">
+<div class="hstack" style="bottom: 0; position: fixed; width: 100%; margin: 0 5%; display: flex">
+    <div id="logos" class="hstack" style="width: 100%; position: relative;">
+        <div class="hstack" style="position: absolute; left: 0; margin: 0">
         <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #303030; border-width: 1px; border-style: solid" alt="Logo">
         <div class="vstack">
             <h3 class="closeText" style="font-family: 'Homemade Apple', serif;">The Banned Books Club</h3>
             <i class="closeText">Est. 2024</i>
         </div>
         </div>
-        <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 5%" alt="Discord">
-
     </div>
+    <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 10%;" alt="Discord">
 
-</footer>
+</div>
+</body>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="forum.js"></script>
 <script src="Data.js"></script>
