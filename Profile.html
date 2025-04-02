@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Homemade+Apple&family=Lexend:wght@100..900&family=Ultra&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -76,6 +75,11 @@
             console.log('No user profile found.');
         }
         console.log('User profile:', userProfile);
+        document.getElementById("displayName").textContent = userProfile[0].displayName;
+        document.getElementById("username").textContent = userProfile[0].username;
+        let dateInfo = await formatTimestamp(userProfile[0].created_at);
+        document.getElementById("dateJoined").textContent = "Joined "+dateInfo.monthStr + " " +dateInfo.day +", "+dateInfo.year;
+
 
         document.getElementById("bio").textContent = userProfile[0].bio;
         document.getElementById("pronouns").textContent = userProfile[0].pronouns;

@@ -9,24 +9,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
 
 </head>
-<body style="overflow-y: scroll">
-<div class="hstack header" style="margin-bottom: 5px; vertical-align: center; margin-left: 3.5%">
-    <button id="backBtn" class="backBtn">< Back</button>
-    <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 5%">
-        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="30" height="30" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
+<body style="overflow-y: scroll; margin-top: 2%">
+<div class="hstack header" style="display: flex">
+    <button id="backBtn" class="backBtn" style="margin-left: 15px">< Back</button>
+    <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 15px">
+        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="40" height="40" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
         <div class = vstack>
-            <h3 id="displayName" class="closeText" style="font-size: small">TestName</h3>
-            <h4 id="username" class="closeText" style="font-size: x-small">@testUser</h4>
+            <h2 id="displayName" class="closeText" style="font-size: small">TestName</h2>
+            <h3 id="username" class="closeText" style="font-size: x-small">@testUser</h3>
         </div>
     </div>
 </div>
 <div class="vstack">
-    <div class="container" style="align-items: center; width: 75% ">
-        <div class="hstack">
-        <h1 id="page-title" style="text-align: center">Book Of The Month</h1>
-            <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="100px" height="100px" >
-        </div>
-        <div id="posts" style="align-items: start; width: 80%">
+    <div class="container hstack" style="align-items: center; width: 100%; padding: 10px 20px; display: flex; justify-content: space-between; margin-bottom: 0; vertical-align: center">
+<!--        <div class="hstack" style="position: relative">-->
+        <h1 id="page-title" style="text-align: center; white-space: nowrap; width: auto; left: 0; position: absolute; margin: 0 0 20% 10%;">Book Of The Month</h1> 
+            <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="50px" height="50px" style="right: 0; position: absolute; margin-right: 10%">
+<!--        </div>-->
+        <div id="posts" style="align-items: start; width: 80%; position:relative;">
 <!--            <div id="post1" class="posts hstack" style="align-items: start; max-width: 100%">-->
 <!--                <img src="Images/profilePic.png" class="circularImage" width="50px" height="50p" alt="Profile picture">-->
 <!--                <div class="vstack" style="align-items: start">-->
