@@ -9,10 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Homemade+Apple&family=Lexend:wght@100..900&family=Ultra&display=swap" rel="stylesheet">
 
 </head>
-<body style="overflow-y: scroll;">
+<body>
 <div class="hstack header">
-    <button id="backBtn" class="backBtn" style="margin-left: 15px">< Back</button>
-    <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 15px">
+    <button id="backBtn" class="backBtn" style="margin-left: 30px">< Back</button>
+    <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 30px">
         <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="45" height="45" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
         <div class = vstack>
             <h2 id="displayName" class="closeText" style="font-size: large">TestName</h2>
@@ -20,13 +20,14 @@
         </div>
     </div>
 </div>
-<div class="vstack" style="display: flex; flex-direction: column; flex-grow: 1">
-    <div class="container hstack" style="align-items: center; width: 100%; padding: 10px 20px; display: flex; justify-content: space-between; margin-bottom: 0; vertical-align: center; flex-grow: 1">
+<div class="vstack" style="display: flex; flex-direction: column; ">
+    <div class="container hstack" style="position: relative; align-items: center; width: 100%; padding: 10px 20px; display: flex; justify-content: space-between; margin-bottom: 0; vertical-align: center; flex-grow: 1; z-index: 0">
 <!--        <div class="hstack" style="position: relative">-->
-        <h1 id="page-title" style="text-align: center; white-space: nowrap; width: auto; left: 0; position: absolute; margin: 0 0 20% 10%; font-family:'Ultra',serif; color: #006400; font-size: 400%; font-weight: 250 ">Book Of The Month</h1>
+
+        <h1 id="page-title" style="width: auto; left: 0; position: absolute; margin: 0 0 20% 10%; font-family:'Ultra',serif; color: #006400; font-size: 400%; font-weight: 250; text-wrap: auto; height: auto; max-width: 60%; display: flex; flex-wrap: wrap; white-space: normal; text-align: left ">Book Of The Month</h1>
             <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="80px" height="80px" style="right: 0; position: absolute; margin-right: 10%">
 <!--        </div>-->
-        <div id="posts" style="align-items: start; width: 80%; position:relative; margin-top:90px">
+        <div id="posts" style="align-items: start; width: 80%; position:relative; margin-top:90px; z-index: 0">
 <!--            <div id="post1" class="posts hstack" style="align-items: start; max-width: 100%">-->
 <!--                <img src="Images/profilePic.png" class="circularImage" width="50px" height="50p" alt="Profile picture">-->
 <!--                <div class="vstack" style="align-items: start">-->
@@ -43,7 +44,7 @@
             </div>
         </div>
     </div>
-<div class="hstack" style="bottom: 0; position: fixed; width: 100%; margin: 0 5%; display: flex">
+<div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex">
     <div id="logos" class="hstack" style="width: 100%; position: relative;">
         <div class="hstack" style="position: absolute; left: 0; margin: 0">
         <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #303030; border-width: 1px; border-style: solid" alt="Logo">
@@ -53,7 +54,7 @@
         </div>
         </div>
     </div>
-    <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 10%;" alt="Discord">
+    <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 30px;" alt="Discord">
 
 </div>
 </body>

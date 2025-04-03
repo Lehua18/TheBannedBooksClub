@@ -8,13 +8,14 @@ body{
     color: black;
     padding: 0;
     box-sizing: border-box;
-    margin: 10px 0 0 0;
+    margin: 5px 0 0 0;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: hidden;
+    max-height: 100vh;
 
 }
 .hstack{
@@ -77,7 +78,7 @@ button:hover{
     /*background-color: #151959 ;*/
     background-color: white ;
     width: 100%;
-    height: inherit;
+    min-height: 0;
     /*min-width: 300px;*/
     /*min-height: 150px;*/
     /*padding: 2%;*/
@@ -91,8 +92,9 @@ button:hover{
     margin: 0;
     justify-content: flex-start;
     flex-grow: 1;
-    min-height: calc(100vh - 150px); /* Adjust 150px to match the height of #logos */
+    height: calc(100vh - 170px); /* Adjust 150px to match the height of #logos */
     box-sizing: border-box;
+    padding-bottom: 5px;
 }
 .posts{
     margin-top: 10px;
@@ -164,25 +166,30 @@ hr{
 .navButton:hover{
     background-color: #7559a6;
 }
-.error-msg{
-    color: red;
-}
-#error-msg{
-    color: red;
-}
-#err-mes{
+.error-msg, #error-msg, #err-mes {
     color: red;
 }
 
+
 #logos {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    flex-shrink: 0;  /* Prevents shrinking when resizing */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 90%;
+     /*background-image: linear-gradient(135deg,#ffe7e7,#ffedde,#ffffe5,#eafff3,#e6ffff, #eddef1);*/
+    /*padding: 10px;*/
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 30px;
 }
+
+#logos img {
+    max-width: 100px; /* Adjust as needed */
+    height: auto;
+}
+
 
 
 .header{
