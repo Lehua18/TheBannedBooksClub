@@ -45,6 +45,9 @@ window.addEventListener("load",async() => {
     }
         document.getElementById("blogTitle").textContent = currentPageSpaces+" | The Banned Books Club"
         document.getElementById("page-title").textContent = currentPageSpaces;
+    if(document.getElementById("posts").height >314){
+        document.getElementById("posts").style.overflowY = "scroll";
+    }
     // }
     // updatePage();
     // // Replace the URL to remove the 'path' query parameter
@@ -149,3 +152,4 @@ document.getElementById("addPost").addEventListener('click', async() => {
     localStorage.setItem('pageLast', currentPage)
     window.location.href = "EditPost.html";
 });
+

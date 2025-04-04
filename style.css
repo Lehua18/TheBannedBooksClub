@@ -1,6 +1,7 @@
 body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-image: linear-gradient(135deg,#ffe7e7,#ffedde,#ffffe5,#eafff3,#e6ffff, #eddef1);
+    /*background-color: navy;*/
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -43,12 +44,12 @@ body{
     margin-bottom: 5px;
     background-color: lightblue;
     border-radius: 5px;
-    border: none;
     color: black;
     width: 100px;
     height: 45px;
     font-size: 20px;
     padding: 5px;
+    border: #000038 solid 2px;
 
 }
 .backBtn:hover{
@@ -76,7 +77,7 @@ button:hover{
     /*position: relative;*/
     align-items: center;
     /*background-color: #151959 ;*/
-    background-color: white ;
+    background-color: mintcream ;
     width: 100%;
     min-height: 0;
     /*min-width: 300px;*/
@@ -95,16 +96,41 @@ button:hover{
     height: calc(100vh - 170px); /* Adjust 150px to match the height of #logos */
     box-sizing: border-box;
     padding-bottom: 5px;
+    border-top: #000038 solid 3px;
+    border-bottom: #000038 solid 3px;
+    position: relative;
+    /*border-radius: 15px;*/
+    overflow-x: hidden;
 }
+
+/*.container::before, .container::after{*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    width: 50px;*/
+/*    height: 5px;*/
+/*    border-radius: 15px;*/
+/*    background-color: whitesmoke;*/
+/*}*/
+
+/*.container::before{*/
+/*    top: -25px;*/
+/*    left: -25px;*/
+/*}*/
+
+/*.container::after{*/
+/*    top: -25px;*/
+/*    right: -25px;*/
+/*}*/
 .posts{
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: whitesmoke;
-    border-radius: 10px;
+    background-color: lightblue;
+    border-radius: 15px;
     padding: 5px;
     color: black;
     align-items: start;
     max-width: 100%;
+    border: #000038 solid 2px;
 
 
 }

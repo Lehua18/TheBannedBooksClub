@@ -11,6 +11,20 @@ window.addEventListener( "DOMContentLoaded", function() { //Might not work if us
     }
 });
 
+// function sizing(){
+//     document.getElementById("headerDiv").style.height = `${document.getElementById("page-title").offsetHeight + 10}`+'px';
+//     if(window.innerWidth < 670){
+//         document.getElementById("siteName").style.visibility = "hidden";
+//         document.getElementById("dateEst").style.visibility = "hidden";
+//     }else{
+//         document.getElementById("siteName").style.visibility = "visible";
+//         document.getElementById("dateEst").style.visibility = "visible";
+//     }
+// }
+// window.addEventListener("resize", () =>{
+//     sizing();
+// });
+
 if(document.getElementById("discordLogo") != null){
     document.getElementById("discordLogo").addEventListener("click", async () => {
         window.open("https://discord.gg/yqt8kkEukA", '_blank').focus()

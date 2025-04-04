@@ -13,7 +13,7 @@
 <div class="hstack header">
     <button id="backBtn" class="backBtn" style="margin-left: 30px">< Back</button>
     <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 30px">
-        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="45" height="45" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
+        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="45" height="45" style="border-color: #000038; border-width: 2px; border-style: solid" alt="profile picture">
         <div class = vstack>
             <h2 id="displayName" class="closeText" style="font-size: large">TestName</h2>
             <h3 id="username" class="closeText" style="font-size: medium">@testUser</h3>
@@ -21,13 +21,13 @@
     </div>
 </div>
 <div class="vstack" style="display: flex; flex-direction: column; ">
-    <div class="container hstack" style="position: relative; align-items: center; width: 100%; padding: 10px 20px; display: flex; justify-content: space-between; margin-bottom: 0; vertical-align: center; flex-grow: 1; z-index: 0">
+    <div class="container hstack" style="position: relative; align-items: center; width: 100%; padding: 10px 20px; display: flex; justify-content: flex-start; margin-bottom: 0; vertical-align: top; flex-grow: 1; z-index: 0">
 <!--        <div class="hstack" style="position: relative">-->
-
-        <h1 id="page-title" style="width: auto; left: 0; position: absolute; margin: 0 0 20% 10%; font-family:'Ultra',serif; color: #006400; font-size: 400%; font-weight: 250; text-wrap: auto; height: auto; max-width: 60%; display: flex; flex-wrap: wrap; white-space: normal; text-align: left ">Book Of The Month</h1>
-            <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="80px" height="80px" style="right: 0; position: absolute; margin-right: 10%">
-<!--        </div>-->
-        <div id="posts" style="align-items: start; width: 80%; position:relative; margin-top:90px; z-index: 0">
+        <div id="headerDiv" class="hstack" style="position: relative; width: inherit;  vertical-align: center; display: flex; block-size: max-content">
+            <h1 id="page-title" style="width: auto; left: 0;top: 0; position: absolute; margin: 0 0 20% 10%; font-family:'Ultra',serif; color: #000038; font-size: 350%; font-weight: 250; text-wrap: auto; max-width: 60%; display: flex; flex-wrap: wrap; white-space: normal; text-align: left ">Book Of The Month</h1>
+            <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="80px" height="80px" style="right: 0; top: 0; position: absolute; margin-right: 10%" alt="add a post">
+        </div>
+        <div id="posts" style="align-items: start; width: 80%; position:relative; max-height: 315px">
 <!--            <div id="post1" class="posts hstack" style="align-items: start; max-width: 100%">-->
 <!--                <img src="Images/profilePic.png" class="circularImage" width="50px" height="50p" alt="Profile picture">-->
 <!--                <div class="vstack" style="align-items: start">-->
@@ -44,13 +44,13 @@
             </div>
         </div>
     </div>
-<div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex">
+<div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex; height: max-content">
     <div id="logos" class="hstack" style="width: 100%; position: relative;">
         <div class="hstack" style="position: absolute; left: 0; margin: 0">
-        <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #303030; border-width: 1px; border-style: solid" alt="Logo">
+        <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #000038; border-width: 2px; border-style: solid" alt="Logo">
         <div class="vstack">
-            <h3 class="closeText" style="font-family: 'Homemade Apple', serif;">The Banned Books Club</h3>
-            <i class="closeText">Est. 2024</i>
+            <h3 id="siteName" class="closeText" style="font-family: 'Homemade Apple', serif; text-wrap: auto">The Banned Books Club</h3>
+            <i id="dateEst" class="closeText">Est. 2024</i>
         </div>
         </div>
     </div>
@@ -59,6 +59,22 @@
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    function sizing(){
+        document.getElementById("headerDiv").style.height = `${document.getElementById("page-title").offsetHeight + 10}`+'px';
+        if(window.innerWidth < 670){
+            document.getElementById("siteName").style.visibility = "hidden";
+            document.getElementById("dateEst").style.visibility = "hidden";
+        }else{
+            document.getElementById("siteName").style.visibility = "visible";
+            document.getElementById("dateEst").style.visibility = "visible";
+        }
+    }
+    sizing();
+    window.addEventListener("resize", () =>{
+        sizing();
+    });
+</script>
 <script src="forum.js"></script>
 <script src="Data.js"></script>
 <script src="allScreenFunctions.js"></script>
