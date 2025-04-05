@@ -93,7 +93,7 @@ window.addEventListener("load",async() => {
     console.log("Count", (await supabase.from('forumPosts').select('*',{ count: 'exact', head: true})).count)
     let posts = document.getElementById('posts');
     for (let i = (await supabase.from('forumPosts').select('*', {count: 'exact', head: true})).count; i >0 ; i--) {
-        console.log(table.data[0]);
+        console.log(table.data[i]);
         console.log(currentPage)
         if (table.data[i - 1].forumId === currentPage) {
             console.log('working')

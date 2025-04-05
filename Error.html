@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: white; " xmlns="http://www.w3.org/1999/html">
+<head  style="background-color: white">
+    <meta charset="UTF-8">
+    <title>401 Unauthorized</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-image: none; text-align: center; align-items: center">
+    <h1 style="font-family: Serif,serif; font-size: xxx-large">401 Unauthorized</h1>
+<p style="font-family: Serif,serif; font-size: x-large">You are not signed in! Please return to the landing page before accessing this website.</p>
+    <button id="toStartup" style="background-color: lightgray; font-size: 30px; width: 80vh; height: 50px; font-family: Serif,serif">Return to landing page</button>
+    <script>
+        document.getElementById('toStartup').addEventListener('click', () =>{
+            window.location.href = 'Startup.html';
+        })
+        document.getElementById('toStartup').addEventListener('mouseover', () =>{
+            document.getElementById('toStartup').style.backgroundColor = "gray";
+        })
+        document.getElementById('toStartup').addEventListener('mouseout', () =>{
+            document.getElementById('toStartup').style.backgroundColor = "lightgray";
+        })
+    </script>
+</body>
+</html>

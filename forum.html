@@ -18,6 +18,9 @@
             <h2 id="displayName" class="closeText" style="font-size: large">TestName</h2>
             <h3 id="username" class="closeText" style="font-size: medium">@testUser</h3>
         </div>
+<!-- LOGOUT BTN        <div id="popUp" style="position: absolute; z-index: 2; width: 100px; height: 50px; background-color: gray; top: 50px; right: 75px; border-radius: 10px; border: #000038 solid 2px; align-items: center; vertical-align: center; text-align: center">-->
+<!--            <button id="logoutBtn" style="margin-top: 10px">Log Out</button>-->
+<!--        </div>-->
     </div>
 </div>
 <div class="vstack" style="display: flex; flex-direction: column; ">
@@ -61,7 +64,10 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     function sizing(){
-        document.getElementById("headerDiv").style.height = `${document.getElementById("page-title").offsetHeight + 10}`+'px';
+        document.getElementById("headerDiv").style.minHeight = `${document.getElementById("page-title").offsetHeight + 10}`+'px';
+        document.getElementById("headerDiv").offsetHeight = document.getElementById("page-title").offsetHeight + 10;
+        console.log("OFFSET",document.getElementById("page-title").offsetHeight);
+        console.log("OFFSET",document.getElementById("headerDiv").style.height);
         if(window.innerWidth < 670){
             document.getElementById("siteName").style.visibility = "hidden";
             document.getElementById("dateEst").style.visibility = "hidden";
@@ -70,7 +76,9 @@
             document.getElementById("dateEst").style.visibility = "visible";
         }
     }
-    sizing();
+    window.addEventListener("load", () =>{
+        sizing();
+    })
     window.addEventListener("resize", () =>{
         sizing();
     });

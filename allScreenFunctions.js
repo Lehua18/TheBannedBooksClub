@@ -10,6 +10,22 @@ window.addEventListener( "DOMContentLoaded", function() { //Might not work if us
         alert("Press the logo at the bottom of the screen to exit immediately.")
     }
 });
+window.addEventListener("load", async() =>{
+    if(!(`${document.location}`).includes("Startup") && !(`${document.location}`).includes("Login") && !(`${document.location}`).includes("Signup") && !(`${document.location}`).includes("Error")){
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session) {
+            // Redirect to login page if not authenticated
+            window.location.href = 'Error.html';
+        }
+
+    }
+});
+
+// window.addEventListener('beforeunload', async() => {
+//     sessionStorage.clear();
+//     await supabase.auth.signOut();
+// })
 
 // function sizing(){
 //     document.getElementById("headerDiv").style.height = `${document.getElementById("page-title").offsetHeight + 10}`+'px';
