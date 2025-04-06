@@ -41,18 +41,20 @@
     });
 </script>
 </body>
-<footer>
-    <div class="hstack" style="margin-left: 5%; margin-top: 10px">
-            <div id="logos" class="hstack" style="width: 50%">
-        <img src="Images/logo.png" class="circularImage" width="65" height="65" style="border-color: #303030; border-width: 1px; border-style: solid">
-        <div class="vstack">
-            <h3 class="closeText" style="font-family: 'Homemade Apple', serif; color: black">The Banned Books Club</h3>
-            <i class="closeText" style="color: black">Est. 2024</i>
-        </div>
+<div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex; height: max-content">
+    <div id="logos" class="hstack" style="width: 100%; position: relative;">
+        <div class="hstack" style="position: absolute; left: 0; margin: 0">
+            <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #000038; border-width: 2px; border-style: solid" alt="Logo">
+            <div class="vstack">
+                <h3 id="siteName" class="closeText" style="font-family: 'Homemade Apple', serif; text-wrap: auto">The Banned Books Club</h3>
+                <i id="dateEst" class="closeText">Est. 2024</i>
             </div>
-        <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 5%">
         </div>
     </div>
+    <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 30px;" alt="Discord">
+
+</div>
+<footer>
 
 </footer>
 <script src="allScreenFunctions.js"></script>

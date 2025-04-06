@@ -10,14 +10,17 @@
   <title>Create a new post!</title>
 </head>
 <body style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-<div class="hstack" style="margin-bottom: 5px; vertical-align: center; display: flex; justify-content: space-between; width: 100%; color: black">
-  <button id="backBtn" class="backBtn" style="margin-left: 2.5%; text-align: center">< Back</button>
-  <div id = "profileBtn" class="hstack" style="display: flex; margin-right: 2.5%; justify-content: space-between">
-    <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="40" height="40" style="border-color: #303030; border-width: 1px; border-style: solid">
+<div class="hstack header">
+  <button id="backBtn" class="backBtn" style="margin-left: 30px">< Back</button>
+  <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 30px">
+    <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="45" height="45" style="border-color: #000038; border-width: 2px; border-style: solid" alt="profile picture">
     <div class = vstack>
-      <h3 id="displayName" class="closeText" style="font-size: medium">TestName</h3>
-      <h4 id="username" class="closeText" style="font-size: small">@testUser</h4>
+      <h2 id="displayName" class="closeText" style="font-size: large">TestName</h2>
+      <h3 id="username" class="closeText" style="font-size: medium">@testUser</h3>
     </div>
+    <!-- LOGOUT BTN        <div id="popUp" style="position: absolute; z-index: 2; width: 100px; height: 50px; background-color: gray; top: 50px; right: 75px; border-radius: 10px; border: #000038 solid 2px; align-items: center; vertical-align: center; text-align: center">-->
+    <!--            <button id="logoutBtn" style="margin-top: 10px">Log Out</button>-->
+    <!--        </div>-->
   </div>
 </div>
 <div class="vstack container">
@@ -32,15 +35,17 @@
   </div>
   <button id="submitProfile" style="margin-top: 5px">Submit</button>
 </div>
-<div class="hstack" style="margin-bottom: 5px; vertical-align: center; display: flex; justify-content: space-between; width: 90%; margin-top: 20px">
-  <div id="logos" class="hstack" style="margin-bottom: 0; display: flex; justify-content: flex-start;">
-    <img src="Images/logo.png" class="circularImage" width="65" height="65" style="border-color: #303030; border-width: 1px; border-style: solid; align-items: center; justify-content: center;">
-    <div class="vstack" style=" position: relative;">
-      <h3 class="closeText" style="font-family: 'Homemade Apple', serif; text-align: center">The Banned Books Club</h3>
-      <i class="closeText">Est. 2024</i>
+<div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex; height: max-content">
+  <div id="logos" class="hstack" style="width: 100%; position: relative;">
+    <div class="hstack" style="position: absolute; left: 0; margin: 0">
+      <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #000038; border-width: 2px; border-style: solid" alt="Logo">
+      <div class="vstack">
+        <h3 id="siteName" class="closeText" style="font-family: 'Homemade Apple', serif; text-wrap: auto">The Banned Books Club</h3>
+        <i id="dateEst" class="closeText">Est. 2024</i>
+      </div>
     </div>
   </div>
-  <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="">
+  <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 30px;" alt="Discord">
 
 </div>
 </body>

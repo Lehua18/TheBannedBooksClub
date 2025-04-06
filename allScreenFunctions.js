@@ -11,6 +11,13 @@ window.addEventListener( "DOMContentLoaded", function() { //Might not work if us
     }
 });
 window.addEventListener("load", async() =>{
+    if(window.innerWidth < 670){
+        document.getElementById("siteName").style.visibility = "hidden";
+        document.getElementById("dateEst").style.visibility = "hidden";
+    }else{
+        document.getElementById("siteName").style.visibility = "visible";
+        document.getElementById("dateEst").style.visibility = "visible";
+    }
     if(!(`${document.location}`).includes("Startup") && !(`${document.location}`).includes("Login") && !(`${document.location}`).includes("Signup") && !(`${document.location}`).includes("Error")){
         const { data: { session } } = await supabase.auth.getSession();
 
@@ -21,6 +28,17 @@ window.addEventListener("load", async() =>{
 
     }
 });
+window.addEventListener("resize", async() =>{
+    if(document.getElementById("siteName") != null && document.getElementById("dateEst") != null){
+        if(window.innerWidth < 670){
+            document.getElementById("siteName").style.visibility = "hidden";
+            document.getElementById("dateEst").style.visibility = "hidden";
+        }else{
+            document.getElementById("siteName").style.visibility = "visible";
+            document.getElementById("dateEst").style.visibility = "visible";
+        }
+    }
+})
 
 // window.addEventListener('beforeunload', async() => {
 //     sessionStorage.clear();
@@ -60,7 +78,9 @@ if(document.getElementById("backBtn") != null) {
             window.history.back();
         })
     }else if(!document.referrer.includes("EditPost")) {
-        window.location.href //fix
+        document.getElementById("backBtn").addEventListener("click", async () => {
+        window.location.href ="Home.html"; //fix
+        });
 }else{
         document.getElementById("backBtn").addEventListener("click", async () => {
             window.location.href = 'Home.html';

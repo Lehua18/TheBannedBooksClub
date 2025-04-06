@@ -44,6 +44,8 @@ window.onload = async() => { //specify for profile vs edit profile
         document.getElementById("username-edit").textContent ="@"+userProfile[0].username;
         document.getElementById("bioEdit").value = userProfile[0].bio;
         document.getElementById("pronounsEdit").value = userProfile[0].pronouns;
+        let dateInfo = await formatTimestamp(userProfile[0].created_at);
+        document.getElementById("dateJoined").textContent = "Joined "+dateInfo.monthStr + " " +dateInfo.day +", "+dateInfo.year;
         // document.getElementById("booksRead").textContent = userProfile[0].booksRead.stringify();
         // document.getElementById("dateJoined").textContent = "Joined "+ userProfile[0].dateJoined.stringify();
 
@@ -313,7 +315,9 @@ async function uploadImg(){
     const timestamp = new Date().getTime(); // Unique value
     console.log("uploadedimg",uploadedImg.name)
     userProfile[0].pfp = uploadedImg.name;
-    document.getElementById("profile-pic").src = getPublicUrl(`${userProfile[0].username}`+`?t=${timestamp}`);
+    const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.png'));
+    document.getElementById("profile-pic").src = imgUrl.substring(imgUrl.indexOf('h'), imgUrl.lastIndexOf("\""))+`?t=${timestamp}`;
+
     // await supabase.from('userRecords').update({pfp: imgUrl /* image path from bucket */}).eq('id', userId);
     // document.getElementById("profile-pic").src = await supabase.storage.from('pfps').download(userProfile[0].username+'.png');
 

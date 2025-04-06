@@ -68,13 +68,7 @@
         document.getElementById("headerDiv").offsetHeight = document.getElementById("page-title").offsetHeight + 10;
         console.log("OFFSET",document.getElementById("page-title").offsetHeight);
         console.log("OFFSET",document.getElementById("headerDiv").style.height);
-        if(window.innerWidth < 670){
-            document.getElementById("siteName").style.visibility = "hidden";
-            document.getElementById("dateEst").style.visibility = "hidden";
-        }else{
-            document.getElementById("siteName").style.visibility = "visible";
-            document.getElementById("dateEst").style.visibility = "visible";
-        }
+
     }
     window.addEventListener("load", () =>{
         sizing();
