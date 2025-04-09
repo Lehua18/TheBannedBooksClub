@@ -29,4 +29,27 @@ document.getElementById('submitProfile').addEventListener('click', async() => {
 
         window.location.href = "Post.html?path=/"+id;
     }
-})
+});
+// const reply = document.getElementById('');
+// bioEdit.addEventListener('input', ()=>{
+//     console.log("COUNT", getVisualLineCount(bioEdit));
+//     if(getVisualLineCount(bioEdit)<10){
+//         bioEdit.rows = getVisualLineCount(bioEdit);
+//         bioEdit.style.height = bioEdit.scrollHeight+'px';
+//     }else{
+//         console.log('elsed')
+//         bioEdit.rows = 10;
+//         //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+//     }
+// });
+//
+// function getVisualLineCount(textarea) {
+//     const style = window.getComputedStyle(textarea);
+//     console.log('Style',style)
+//     const lineHeight = parseFloat(textarea.style.lineHeight);
+//     console.log('lineheight',lineHeight);
+//     const height = textarea.scrollHeight;
+//     console.log('height',height);
+//
+//     return Math.floor(height / lineHeight);
+// }

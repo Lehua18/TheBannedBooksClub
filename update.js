@@ -132,6 +132,7 @@ async function updateUserProfile( userId, displayName, bio, pronouns) {
             displayName: displayName,
             bio: bio,
             pronouns: pronouns,
+            // pfp: pfp,
         };
 
 // Converting to a JSON string if needed
@@ -227,7 +228,11 @@ updateBtn?.addEventListener("click",async () => {
             console.log('Session:', JSON.stringify(session)); // This will print the full session object
             console.log('User profile:', JSON.stringify(userProfile)); // Log profile properly
 
-            window.location.href = 'Profile.html';
+            if((`${document.referrer}`).includes("Signup")){
+                window.location.href = 'Home.html';
+            }else {
+                window.location.href = 'Profile.html';
+            }
 
         }
 
@@ -323,7 +328,11 @@ async function uploadImg(){
     // let img = await supabase.storage.from('pfps').download(userProfile[0].username+'.png');
     const timestamp = new Date().getTime(); // Unique value
     console.log("uploadedimg",uploadedImg.name)
-    userProfile[0].pfp = uploadedImg.name;
+    userProfile[0].pfp = "https://kjwtprjrlzyvthlfbgrq.supabase.co/storage/v1/object/public/pfps/"+userProfile[0].username+'.png';
+    const {data3,error3} = await supabase.from('userRecords').upsert({pfp: userProfile[0].pfp}).eq("id", userProfile[0].id);
+    if(error3){
+        console.log(error3);
+    }
     const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.png'));
     document.getElementById("profile-pic").src = imgUrl.substring(imgUrl.indexOf('h'), imgUrl.lastIndexOf("\""))+`?t=${timestamp}`;
 
@@ -364,24 +373,15 @@ bioEdit.addEventListener('input', ()=>{
     console.log("COUNT", getVisualLineCount(bioEdit));
     if(getVisualLineCount(bioEdit)<10){
         bioEdit.rows = getVisualLineCount(bioEdit);
-        bioEdit.style.height = bioEdit.scrollHeight+'px';
+        bioEdit.style.height = bioEdit.rows*21+'px';
     }else{
         console.log('elsed')
         bioEdit.rows = 10;
+        bioEdit.style.height = '210px';
        //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
     }
 });
 
-function getVisualLineCount(textarea) {
-    const style = window.getComputedStyle(textarea);
-    console.log('Style',style)
-    const lineHeight = parseFloat(textarea.style.lineHeight);
-    console.log('lineheight',lineHeight);
-    const height = textarea.scrollHeight;
-    console.log('height',height);
-
-    return Math.floor(height / lineHeight);
-}
 
 
 

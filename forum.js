@@ -130,16 +130,25 @@ async function loadPost(image,title, content, author, i, posts, id) {
     postDiv.classList.add("hstack");
     postDiv.id = `${i}`;
     posts.appendChild(postDiv);
-    postDiv.style.cssText ='width: 100%; cursor: pointer';
+    postDiv.style.cssText ='width: 100%; cursor: pointer; white-space: wrap';
     postDiv.innerHTML = `
 <!--Maybe add in author?-->
        <img src= ${image} class="circularImage" width="50px" height="50px" style=" border-color: #303030; border-width: 1px; border-style: solid; margin-left: 5px" alt="Profile picture">
        <div class="vstack" style="align-items: start">
            <h3 class="closeText" style="font-size: larger;">${title}</h3>
-           <p class="closeText" style="text-align: start; font-size: medium;"> ${content} </p> <!--Change to only show 200 chars?-->
+           <p class="closeText" style="text-align: start; font-size: medium; text-overflow: ellipsis;"> ${content} </p> <!--Change to only show 200 chars?--> <!--fix on 4/9-->
     `;
     //(await postDiv != null);
-    console.log(postDiv);
+    // for(j=0; j<document.getElementById(`${i}`).childElementCount; j++){
+    //     if(document.getElementById(`${i}`)[j].tagName.toLowerCase() === "p"){
+    //         document.getElementById(`${i}`)[j].id = "content"+ i;
+    //     }
+    // }
+    // if(document.getElementById(`content+ ${i}`) != null){
+    //     if(document.getElementById(`content+ ${i}`).l >
+    //     document.getElementById(`content+${i}`).style.textOverflow = "ellipsis";
+    // }
+    // console.log(postDiv);
     document.getElementById(`${i}`).addEventListener('click', async() =>{
       //  postId = id;
         window.localStorage.setItem("postId", id);

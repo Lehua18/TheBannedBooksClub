@@ -287,3 +287,14 @@ async function formatTimestamp(timestamp) {
         return "Saturday";
     }
 }
+
+function getVisualLineCount(textarea) {
+    const style = window.getComputedStyle(textarea);
+    console.log('Style',style)
+    const lineHeight = parseFloat(textarea.style.lineHeight);
+    console.log('lineheight',lineHeight);
+    const height = textarea.scrollHeight;
+    console.log('height',height);
+
+    return Math.floor(height / lineHeight);
+}

@@ -14,6 +14,15 @@ if(postId === null){
 
 window.addEventListener("load",async() => {
     loadAllData();
+    if(getVisualLineCount(reply)<5){
+        reply.rows = getVisualLineCount(reply);
+        reply.style.height = reply.rows*21+'px';
+    }else{
+        console.log('elsed')
+        reply.rows = 5;
+        reply.style.height = '105px';
+        //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+    }
 });
     // console.log('previospage',previousPage)
     // if(previousPage === null){ //handles refresh
@@ -112,17 +121,17 @@ async function loadComment(image, content, author, i, replies, id, dateInfo,user
     postDiv.style.cssText ='align-items: start; width: 100%';
     postDiv.innerHTML = `
 <hr style="width: 100%; margin-top: 2%; margin-bottom: 2%">
-<div class="hstack">
-    <div class="vstack goToProfile" style="align-items: center">
-       <img src= ${image} class="circularImage" width="40px" height="40px" style=" border-color: #303030; border-width: 1px; border-style: solid; margin-left: 5px" alt="Profile picture">
+<div class="hstack" style="align-items: start">
+    <div class="vstack goToProfile" style="align-items: start">
+       <img src= ${image} class="circularImage" width="55px" height="55px" style=" border-color: #303030; border-width: 2px; border-style: solid; margin-left: 5px" alt="Profile picture">
     </div>
        
     <div class="vstack" style="align-items: center; margin-right: 10px">
-       <b class="closeText" style="font-size: small">${author}</b>
-       <p class="closeText" style="font-size: small">@${username}</p>
+       <b class="closeText" style="font-size: small; font-family: Boldonse, sans-serif; font-weight: normal">${author}</b>
+       <p class="closeText" style="font-size: small; font-family: Lexend, sans-serif; font-weight: 300">@${username}</p>
        <p class="closeText date" style=" text-align: center">${dateInfo.dayOfWeek},<br>${dateInfo.monthStr} ${dateInfo.day},<br>${dateInfo.year}<br>@${dateInfo.twelveHour}:${dateInfo.minute} ${dateInfo.am}</p>
     </div>
-    <p class="closeText" style="text-align: start; font-size: medium;"> ${content} </p>
+    <p class="closeText" style="text-align: start; font-size: 15px;"> ${content} </p>
 </div>
     `;
     //(await postDiv != null);
@@ -148,5 +157,19 @@ document.getElementById("submitBtn").addEventListener('click', async() =>{
         //pop up "your comment has been saved"
     }else{
         //error?
+    }
+});
+
+const reply = document.getElementById('commentTextBox');
+reply.addEventListener('input', ()=>{
+    console.log("COUNT", getVisualLineCount(reply));
+    if(getVisualLineCount(reply)<5){
+        reply.rows = getVisualLineCount(reply);
+        reply.style.height = reply.rows*21+'px';
+    }else{
+        console.log('elsed')
+        reply.rows = 5;
+        reply.style.height = '105px';
+        //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
     }
 });
