@@ -27,26 +27,28 @@
 
 <div class="container vstack" style="align-items: center; overflow-x: auto; vertical-align: center">
     <h1 class="closeText" style="font-family: 'Homemade Apple', serif; text-align: center; font-size: xxx-large">The Banned Books Club</h1>
-    <div class="hstack" style="display: flex; flex-direction: row; align-items: center; justify-content: center; max-width: 80%; margin-left: 20px; margin-right: 20px;">
-        <div id="newsBtn" class="navButton vstack">
-            <h3>News/Announcements</h3>
-            <i class="fa-solid fa-bullhorn" style="font-size: 150px"></i>
+    <div class="hstack" style="display: flex; flex-direction: row; align-items: end; justify-content: center; max-width: 80%; margin-left: 20px; margin-right: 20px;">
+        <div id="newsBtn" class="navButton vstack" style="height: 550px; background-color: #ffedde">
+            <h3 style="">News & Announcements</h3>
+            <i class="fa-solid fa-bullhorn" style="font-size: 35px; margin-bottom: 20px"></i>
         </div>
-        <div id="botmBtn" class="vstack navButton" style="align-content: center; text-align: center">
+        <div id="botmBtn" class="vstack navButton" style=" height: 475px; background-color: #e6ffff">
         <h3>Book of the Month</h3>
-            <div style="position: relative; height: 150px; width: 150px; align-items: center; display: flex; justify-content: center;">
-            <i class="fa-regular fa-calendar" style="font-size: 150px; position: absolute; z-index: 0"></i>
-            <i class="fa-solid fa-book" style="font-size: 50px; position: absolute; z-index: 1; margin-top: 40px"></i>
+            <div style="position: relative; height: 50px; width: 50px; align-items: center; display: flex; justify-content: center; margin-bottom: 50px">
+            <i class="fa-regular fa-calendar" style="font-size: 50px; position: absolute; z-index: 0"></i>
+            <i class="fa-solid fa-book" style="font-size: 16px; position: absolute; z-index: 1; margin-top: 14px"></i>
+<!--                Getting cut off :(-->
             </div>
-    </div>
-        <div id="chatBtn" class="navButton vstack">
-            <h3>Book Chat</h3>
-            <i class="fa-solid fa-comments" style="font-size: 125px"></i>
-        </div>
+         </div>
 
-        <div id="writeBtn" class="navButton vstack">
+        <div id="writeBtn" class="navButton vstack" style="height: 400px; background-color: #ffffe5">
+
             <h3>Writer's Corner</h3>
-            <i class="fa-solid fa-pencil" style="font-size: 125px"></i>
+<!--            <i class="fa-solid fa-pencil" style="font-size: 25px"></i>-->
+        </div>
+        <div id="chatBtn" class="navButton vstack" style="height: 325px; background-color: #eafff3 ">
+            <h3>Book Chat</h3>
+            <!--            <i class="fa-solid fa-comments" style="font-size: 125px"></i>-->
         </div>
         <script>
             document.getElementById('botmBtn').addEventListener('click', async() =>{

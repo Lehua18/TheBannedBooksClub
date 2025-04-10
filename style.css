@@ -170,29 +170,36 @@ hr{
 
 .navButton{
     display: flex;
-    flex-direction: column;
-    width: 200px;
-    height: 300px;
     align-items: center;
+    flex-direction: row-reverse;
     justify-content: center;
-    background-color: #a795c6;
+    vertical-align: center;
+    height: 300px;
+    align-content: center;
+    /*justify-content: center;*/
+    /*background-color: #a795c6;*/
     border-radius: 7px;
     color: black;
     font-size: 20px;
     padding: 5px;
-    vertical-align: center;
-    text-align: center;
-    margin-left: 2%;
-    margin-right: 2%;
+    text-align: end;
+    /*margin-left: 2%;*/
+    /*margin-right: 2%;*/
     cursor: pointer;
     border: #000038 solid 5px;
     font-family: Lexend, sans-serif;
     font-weight: normal;
-
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: -9px;
+    width: 50px;
+    word-spacing: -9px ;
 }
 
 .navButton:hover{
-    background-color: #7559a6;
+    filter: brightness(85%) contrast(115%) saturate(125%);
+
+    /*background-color: #7559a6;*/
 }
 .error-msg, #error-msg, #err-mes {
     color: red;

@@ -138,8 +138,8 @@ async function loadPost(image,title, content, author, i, posts, id) {
 <!--Maybe add in author?-->
        <img src= ${image} class="circularImage" width="50px" height="50px" style=" border-color: #303030; border-width: 1px; border-style: solid; margin-left: 5px" alt="Profile picture">
        <div class="vstack" style="align-items: start">
-           <h3 class="closeText" style="font-size: larger;">${title}</h3>
-           <p class="closeText" style="text-align: start; font-size: medium; text-overflow: ellipsis;"> ${content} </p> <!--Change to only show 200 chars?--> <!--fix on 4/9-->
+           <h3 class="closeText" style="font-size: larger; font-family: Lexend, sans-serif; font-weight: 400">${title}</h3>
+           <p class="closeText" style="text-align: start; font-size: medium; font-family: Lexend, sans-serif; font-weight: 250"> ${content} </p> <!--Change to only show 200 chars?--> <!--fix on 4/9-->
     `;
     //(await postDiv != null);
     // for(j=0; j<document.getElementById(`${i}`).childElementCount; j++){
