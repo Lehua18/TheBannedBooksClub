@@ -62,12 +62,13 @@ button{
     border-radius: 5px;
     border: none;
     color: black;
-    width: 75px;
-    height: 30px;
-    font-size: 14px;
+    width: 90px;
+    height: 45px;
+    font-size: 18px;
     padding: 5px;
-    font-family: "Trebuchet MS", serif;
+    /*font-family: "Trebuchet MS", serif;*/
     cursor: pointer;
+    font-family: Lexend, sans-serif;
 }
 button:hover{
     background-color: #d16c00;
@@ -182,25 +183,40 @@ hr{
     color: black;
     font-size: 20px;
     padding: 5px;
-    text-align: end;
+    text-align: center;
     /*margin-left: 2%;*/
     /*margin-right: 2%;*/
     cursor: pointer;
     border: #000038 solid 5px;
     font-family: Lexend, sans-serif;
     font-weight: normal;
-    writing-mode: vertical-rl;
+    writing-mode: vertical-lr;
     text-orientation: upright;
     letter-spacing: -9px;
     width: 50px;
     word-spacing: -9px ;
+    overflow: visible;
 }
 
 .navButton:hover{
-    filter: brightness(85%) contrast(115%) saturate(125%);
-
+    /*filter: brightness(85%) contrast(115%) saturate(125%);*/
+    transform: scale(1.1);
+    box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+    cursor: pointer;
     /*background-color: #7559a6;*/
 }
+
+.navButton i{
+    writing-mode: horizontal-tb;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+}
+
 .error-msg, #error-msg, #err-mes {
     color: red;
 }

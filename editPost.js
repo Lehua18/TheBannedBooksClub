@@ -5,11 +5,23 @@ const supabase = createClient(supabaseURL, supabaseAnonKey);
 //let postId = null;
 const currentPage = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("."));
 let previousPage = localStorage.getItem('pageLast')
+window.addEventListener('load', ()=>{
+    console.log("COUNT", getVisualLineCount(contentEdit));
+    if(getVisualLineCount(contentEdit)<10){
+        contentEdit.rows = getVisualLineCount(contentEdit);
+        contentEdit.style.height = contentEdit.rows*21+'px';
+    }else{
+        console.log('elsed')
+        contentEdit.rows = 10;
+        contentEdit.style.height = '210px';
+        //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+    }
+})
 //allow for editing too?
 document.getElementById('submitProfile').addEventListener('click', async() => {
-    console.log('???')
+    // console.log('???')
     if(document.getElementById('title').value === "" || document.getElementById('postText').value === ""){
-        //error
+        document.getElementById("error-msg").innerText = "Please fill out all fields"
     }else{
         const session = await supabase.auth.getSession();
         console.log('gotit');
@@ -28,6 +40,20 @@ document.getElementById('submitProfile').addEventListener('click', async() => {
         console.log(id);
 
         window.location.href = "Post.html?path=/"+id;
+    }
+});
+
+const contentEdit = document.getElementById('postText');
+contentEdit.addEventListener('input', ()=>{
+    console.log("COUNT", getVisualLineCount(contentEdit));
+    if(getVisualLineCount(contentEdit)<10){
+        contentEdit.rows = getVisualLineCount(contentEdit);
+        contentEdit.style.height = contentEdit.rows*21+'px';
+    }else{
+        console.log('elsed')
+        contentEdit.rows = 10;
+        contentEdit.style.height = '210px';
+        //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
     }
 });
 // const reply = document.getElementById('');

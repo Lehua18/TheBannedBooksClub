@@ -288,7 +288,7 @@ async function formatTimestamp(timestamp) {
     }
 }
 
-function getVisualLineCount(textarea) {
+function getVisualLineCount(textarea) { //Won't shrink for some reason?
     const style = window.getComputedStyle(textarea);
     console.log('Style',style)
     const lineHeight = parseFloat(textarea.style.lineHeight);

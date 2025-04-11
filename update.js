@@ -369,7 +369,7 @@ async function base64ToFile(base64String, filename, mimeType) {
 }
 
 const bioEdit = document.getElementById('bioEdit');
-bioEdit.addEventListener('input', ()=>{
+bioEdit.addEventListener('keydown', ()=>{
     console.log("COUNT", getVisualLineCount(bioEdit));
     if(getVisualLineCount(bioEdit)<10){
         bioEdit.rows = getVisualLineCount(bioEdit);
