@@ -27,8 +27,10 @@ window.addEventListener("load", async() =>{
         }
 
     }
+     resize();
+
 });
-window.addEventListener("resize", async() =>{
+function resize(){
     if(document.getElementById("siteName") != null && document.getElementById("dateEst") != null){
         if(window.innerWidth < 670){
             document.getElementById("siteName").style.visibility = "hidden";
@@ -38,6 +40,28 @@ window.addEventListener("resize", async() =>{
             document.getElementById("dateEst").style.visibility = "visible";
         }
     }
+    // let containers = document.getElementsByClassName('container');
+    // let container = containers[0];
+    // while(container.scrollHeight > container.offsetHeight){
+    //     let images = container.querySelectorAll('img, input');
+    //     for(let i = 0; i < images.length; i++){
+    //         if(images[i].tagName.toLowerCase() === "input" ){
+    //             if(images[i].type === "image"){
+    //                 images.remove(i);
+    //                 i--;
+    //             }
+    //         }
+    //     }
+    //     for(let i = 0; i < images.length; i++){
+    //         images[i].style.height--;
+    //         images[i].style.width--;
+    //     }
+    //     let texts = container.querySelectorAll('p, h1, h2, h3, h4, h5, textarea, input');
+    //     for(let i = 0; i < texts.length; i++){}
+    // }
+}
+window.addEventListener("resize", async() =>{
+    resize();
 })
 
 // window.addEventListener('beforeunload', async() => {
@@ -298,3 +322,5 @@ function getVisualLineCount(textarea) { //Won't shrink for some reason?
 
     return Math.floor(height / lineHeight);
 }
+
+

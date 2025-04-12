@@ -92,9 +92,10 @@ window.addEventListener("load",async() => {
     console.log('table', table);
     console.log("Count", (await supabase.from('forumPosts').select('*',{ count: 'exact', head: true})).count)
     let posts = document.getElementById('posts');
+    sizing();
     for (let i = (await supabase.from('forumPosts').select('*', {count: 'exact', head: true})).count; i >0 ; i--) {
-        console.log(table.data[i]);
-        console.log(currentPage)
+        console.log(table.data[i-1]);
+        // console.log(currentPage)
         if (table.data[i - 1].forumId === currentPage) {
             console.log('working')
             let post = table.data[i - 1];
@@ -116,12 +117,13 @@ window.addEventListener("load",async() => {
             let image = `${authorData.data[0].pfp}` + `?t=${timestamp}`;
             console.log("image:" + image)
             console.log('author', authorData);
-            if (document.getElementById("posts").childElementCount < 21) { //add code for next pages
+            // if (document.getElementById("posts").childElementCount < 21) { //add code for next pages
                 await loadPost(image, title, text, authorName, i, posts, id);
-                console.log("children", document.getElementById("posts").childElementCount);
-            }
+            //     console.log("children", document.getElementById("posts").childElementCount);
+            // }
         }
     }
+
 });
 
 async function loadPost(image,title, content, author, i, posts, id) {
@@ -164,4 +166,42 @@ document.getElementById("addPost").addEventListener('click', async() => {
     localStorage.setItem('pageLast', currentPage)
     window.location.href = "EditPost.html";
 });
+
+function sizing() {
+    if (areTouching(document.getElementById('page-title'), document.getElementById("addPost"))) {
+        console.log("MADE IT");
+        console.log(document.getElementById('page-title').getBoundingClientRect().width);
+        // document.getElementById("page-title").width = '40%';
+        document.getElementById("page-title").style.width = "calc(80% - 80px)";
+        console.log(document.getElementById('page-title').width);
+    }else{
+       document.getElementById("page-title").width = 'fit-content' ;
+       document.getElementById("page-title").style.width = 'fit-content';
+    }
+    document.getElementById("headerDiv").style.minHeight = document.getElementById("page-title").offsetHeight + 10 + 'px';
+    document.getElementById("headerDiv").offsetHeight = document.getElementById("page-title").offsetHeight + 10;
+    console.log("OFFSET", document.getElementById("page-title").offsetHeight);
+    console.log("OFFSET", document.getElementById("headerDiv").style.minHeight);
+    // console.log("touching:",areTouching(document.getElementById('page-title'), document.getElementById("addPost")))
+
+}
+
+    window.addEventListener("resize", () => {
+        sizing();
+        if(areTouching(document.getElementById('page-title'), document.getElementById("addPost"))) {
+            document.getElementById("page-title").style.width = "calc(80% - 80px)";
+        }
+        document.getElementById("headerDiv").style.minHeight = document.getElementById("page-title").offsetHeight + 10 + 'px';
+        document.getElementById("headerDiv").offsetHeight = document.getElementById("page-title").offsetHeight + 10;
+        console.log("OFFSET", document.getElementById("page-title").offsetHeight);
+        console.log("OFFSET", document.getElementById("headerDiv").style.minHeight);
+    });
+
+function areTouching(element1, element2) {
+    const rect1 = element1.getBoundingClientRect();
+    const rect2 = element2.getBoundingClientRect();
+    console.log(rect1, rect2);
+
+    return rect1.right > rect2.left
+}
 

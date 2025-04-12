@@ -27,7 +27,7 @@
     <div class="container hstack" style="position: relative; align-items: center; width: 100%; padding: 10px 20px; display: flex; justify-content: flex-start; margin-bottom: 0; vertical-align: top; flex-grow: 1; z-index: 0">
 <!--        <div class="hstack" style="position: relative">-->
         <div id="headerDiv" class="hstack" style="position: relative; width: inherit;  vertical-align: center; display: flex; block-size: max-content">
-            <h1 id="page-title" style="width: auto; left: 0;top: 0; position: absolute; margin: 0 0 20% 10%; font-family:'Ultra',serif; color: #000038; font-size: 350%; font-weight: 250; text-wrap: auto; max-width: 60%; display: flex; flex-wrap: wrap; white-space: normal; text-align: left ">Book Of The Month</h1>
+            <h1 id="page-title"  style="left: 0;top: 0; position: absolute; margin: 0 0 20% 10%; font-family:'Ultra',serif; color: #000038; font-size: 350%; font-weight: 250; display: inline-block; white-space: normal; text-align: left; overflow-wrap: break-word;  ">Book Of The Month</h1>
             <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="80px" height="80px" style="right: 0; top: 0; position: absolute; margin-right: 10%" alt="add a post">
         </div>
         <div id="posts" style="align-items: start; width: 80%; position:relative; max-height: 315px">
@@ -63,19 +63,7 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    function sizing(){
-        document.getElementById("headerDiv").style.minHeight = `${document.getElementById("page-title").offsetHeight + 10}`+'px';
-        document.getElementById("headerDiv").offsetHeight = document.getElementById("page-title").offsetHeight + 10;
-        console.log("OFFSET",document.getElementById("page-title").offsetHeight);
-        console.log("OFFSET",document.getElementById("headerDiv").style.height);
 
-    }
-    window.addEventListener("load", () =>{
-        sizing();
-    })
-    window.addEventListener("resize", () =>{
-        sizing();
-    });
 </script>
 <script src="forum.js"></script>
 <script src="Data.js"></script>

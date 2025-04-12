@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Homemade+Apple&family=Lexend:wght@100..900&family=Ultra&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/31fe8207f2.js" crossorigin="anonymous"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
 
 </head>
 <body>
@@ -25,7 +27,7 @@
     </div>
 </div>
 
-<div class="container vstack" style="align-items: center; overflow-x: auto; vertical-align: center">
+<div id="container" class="container vstack" style="align-items: center; overflow-x: auto; vertical-align: center">
     <h1 class="closeText" style="font-family: 'Homemade Apple', serif; text-align: center; font-size: xxx-large">The Banned Books Club</h1>
     <div class="hstack" style="display: flex; flex-direction: row; align-items: end; justify-content: center; max-width: 80%; margin-left: 20px; margin-right: 20px; margin-bottom: 0; z-index: 1">
         <div id="newsBtn" class="navButton vstack" style="height: 550px; background-color: #ffedde">
@@ -71,6 +73,38 @@
                 // localStorage.setItem("destination", "BookOfTheMonth");
                 window.location.href = 'forum.html?path=/WritersCorner'; //add apostrophe?
             });
+            document.getElementById('readBtn').addEventListener('click', async() =>{
+                window.alert("Coming soon!")
+            });
+            //
+            // window.addEventListener('load', async () => {
+            //     await fixHeight();
+            // });
+            // window.addEventListener('resize', async () => {
+            //    await fixHeight();
+            // });
+            //  async function fixHeight() {
+            //      let container = document.getElementById('container');
+            //      const books = document.getElementsByClassName('navButton');
+            //      if(container.scrollHeight > container.offsetHeight) {
+            //          for (let i = 0; i < books.length; i++) {
+            //                  const book = books[i];
+            //                  book.scrollHeight--;
+            //                  }
+            //      }
+                // const books = document.getElementsByClassName('navButton');
+                // for (let i = 0; i < books.length; i++) {
+                //     const book = books[i];
+                //     console.log(book.scrollHeight, document.getElementsByClassName('container')[0].offsetHeight);
+                //     if (book.scrollHeight > document.getElementsByClassName('container')[0].offsetHeight-110) {
+                //         // console.log("got it");
+                //       book.style.height = 0.45*document.getElementsByClassName('container')[0].offsetHeight + 'px';
+                //       book.style.fontSize  ;
+                //     }else{
+                //         book.style.height = 'auto';
+                //     }
+                // }
+
             //repeat for other btns
         </script>
 <!--        <div class="navButton vstack"></div>-->
