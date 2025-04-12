@@ -194,7 +194,7 @@ hr{
     letter-spacing: -9px;
     word-spacing: -9px ;
     overflow: visible;
-    height: 3vh; /*Start here 4/12*/
+    height: 50vh; /*Start here 4/12*/
     width: 75px; /* responsive width */
     /*min-width: 50px;*/
     /*max-width: 250px;*/
@@ -210,7 +210,7 @@ hr{
 }
 
 .navButton h3 {
-    font-size: 1.5rem;
+    /*font-size: 3vh;*/
     margin-bottom: 10px;
 }
 .navButton:hover{

@@ -319,8 +319,11 @@ function getVisualLineCount(textarea) { //Won't shrink for some reason?
     console.log('lineheight',lineHeight);
     const height = textarea.scrollHeight;
     console.log('height',height);
+    let numLines = Math.floor(height/lineHeight);
+    let lastChar = textarea.value.substring(textarea.value.length-1);
+    console.log("LAST CHAR",lastChar);
 
-    return Math.floor(height / lineHeight);
+    return numLines;
 }
 
 

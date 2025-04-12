@@ -24,7 +24,6 @@ document.getElementById('submitProfile').addEventListener('click', async() => {
         document.getElementById("error-msg").innerText = "Please fill out all fields"
     }else{
         const session = await supabase.auth.getSession();
-        console.log('gotit');
         if (!session) {
             console.log("No active session found.");
         }
@@ -45,14 +44,17 @@ document.getElementById('submitProfile').addEventListener('click', async() => {
 
 const contentEdit = document.getElementById('postText');
 contentEdit.addEventListener('input', ()=>{
+    // const value = contentEdit.value;
+    // contentEdit.value = '';
+    // contentEdit.value = value;
     console.log("COUNT", getVisualLineCount(contentEdit));
-    if(getVisualLineCount(contentEdit)<10){
+    if(getVisualLineCount(contentEdit)<5){
         contentEdit.rows = getVisualLineCount(contentEdit);
         contentEdit.style.height = contentEdit.rows*21+'px';
     }else{
         console.log('elsed')
-        contentEdit.rows = 10;
-        contentEdit.style.height = '210px';
+        contentEdit.rows = 5;
+        contentEdit.style.height = '105px';
         //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
     }
 });

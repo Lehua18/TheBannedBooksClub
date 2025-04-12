@@ -27,9 +27,9 @@
     </div>
 </div>
 
-<div id="container" class="container vstack" style="align-items: center; overflow-x: auto; vertical-align: center">
+<div id="container" class="container vstack" style="align-items: center; overflow-x: auto; vertical-align: center; overflow-y: auto">
     <h1 class="closeText" style="font-family: 'Homemade Apple', serif; text-align: center; font-size: xxx-large">The Banned Books Club</h1>
-    <div class="hstack" style="display: flex; flex-direction: row; align-items: end; justify-content: center; max-width: 80%; margin-left: 20px; margin-right: 20px; margin-bottom: 0; z-index: 1">
+    <div class="hstack" id="bookshelf" style="display: flex; flex-direction: row; align-items: end; justify-content: center; max-width: 80%; margin-left: 20px; margin-right: 20px; margin-bottom: 0; z-index: 1">
         <div id="newsBtn" class="navButton vstack" style="height: 550px; background-color: #ffedde">
             <h3 style="">News & Announcements</h3>
             <i class="fa-solid fa-bullhorn" style="font-size: 35px; width: auto; height: auto; margin-bottom: 20px; overflow: visible;"></i>
@@ -76,13 +76,21 @@
             document.getElementById('readBtn').addEventListener('click', async() =>{
                 window.alert("Coming soon!")
             });
+
+
+            function bookHeight(){
+                if(document.getElementById('bookshelf').scrollHeight > document.getElementById('bookshelf').offsetHeight){
+                    let ratio = document.getElementById('bookshelf').offsetHeight/document.getElementById('bookshelf').scrollHeight;
+                    document.getElementById('bookshelf').style.transform = `scale(${ratio})`;
+                }
+            }
             //
-            // window.addEventListener('load', async () => {
-            //     await fixHeight();
-            // });
-            // window.addEventListener('resize', async () => {
-            //    await fixHeight();
-            // });
+            window.addEventListener('load', async () => {
+                bookHeight();
+            });
+            window.addEventListener('resize', async () => {
+               await bookHeight();
+            });
             //  async function fixHeight() {
             //      let container = document.getElementById('container');
             //      const books = document.getElementsByClassName('navButton');
