@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<div id="container" class="container vstack" style="align-items: center; overflow-x: auto; vertical-align: center; overflow-y: hidden">
+<div id="container" class="container vstack" style="align-items: center; overflow-x: auto; vertical-align: center; overflow-y: auto">
     <h1 class="closeText" style="font-family: 'Homemade Apple', serif; text-align: center; font-size: xxx-large">The Banned Books Club</h1>
     <div class="hstack" id="bookshelf" style="display: flex; flex-direction: row; align-items: end; justify-content: center; max-width: 80%; margin-left: 20px; margin-right: 20px; margin-bottom: 0; z-index: 1">
         <div id="newsBtn" class="navButton vstack" style="height: 550px; background-color: #ffedde">
@@ -79,14 +79,14 @@
 
 
             function bookHeight(){
-                if(document.getElementById('bookshelf').scrollHeight > document.getElementById('bookshelf').offsetHeight){
-                    console.log(document.getElementById('bookshelf').offsetHeight,document.getElementsByClassName('container')[0].scrollHeight)
-                    let ratio = 570/(1.5*document.getElementsByClassName('container')[0].scrollHeight);
-                    document.getElementById('bookshelf').style.transform = `scale(${ratio})`;
-                    console.log("TRANSFORM", document.getElementById('bookshelf').style.transform);
+                // if(document.getElementById('bookshelf').scrollHeight > document.getElementById('bookshelf').offsetHeight){
+                //     console.log(document.getElementById('bookshelf').offsetHeight,document.getElementsByClassName('container')[0].scrollHeight)
+                //     let ratio = 570/(1.5*document.getElementsByClassName('container')[0].scrollHeight);
+                //     document.getElementById('bookshelf').style.transform = `scale(${ratio})`;
+                //     console.log("TRANSFORM", document.getElementById('bookshelf').style.transform);
                     // document.getElementById('shelf').style.marginTop = -(1/ratio)*72+'px';
                     // document.getElementById('bookshelf').style.marginTop = -(1/ratio)*75+'px'
-                }
+              //  }
 
             }
             //
