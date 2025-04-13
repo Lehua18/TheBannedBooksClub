@@ -26,6 +26,7 @@ window.onload = async() => { //specify for profile vs edit profile
     }
     console.log('User profile:', userProfile);
 
+
     if (userProfile) {
         const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.png'));
         console.log(imgUrl);
@@ -44,6 +45,16 @@ window.onload = async() => { //specify for profile vs edit profile
         document.getElementById("username-edit").textContent ="@"+userProfile[0].username;
         document.getElementById("bioEdit").value = userProfile[0].bio;
         document.getElementById("pronounsEdit").value = userProfile[0].pronouns;
+        let dateInfo = await formatTimestamp(userProfile[0].created_at);
+        document.getElementById("dateJoined").textContent = "Joined "+dateInfo.monthStr + " " +dateInfo.day +", "+dateInfo.year;
+        const bioEdit = document.getElementById('bioEdit');
+        if(getVisualLineCount(bioEdit)<10){
+            bioEdit.rows = getVisualLineCount(bioEdit);
+            bioEdit.style.height = bioEdit.scrollHeight+'px';
+        }else{
+            bioEdit.rows = 10;
+            bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+        }
         // document.getElementById("booksRead").textContent = userProfile[0].booksRead.stringify();
         // document.getElementById("dateJoined").textContent = "Joined "+ userProfile[0].dateJoined.stringify();
 
@@ -62,7 +73,7 @@ window.onload = async() => { //specify for profile vs edit profile
         // console.log(img);
         //  = userProfile[0].pfp;
         // console.log("Data:", data);
-        //userProfile = await getUserProfile(session);
+        userProfile = await getUserProfile(session);
         const timestamp = new Date().getTime(); // Unique value
         document.getElementById("profile-pic").src = imgUrl.substring(imgUrl.indexOf('h'), imgUrl.lastIndexOf("\""))+`?t=${timestamp}`;
 
@@ -121,6 +132,7 @@ async function updateUserProfile( userId, displayName, bio, pronouns) {
             displayName: displayName,
             bio: bio,
             pronouns: pronouns,
+            // pfp: pfp,
         };
 
 // Converting to a JSON string if needed
@@ -141,10 +153,12 @@ async function updateUserProfile( userId, displayName, bio, pronouns) {
 
     //return true;
 }
-const updateBtn=document.getElementById("submitProfile")
+const updateBtn=document.getElementById("submitProfile");
 updateBtn?.addEventListener("click",async () => {
-
-       console.log(supabase);
+    if(document.getElementById("displayName-edit").value.trim().length === 0 || document.getElementById("bioEdit").value.trim().length === 0 || document.getElementById("pronounsEdit").value.trim().length === 0){
+        window.alert("Please fill out all fields")
+    }else {
+        console.log(supabase);
         const session = await getSession();
         if (!session) {
             console.log("No active session found.");
@@ -164,11 +178,11 @@ updateBtn?.addEventListener("click",async () => {
             const displayName = document.getElementById("displayName-edit").value;
             const bio = document.getElementById("bioEdit").value;
             const pronouns = document.getElementById("pronounsEdit").value;
-           // const pfp = document.getElementById("pfpEdit").value; //need to edit
+            // const pfp = document.getElementById("pfpEdit").value; //need to edit
 
 
             const userId = userProfile[0].id;
-           // const email = userProfile[0].email;
+            // const email = userProfile[0].email;
             if (!userId) {
                 console.log('No user ID found in session.');
                 // return;
@@ -196,13 +210,11 @@ updateBtn?.addEventListener("click",async () => {
             //         .from('pfps')
             //         .getPublicUrl(imgName);
 
-               // await supabase.from('userRecords').update({pfp: imgUrl /* image path from bucket */}).eq('id', userId);
-
-
+            // await supabase.from('userRecords').update({pfp: imgUrl /* image path from bucket */}).eq('id', userId);
 
 
             console.log('User profile:', userProfile);  //USER PROFILE PRINT 1
-            await updateUserProfile( userId, displayName, bio, pronouns);
+            await updateUserProfile(userId, displayName, bio, pronouns);
 
             const updatedProfile = await fetchUpdatedUserProfile(userId);
             console.log('Fetched Updated Profile:', updatedProfile);
@@ -216,9 +228,14 @@ updateBtn?.addEventListener("click",async () => {
             console.log('Session:', JSON.stringify(session)); // This will print the full session object
             console.log('User profile:', JSON.stringify(userProfile)); // Log profile properly
 
-            window.location.href = 'Profile.html';
+            if ((`${document.referrer}`).includes("Signup")) {
+                window.location.href = 'Home.html';
+            } else {
+                window.location.href = 'Profile.html';
+            }
 
         }
+    }
 
     }
 );
@@ -312,8 +329,14 @@ async function uploadImg(){
     // let img = await supabase.storage.from('pfps').download(userProfile[0].username+'.png');
     const timestamp = new Date().getTime(); // Unique value
     console.log("uploadedimg",uploadedImg.name)
-    userProfile[0].pfp = uploadedImg.name;
-    document.getElementById("profile-pic").src = getPublicUrl(`${userProfile[0].username}`+`?t=${timestamp}`); //fix to link to supoabase storage with all the letters
+    userProfile[0].pfp = "https://kjwtprjrlzyvthlfbgrq.supabase.co/storage/v1/object/public/pfps/"+userProfile[0].username+'.png';
+    const {data3,error3} = await supabase.from('userRecords').upsert({pfp: userProfile[0].pfp}).eq("id", userProfile[0].id);
+    if(error3){
+        console.log(error3);
+    }
+    const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.png'));
+    document.getElementById("profile-pic").src = imgUrl.substring(imgUrl.indexOf('h'), imgUrl.lastIndexOf("\""))+`?t=${timestamp}`;
+
     // await supabase.from('userRecords').update({pfp: imgUrl /* image path from bucket */}).eq('id', userId);
     // document.getElementById("profile-pic").src = await supabase.storage.from('pfps').download(userProfile[0].username+'.png');
 
@@ -345,6 +368,20 @@ async function base64ToFile(base64String, filename, mimeType) {
     //console.log(blob);
     return new File([blob], filename, { type: 'image/png' });
 }
+
+const bioEdit = document.getElementById('bioEdit');
+bioEdit.addEventListener('keydown', ()=>{
+    console.log("COUNT", getVisualLineCount(bioEdit));
+    if(getVisualLineCount(bioEdit)<10){
+        bioEdit.rows = getVisualLineCount(bioEdit);
+        bioEdit.style.height = bioEdit.rows*21+'px';
+    }else{
+        console.log('elsed')
+        bioEdit.rows = 10;
+        bioEdit.style.height = '210px';
+       //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+    }
+});
 
 
 

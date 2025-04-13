@@ -5,14 +5,25 @@ const supabase = createClient(supabaseURL, supabaseAnonKey);
 //let postId = null;
 const currentPage = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("."));
 let previousPage = localStorage.getItem('pageLast')
+window.addEventListener('load', ()=>{
+    console.log("COUNT", getVisualLineCount(contentEdit));
+    if(getVisualLineCount(contentEdit)<10){
+        contentEdit.rows = getVisualLineCount(contentEdit);
+        contentEdit.style.height = contentEdit.rows*21+'px';
+    }else{
+        console.log('elsed')
+        contentEdit.rows = 10;
+        contentEdit.style.height = '210px';
+        //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+    }
+})
 //allow for editing too?
 document.getElementById('submitProfile').addEventListener('click', async() => {
-    console.log('???')
+    // console.log('???')
     if(document.getElementById('title').value === "" || document.getElementById('postText').value === ""){
-        //error
+        document.getElementById("error-msg").innerText = "Please fill out all fields"
     }else{
         const session = await supabase.auth.getSession();
-        console.log('gotit');
         if (!session) {
             console.log("No active session found.");
         }
@@ -29,4 +40,44 @@ document.getElementById('submitProfile').addEventListener('click', async() => {
 
         window.location.href = "Post.html?path=/"+id;
     }
-})
+});
+
+const contentEdit = document.getElementById('postText');
+contentEdit.addEventListener('input', ()=>{
+    // const value = contentEdit.value;
+    // contentEdit.value = '';
+    // contentEdit.value = value;
+    console.log("COUNT", getVisualLineCount(contentEdit));
+    if(getVisualLineCount(contentEdit)<5){
+        contentEdit.rows = getVisualLineCount(contentEdit);
+        contentEdit.style.height = contentEdit.rows*21+'px';
+    }else{
+        console.log('elsed')
+        contentEdit.rows = 5;
+        contentEdit.style.height = '105px';
+        //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+    }
+});
+// const reply = document.getElementById('');
+// bioEdit.addEventListener('input', ()=>{
+//     console.log("COUNT", getVisualLineCount(bioEdit));
+//     if(getVisualLineCount(bioEdit)<10){
+//         bioEdit.rows = getVisualLineCount(bioEdit);
+//         bioEdit.style.height = bioEdit.scrollHeight+'px';
+//     }else{
+//         console.log('elsed')
+//         bioEdit.rows = 10;
+//         //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+//     }
+// });
+//
+// function getVisualLineCount(textarea) {
+//     const style = window.getComputedStyle(textarea);
+//     console.log('Style',style)
+//     const lineHeight = parseFloat(textarea.style.lineHeight);
+//     console.log('lineheight',lineHeight);
+//     const height = textarea.scrollHeight;
+//     console.log('height',height);
+//
+//     return Math.floor(height / lineHeight);
+// }

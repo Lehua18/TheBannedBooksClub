@@ -6,43 +6,45 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Homemade+Apple&family=Lexend:wght@100..900&family=Ultra&display=swap" rel="stylesheet">
 
 </head>
 <body>
-<button id="backBtn" class="backBtn">< Back</button>
+<div class="hstack header">
+    <button id="backBtn" class="backBtn" style="margin-left: 30px">< Back</button>
+</div>
 <div class = "vstack container">
-    <h2 style="text-align: center">Login</h2>
+    <h2 class="closeText" style="text-align: center; font-family: Boldonse, sans-serif; font-size: 40px; margin-top: 15px; margin-bottom: 15px ">Login</h2>
     <div class="hstack" style="text-align: center" >
-        <h3 style="margin-right: 5px">Email:</h3>
-         <input type="email" id="email" placeholder="Email" required>
+        <h3  class="closeText" style="margin-right: 5px; font-family: Lexend, sans-serif; font-weight: 400; font-size: 20px">Email:</h3>
+         <input type="email" id="email" placeholder="Email" required style="font-family: Lexend, sans-serif; font-weight: 300; font-size: 18px">
     </div>
     <div class="hstack" style="text-align: center">
-        <h3 style="margin-right: 5px">Password:</h3>
-        <input type="password" id="password" placeholder="Password" required>
+        <h3 style="margin-right: 5px; font-family: Lexend, sans-serif; font-weight: 400; font-size: 20px">Password:</h3>
+        <input type="password" id="password" placeholder="Password" required style="font-family: Lexend, sans-serif; font-weight: 300; font-size: 18px">
     </div>
     <div class="hstack" style="text-align: center">
-        <button id="login-btn" style="margin-right: 5px; height: 5%">Log In</button>
-        <button id="go-to-signup-btn" style="height: 5%">Already have an account? Sign up!</button>
+        <button id="login-btn" style="margin-right: 5px;">Log In</button>
+        <button id="go-to-signup-btn" style="height: fit-content">Go to sign up</button>
     </div>
     <p class="error-msg" id="error-msg"></p>
     </div>
+<div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex; height: max-content">
+    <div id="logos" class="hstack" style="width: 100%; position: relative;">
+        <div class="hstack" style="position: absolute; left: 0; margin: 0">
+            <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #000038; border-width: 2px; border-style: solid" alt="Logo">
+            <div class="vstack">
+                <h3 id="siteName" class="closeText" style="font-family: 'Homemade Apple', serif; text-wrap: auto">The Banned Books Club</h3>
+                <i id="dateEst" class="closeText">Est. 2024</i>
+            </div>
+        </div>
+    </div>
+    <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 30px;" alt="Discord">
+
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth.js"></script>
 </body>
-<footer>
-    <div class="hstack" style="margin-left: 5%; margin-top: 10px">
-        <div id="logos" class="hstack" style="width: 50%">
-        <img src="Images/logo.png" class="circularImage" width="65" height="65" style="border-color: #303030; border-width: 1px; border-style: solid">
-        <div class="vstack">
-            <h3 class="closeText" style="font-family: 'Homemade Apple', serif;">The Banned Books Club</h3>
-            <i class="closeText">Est. 2024</i>
-        </div>
-        </div>
-        <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 5%">
 
-    </div>
-
-</footer>
 <script src="allScreenFunctions.js"></script>
 </html>

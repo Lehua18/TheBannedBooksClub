@@ -45,6 +45,9 @@ window.addEventListener("load",async() => {
     }
         document.getElementById("blogTitle").textContent = currentPageSpaces+" | The Banned Books Club"
         document.getElementById("page-title").textContent = currentPageSpaces;
+    if(document.getElementById("posts").height >314){
+        document.getElementById("posts").style.overflowY = "scroll";
+    }
     // }
     // updatePage();
     // // Replace the URL to remove the 'path' query parameter
@@ -89,9 +92,10 @@ window.addEventListener("load",async() => {
     console.log('table', table);
     console.log("Count", (await supabase.from('forumPosts').select('*',{ count: 'exact', head: true})).count)
     let posts = document.getElementById('posts');
+    sizing();
     for (let i = (await supabase.from('forumPosts').select('*', {count: 'exact', head: true})).count; i >0 ; i--) {
-        console.log(table.data[0]);
-        console.log(currentPage)
+        console.log(table.data[i-1]);
+        // console.log(currentPage)
         if (table.data[i - 1].forumId === currentPage) {
             console.log('working')
             let post = table.data[i - 1];
@@ -113,12 +117,13 @@ window.addEventListener("load",async() => {
             let image = `${authorData.data[0].pfp}` + `?t=${timestamp}`;
             console.log("image:" + image)
             console.log('author', authorData);
-            if (document.getElementById("posts").childElementCount < 21) { //add code for next pages
+            // if (document.getElementById("posts").childElementCount < 21) { //add code for next pages
                 await loadPost(image, title, text, authorName, i, posts, id);
-                console.log("children", document.getElementById("posts").childElementCount);
-            }
+            //     console.log("children", document.getElementById("posts").childElementCount);
+            // }
         }
     }
+
 });
 
 async function loadPost(image,title, content, author, i, posts, id) {
@@ -127,16 +132,28 @@ async function loadPost(image,title, content, author, i, posts, id) {
     postDiv.classList.add("hstack");
     postDiv.id = `${i}`;
     posts.appendChild(postDiv);
-    postDiv.style.cssText ='width: 100%; cursor: pointer';
+    postDiv.style.cssText ='width: 100%; cursor: pointer; white-space: wrap';
+    if(content.length > 200 ){
+        content = content.substring(0,200)+"...";
+    }
     postDiv.innerHTML = `
 <!--Maybe add in author?-->
        <img src= ${image} class="circularImage" width="50px" height="50px" style=" border-color: #303030; border-width: 1px; border-style: solid; margin-left: 5px" alt="Profile picture">
        <div class="vstack" style="align-items: start">
-           <h3 class="closeText" style="font-size: larger;">${title}</h3>
-           <p class="closeText" style="text-align: start; font-size: medium;"> ${content} </p> <!--Change to only show 200 chars?-->
+           <h3 class="closeText" style="font-size: larger; font-family: Lexend, sans-serif; font-weight: 400">${title}</h3>
+           <p class="closeText" style="text-align: start; font-size: medium; font-family: Lexend, sans-serif; font-weight: 250"> ${content} </p> <!--Change to only show 200 chars?--> <!--fix on 4/9-->
     `;
     //(await postDiv != null);
-    console.log(postDiv);
+    // for(j=0; j<document.getElementById(`${i}`).childElementCount; j++){
+    //     if(document.getElementById(`${i}`)[j].tagName.toLowerCase() === "p"){
+    //         document.getElementById(`${i}`)[j].id = "content"+ i;
+    //     }
+    // }
+    // if(document.getElementById(`content+ ${i}`) != null){
+    //     if(document.getElementById(`content+ ${i}`).l >
+    //     document.getElementById(`content+${i}`).style.textOverflow = "ellipsis";
+    // }
+    // console.log(postDiv);
     document.getElementById(`${i}`).addEventListener('click', async() =>{
       //  postId = id;
         window.localStorage.setItem("postId", id);
@@ -149,3 +166,42 @@ document.getElementById("addPost").addEventListener('click', async() => {
     localStorage.setItem('pageLast', currentPage)
     window.location.href = "EditPost.html";
 });
+
+function sizing() {
+    if (areTouching(document.getElementById('page-title'), document.getElementById("addPost"))) {
+        console.log("MADE IT");
+        console.log(document.getElementById('page-title').getBoundingClientRect().width);
+        // document.getElementById("page-title").width = '40%';
+        document.getElementById("page-title").style.width = "calc(80% - 80px)";
+        console.log(document.getElementById('page-title').width);
+    }else{
+       document.getElementById("page-title").width = 'fit-content' ;
+       document.getElementById("page-title").style.width = 'fit-content';
+    }
+    document.getElementById("headerDiv").style.minHeight = document.getElementById("page-title").offsetHeight + 10 + 'px';
+    document.getElementById("headerDiv").offsetHeight = document.getElementById("page-title").offsetHeight + 10;
+    console.log("OFFSET", document.getElementById("page-title").offsetHeight);
+    console.log("OFFSET", document.getElementById("headerDiv").style.minHeight);
+    // console.log("touching:",areTouching(document.getElementById('page-title'), document.getElementById("addPost")))
+
+}
+
+    window.addEventListener("resize", () => {
+        sizing();
+        if(areTouching(document.getElementById('page-title'), document.getElementById("addPost"))) {
+            document.getElementById("page-title").style.width = "calc(80% - 80px)";
+        }
+        document.getElementById("headerDiv").style.minHeight = document.getElementById("page-title").offsetHeight + 10 + 'px';
+        document.getElementById("headerDiv").offsetHeight = document.getElementById("page-title").offsetHeight + 10;
+        console.log("OFFSET", document.getElementById("page-title").offsetHeight);
+        console.log("OFFSET", document.getElementById("headerDiv").style.minHeight);
+    });
+
+function areTouching(element1, element2) {
+    const rect1 = element1.getBoundingClientRect();
+    const rect2 = element2.getBoundingClientRect();
+    console.log(rect1, rect2);
+
+    return rect1.right > rect2.left
+}
+

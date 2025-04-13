@@ -6,45 +6,56 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Homemade+Apple&family=Lexend:wght@100..900&family=Ultra&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/31fe8207f2.js" crossorigin="anonymous"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
 
 </head>
-<body style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-<div class="hstack" style="margin-bottom: 5px; vertical-align: center; display: flex; justify-content: space-between; width: 100%; color: black">
-<button id="backBtn" class="backBtn" style="margin-left: 2.5%; text-align: center">< Back</button>
-<div id = "profileBtn" class="hstack" style="display: flex; margin-right: 2.5%; justify-content: space-between">
-    <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="40" height="40" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
-    <div class = vstack>
-        <h3 id="displayName" class="closeText" style="font-size: medium">TestName</h3>
-        <h4 id="username" class="closeText" style="font-size: small">@testUser</h4>
+<body>
+<div class="hstack header">
+    <button id="backBtn" class="backBtn" style="margin-left: 30px">< Back</button>
+    <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 30px">
+        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="45" height="45" style="border-color: #000038; border-width: 2px; border-style: solid" alt="profile picture">
+        <div class = vstack>
+            <h2 id="displayName" class="closeText" style="font-size: large; font-family: Lexend, sans-serif; font-weight: 600">TestName</h2>
+            <h3 id="username" class="closeText" style="font-size: medium; font-family: Lexend, sans-serif; font-weight: 300">@testUser</h3>
+        </div>
+        <!-- LOGOUT BTN        <div id="popUp" style="position: absolute; z-index: 2; width: 100px; height: 50px; background-color: gray; top: 50px; right: 75px; border-radius: 10px; border: #000038 solid 2px; align-items: center; vertical-align: center; text-align: center">-->
+        <!--            <button id="logoutBtn" style="margin-top: 10px">Log Out</button>-->
+        <!--        </div>-->
     </div>
 </div>
-</div>
 
-<div class="container vstack" style="align-items: center; overflow-x: auto; margin-left: 20px; margin-right: 20px;">
+<div id="container" class="container vstack" style="align-items: center; overflow-x: auto; vertical-align: center; overflow-y: hidden">
     <h1 class="closeText" style="font-family: 'Homemade Apple', serif; text-align: center; font-size: xxx-large">The Banned Books Club</h1>
-    <div class="hstack" style="display: flex; flex-direction: row; align-items: center; justify-content: center; max-width: 80%; margin-left: 20px; margin-right: 20px;">
-        <div id="newsBtn" class="navButton vstack">
-            <h3>News/Announcements</h3>
-            <i class="fa-solid fa-bullhorn" style="font-size: 150px"></i>
+    <div class="hstack" id="bookshelf" style="display: flex; flex-direction: row; align-items: end; justify-content: center; max-width: 80%; margin-left: 20px; margin-right: 20px; margin-bottom: 0; z-index: 1">
+        <div id="newsBtn" class="navButton vstack" style="height: 550px; background-color: #ffedde">
+            <h3 style="">News & Announcements</h3>
+            <i class="fa-solid fa-bullhorn" style="font-size: 35px; width: auto; height: auto; margin-bottom: 20px; overflow: visible;"></i>
         </div>
-        <div id="botmBtn" class="vstack navButton" style="align-content: center; text-align: center">
+        <div id="botmBtn" class="vstack navButton" style=" height: 475px; background-color: #e6ffff; ">
         <h3>Book of the Month</h3>
-            <div style="position: relative; height: 150px; width: 150px; align-items: center; display: flex; justify-content: center;">
-            <i class="fa-regular fa-calendar" style="font-size: 150px; position: absolute; z-index: 0"></i>
-            <i class="fa-solid fa-book" style="font-size: 50px; position: absolute; z-index: 1; margin-top: 40px"></i>
+            <div style="position: relative; align-items: center; display: flex; justify-content: center; height: 50px; margin-bottom: 20px">
+            <i class="fa-regular fa-calendar" style="font-size: 50px; position: absolute; z-index: 0"></i>
+            <i class="fa-solid fa-book" style="font-size: 16px; position: absolute; z-index: 1; margin-top: 14px "></i>
             </div>
-    </div>
-        <div id="chatBtn" class="navButton vstack">
+         </div>
+
+        <div id="writeBtn" class="navButton vstack" style="height: 400px; background-color: #ffffe5">
+
+            <h3>Writer's Corner</h3>
+            <i class="fa-solid fa-pencil" style="font-size: 35px; margin-bottom: 20px"></i>
+        </div>
+        <div id="chatBtn" class="navButton vstack" style="height: 325px; background-color: #eafff3 ">
             <h3>Book Chat</h3>
-            <i class="fa-solid fa-comments" style="font-size: 125px"></i>
+                        <i class="fa-solid fa-comments" style="font-size: 35px; margin-bottom: 20px"></i>
+        </div>
+        <div id="readBtn" class="navButton vstack" style="height: 300px; rotate: -15deg; background-color: #eddef1; margin-left: 35px">
+            <h3>Read Books</h3>
+            <i class="fa-solid fa-book-open-reader" style="font-size: 35px; margin-bottom: 20px"></i>
         </div>
 
-        <div id="writeBtn" class="navButton vstack">
-            <h3>Writer's Corner</h3>
-            <i class="fa-solid fa-pencil" style="font-size: 150px"></i>
-        </div>
         <script>
             document.getElementById('botmBtn').addEventListener('click', async() =>{
                 // localStorage.setItem("destination", "BookOfTheMonth");
@@ -62,22 +73,74 @@
                 // localStorage.setItem("destination", "BookOfTheMonth");
                 window.location.href = 'forum.html?path=/WritersCorner'; //add apostrophe?
             });
+            document.getElementById('readBtn').addEventListener('click', async() =>{
+                window.alert("Coming soon!")
+            });
+
+
+            function bookHeight(){
+                if(document.getElementById('bookshelf').scrollHeight > document.getElementById('bookshelf').offsetHeight){
+                    console.log(document.getElementById('bookshelf').offsetHeight,document.getElementsByClassName('container')[0].scrollHeight)
+                    let ratio = 570/(1.5*document.getElementsByClassName('container')[0].scrollHeight);
+                    document.getElementById('bookshelf').style.transform = `scale(${ratio})`;
+                    console.log("TRANSFORM", document.getElementById('bookshelf').style.transform);
+                    document.getElementById('shelf').style.marginTop = -(1/ratio)*72+'px';
+                    document.getElementById('bookshelf').style.marginTop = -(1/ratio)*75+'px'
+                }
+
+            }
+            //
+            window.addEventListener('load', async () => {
+                bookHeight();
+            });
+            window.addEventListener('resize', async () => {
+                bookHeight();
+            });
+            window.addEventListener('fullscreenchange', async () => {
+                bookHeight();
+            });
+            //  async function fixHeight() {
+            //      let container = document.getElementById('container');
+            //      const books = document.getElementsByClassName('navButton');
+            //      if(container.scrollHeight > container.offsetHeight) {
+            //          for (let i = 0; i < books.length; i++) {
+            //                  const book = books[i];
+            //                  book.scrollHeight--;
+            //                  }
+            //      }
+                // const books = document.getElementsByClassName('navButton');
+                // for (let i = 0; i < books.length; i++) {
+                //     const book = books[i];
+                //     console.log(book.scrollHeight, document.getElementsByClassName('container')[0].offsetHeight);
+                //     if (book.scrollHeight > document.getElementsByClassName('container')[0].offsetHeight-110) {
+                //         // console.log("got it");
+                //       book.style.height = 0.45*document.getElementsByClassName('container')[0].offsetHeight + 'px';
+                //       book.style.fontSize  ;
+                //     }else{
+                //         book.style.height = 'auto';
+                //     }
+                // }
+
             //repeat for other btns
         </script>
 <!--        <div class="navButton vstack"></div>-->
 <!--        <button id="editProfBtn" style="width: 45%; height: 30%; margin-left: 5px">Edit Profile</button>-->
 
     </div>
+    <hr id="shelf" style="height: 3px; width: 80%; /*margin-top: -75px;*/ background-color: #452A1D; border-radius: 3px; box-shadow: 0 -3px 5px #000038; z-index: 0">
+
 </div>
-<div class="hstack" style="margin-bottom: 5px; vertical-align: center; display: flex; justify-content: space-between; width: 90%; margin-top: 20px">
-    <div id="logos" class="hstack" style="margin-bottom: 0; display: flex; justify-content: flex-start;">
-        <img src="Images/logo.png" class="circularImage" width="65" height="65" style="border-color: #303030; border-width: 1px; border-style: solid; align-items: center; justify-content: center;">
-        <div class="vstack" style=" position: relative;">
-            <h3 class="closeText" style="font-family: 'Homemade Apple', serif; text-align: center">The Banned Books Club</h3>
-            <i class="closeText">Est. 2024</i>
+<div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex; height: max-content">
+    <div id="logos" class="hstack" style="width: 100%; position: relative;">
+        <div class="hstack" style="position: absolute; left: 0; margin: 0">
+            <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #000038; border-width: 2px; border-style: solid" alt="Logo">
+            <div class="vstack">
+                <h3 id="siteName" class="closeText" style="font-family: 'Homemade Apple', serif; text-wrap: auto">The Banned Books Club</h3>
+                <i id="dateEst" class="closeText">Est. 2024</i>
+            </div>
         </div>
     </div>
-    <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="">
+    <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 30px;" alt="Discord">
 
 </div>
 </body>

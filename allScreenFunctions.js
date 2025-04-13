@@ -3,17 +3,6 @@
 //     const supabaseURL = "https://kjwtprjrlzyvthlfbgrq.supabase.co";
 //     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtqd3RwcmpybHp5dnRobGZiZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1ODk5MDEsImV4cCI6MjA1NDE2NTkwMX0.4wA0k6qly4LPUYae2bQz1To1SImnS00WyB9n3zb6ejE";
 //     const supabase = createClient(supabaseURL, supabaseAnonKey);
-
-//const isMobile = {window.navigator.maxTouchPoints > 0;};
-window.onload = () => {
-    const link = document.createElement('link');
-    link.rel = 'icon';
-    link.href = "Images/logoCircle.png";
-    link.type = 'image/x-icon';
-
-    document.getElementsByTagName('head')[0].appendChild(link);
-}
-
 window.addEventListener( "DOMContentLoaded", function() { //Might not work if user gets link from other website (cookies?)
     console.log("Window history:", window.history)
     console.log("document referrer", document.referrer)
@@ -21,6 +10,87 @@ window.addEventListener( "DOMContentLoaded", function() { //Might not work if us
         alert("Press the logo at the bottom of the screen to exit immediately.")
     }
 });
+window.addEventListener("load", async() =>{
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = 'Images/logo.png';
+
+    const existingIcons = document.querySelectorAll('link[rel*="icon"]');
+    existingIcons.forEach(icon => icon.remove());
+
+    document.head.appendChild(link);
+    if(window.innerWidth < 670){
+        document.getElementById("siteName").style.visibility = "hidden";
+        document.getElementById("dateEst").style.visibility = "hidden";
+    }else{
+        document.getElementById("siteName").style.visibility = "visible";
+        document.getElementById("dateEst").style.visibility = "visible";
+    }
+    if(!(`${document.location}`).includes("Startup") && !(`${document.location}`).includes("Login") && !(`${document.location}`).includes("Signup") && !(`${document.location}`).includes("Error")){
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session) {
+            // Redirect to login page if not authenticated
+            window.location.href = 'Error.html';
+        }
+
+    }
+     resize();
+
+});
+function resize(){
+    if(document.getElementById("siteName") != null && document.getElementById("dateEst") != null){
+        if(window.innerWidth < 670){
+            document.getElementById("siteName").style.visibility = "hidden";
+            document.getElementById("dateEst").style.visibility = "hidden";
+        }else{
+            document.getElementById("siteName").style.visibility = "visible";
+            document.getElementById("dateEst").style.visibility = "visible";
+        }
+    }
+    // let containers = document.getElementsByClassName('container');
+    // let container = containers[0];
+    // while(container.scrollHeight > container.offsetHeight){
+    //     let images = container.querySelectorAll('img, input');
+    //     for(let i = 0; i < images.length; i++){
+    //         if(images[i].tagName.toLowerCase() === "input" ){
+    //             if(images[i].type === "image"){
+    //                 images.remove(i);
+    //                 i--;
+    //             }
+    //         }
+    //     }
+    //     for(let i = 0; i < images.length; i++){
+    //         images[i].style.height--;
+    //         images[i].style.width--;
+    //     }
+    //     let texts = container.querySelectorAll('p, h1, h2, h3, h4, h5, textarea, input');
+    //     for(let i = 0; i < texts.length; i++){}
+    // }
+}
+window.addEventListener("resize", async() =>{
+    resize();
+})
+
+// window.addEventListener('beforeunload', async() => {
+//     sessionStorage.clear();
+//     await supabase.auth.signOut();
+// })
+
+// function sizing(){
+//     document.getElementById("headerDiv").style.height = `${document.getElementById("page-title").offsetHeight + 10}`+'px';
+//     if(window.innerWidth < 670){
+//         document.getElementById("siteName").style.visibility = "hidden";
+//         document.getElementById("dateEst").style.visibility = "hidden";
+//     }else{
+//         document.getElementById("siteName").style.visibility = "visible";
+//         document.getElementById("dateEst").style.visibility = "visible";
+//     }
+// }
+// window.addEventListener("resize", () =>{
+//     sizing();
+// });
 
 if(document.getElementById("discordLogo") != null){
     document.getElementById("discordLogo").addEventListener("click", async () => {
@@ -34,14 +104,16 @@ if(document.getElementById("logos") != null){
     })
 }
 
-if(document.getElementById("backBtn") != null) { //Fix this oh boy
+if(document.getElementById("backBtn") != null) {
 
     if (((!document.referrer.includes("Signup") && !document.referrer.includes("Login")) || (window.location.href.includes("Signup") || window.location.href.includes("Login"))) && !document.referrer.includes("EditProfile")) { //window.history? (gets referrer, which may not be actual last page)
         document.getElementById("backBtn").addEventListener("click", async () => {
             window.history.back();
         })
     }else if(!document.referrer.includes("EditPost")) {
-        window.location.href = 'Home.html';//fix
+        document.getElementById("backBtn").addEventListener("click", async () => {
+        window.location.href ="Home.html"; //fix
+        });
 }else{
         document.getElementById("backBtn").addEventListener("click", async () => {
             window.location.href = 'Home.html';
@@ -248,3 +320,19 @@ async function formatTimestamp(timestamp) {
         return "Saturday";
     }
 }
+
+function getVisualLineCount(textarea) { //Won't shrink for some reason?
+    const style = window.getComputedStyle(textarea);
+    console.log('Style',style)
+    const lineHeight = parseFloat(textarea.style.lineHeight);
+    console.log('lineheight',lineHeight);
+    const height = textarea.scrollHeight;
+    console.log('height',height);
+    let numLines = Math.floor(height/lineHeight);
+    let lastChar = textarea.value.substring(textarea.value.length-1);
+    console.log("LAST CHAR",lastChar);
+
+    return numLines;
+}
+
+

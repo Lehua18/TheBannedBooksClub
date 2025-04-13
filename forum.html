@@ -6,27 +6,31 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Homemade+Apple&family=Lexend:wght@100..900&family=Ultra&display=swap" rel="stylesheet">
 
 </head>
-<body style="overflow-y: scroll">
-<div class="hstack header" style="margin-bottom: 5px; vertical-align: center; margin-left: 3.5%">
-    <button id="backBtn" class="backBtn">< Back</button>
-    <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 5%">
-        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="30" height="30" style="border-color: #303030; border-width: 1px; border-style: solid" alt="profile picture">
+<body>
+<div class="hstack header">
+    <button id="backBtn" class="backBtn" style="margin-left: 30px">< Back</button>
+    <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 30px">
+        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="45" height="45" style="border-color: #000038; border-width: 2px; border-style: solid" alt="profile picture">
         <div class = vstack>
-            <h3 id="displayName" class="closeText" style="font-size: small">TestName</h3>
-            <h4 id="username" class="closeText" style="font-size: x-small">@testUser</h4>
+            <h2 id="displayName" class="closeText" style="font-size: large; font-family: Lexend, sans-serif; font-weight: 600">TestName</h2>
+            <h3 id="username" class="closeText" style="font-size: medium; font-family: Lexend, sans-serif; font-weight: 300">@testUser</h3>
         </div>
+<!-- LOGOUT BTN        <div id="popUp" style="position: absolute; z-index: 2; width: 100px; height: 50px; background-color: gray; top: 50px; right: 75px; border-radius: 10px; border: #000038 solid 2px; align-items: center; vertical-align: center; text-align: center">-->
+<!--            <button id="logoutBtn" style="margin-top: 10px">Log Out</button>-->
+<!--        </div>-->
     </div>
 </div>
-<div class="vstack">
-    <div class="container" style="align-items: center; width: 75% ">
-        <div class="hstack">
-        <h1 id="page-title" style="text-align: center">Book Of The Month</h1>
-            <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="100px" height="100px" >
+<div class="vstack" style="display: flex; flex-direction: column; ">
+    <div class="container hstack" style="position: relative; align-items: center; width: 100%; padding: 10px 20px; display: flex; justify-content: flex-start; margin-bottom: 0; vertical-align: top; flex-grow: 1; z-index: 0">
+<!--        <div class="hstack" style="position: relative">-->
+        <div id="headerDiv" class="hstack" style="position: relative; width: inherit;  vertical-align: center; display: flex; block-size: max-content">
+            <h1 id="page-title"  style="left: 0;top: 0; position: absolute; margin: 0 0 20% 10%; font-family:'Ultra',serif; color: #000038; font-size: 350%; font-weight: 250; display: inline-block; white-space: normal; text-align: left; overflow-wrap: break-word;  ">Book Of The Month</h1>
+            <img id= "addPost" src="Images/plusSign.png" class="hoverable" width="80px" height="80px" style="right: 0; top: 0; position: absolute; margin-right: 10%" alt="add a post">
         </div>
-        <div id="posts" style="align-items: start; width: 80%">
+        <div id="posts" style="align-items: start; width: 80%; position:relative; max-height: 315px">
 <!--            <div id="post1" class="posts hstack" style="align-items: start; max-width: 100%">-->
 <!--                <img src="Images/profilePic.png" class="circularImage" width="50px" height="50p" alt="Profile picture">-->
 <!--                <div class="vstack" style="align-items: start">-->
@@ -43,22 +47,24 @@
             </div>
         </div>
     </div>
-</body>
-<footer>
-    <div class="hstack" style="margin-left: 5%; margin-top: 10px">
-        <div id="logos" class="hstack"style="width: 50%">
-        <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #303030; border-width: 1px; border-style: solid" alt="Logo">
+<div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex; height: max-content">
+    <div id="logos" class="hstack" style="width: 100%; position: relative;">
+        <div class="hstack" style="position: absolute; left: 0; margin: 0">
+        <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #000038; border-width: 2px; border-style: solid" alt="Logo">
         <div class="vstack">
-            <h3 class="closeText" style="font-family: 'Homemade Apple', serif;">The Banned Books Club</h3>
-            <i class="closeText">Est. 2024</i>
+            <h3 id="siteName" class="closeText" style="font-family: 'Homemade Apple', serif; text-wrap: auto">The Banned Books Club</h3>
+            <i id="dateEst" class="closeText">Est. 2024</i>
         </div>
         </div>
-        <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 5%" alt="Discord">
-
     </div>
+    <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 30px;" alt="Discord">
 
-</footer>
+</div>
+</body>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+
+</script>
 <script src="forum.js"></script>
 <script src="Data.js"></script>
 <script src="allScreenFunctions.js"></script>
