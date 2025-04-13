@@ -155,8 +155,10 @@ async function updateUserProfile( userId, displayName, bio, pronouns) {
 }
 const updateBtn=document.getElementById("submitProfile");
 updateBtn?.addEventListener("click",async () => {
-
-       console.log(supabase);
+    if(document.getElementById("displayName-edit").value.trim().length === 0 || document.getElementById("bioEdit").value.trim().length === 0 || document.getElementById("pronounsEdit").value.trim().length === 0){
+        window.alert("Please fill out all fields")
+    }else {
+        console.log(supabase);
         const session = await getSession();
         if (!session) {
             console.log("No active session found.");
@@ -176,11 +178,11 @@ updateBtn?.addEventListener("click",async () => {
             const displayName = document.getElementById("displayName-edit").value;
             const bio = document.getElementById("bioEdit").value;
             const pronouns = document.getElementById("pronounsEdit").value;
-           // const pfp = document.getElementById("pfpEdit").value; //need to edit
+            // const pfp = document.getElementById("pfpEdit").value; //need to edit
 
 
             const userId = userProfile[0].id;
-           // const email = userProfile[0].email;
+            // const email = userProfile[0].email;
             if (!userId) {
                 console.log('No user ID found in session.');
                 // return;
@@ -208,13 +210,11 @@ updateBtn?.addEventListener("click",async () => {
             //         .from('pfps')
             //         .getPublicUrl(imgName);
 
-               // await supabase.from('userRecords').update({pfp: imgUrl /* image path from bucket */}).eq('id', userId);
-
-
+            // await supabase.from('userRecords').update({pfp: imgUrl /* image path from bucket */}).eq('id', userId);
 
 
             console.log('User profile:', userProfile);  //USER PROFILE PRINT 1
-            await updateUserProfile( userId, displayName, bio, pronouns);
+            await updateUserProfile(userId, displayName, bio, pronouns);
 
             const updatedProfile = await fetchUpdatedUserProfile(userId);
             console.log('Fetched Updated Profile:', updatedProfile);
@@ -228,13 +228,14 @@ updateBtn?.addEventListener("click",async () => {
             console.log('Session:', JSON.stringify(session)); // This will print the full session object
             console.log('User profile:', JSON.stringify(userProfile)); // Log profile properly
 
-            if((`${document.referrer}`).includes("Signup")){
+            if ((`${document.referrer}`).includes("Signup")) {
                 window.location.href = 'Home.html';
-            }else {
+            } else {
                 window.location.href = 'Profile.html';
             }
 
         }
+    }
 
     }
 );

@@ -11,6 +11,15 @@ window.addEventListener( "DOMContentLoaded", function() { //Might not work if us
     }
 });
 window.addEventListener("load", async() =>{
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = 'Images/logo.png';
+
+    const existingIcons = document.querySelectorAll('link[rel*="icon"]');
+    existingIcons.forEach(icon => icon.remove());
+
+    document.head.appendChild(link);
     if(window.innerWidth < 670){
         document.getElementById("siteName").style.visibility = "hidden";
         document.getElementById("dateEst").style.visibility = "hidden";

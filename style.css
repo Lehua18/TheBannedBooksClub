@@ -201,6 +201,7 @@ hr{
     aspect-ratio: 2 / 5; /* keeps card shape */
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
     transition: transform 0.2s;
+    /*margin-top: -175px;*/
 
 }
 @media (max-width: 768px) {
