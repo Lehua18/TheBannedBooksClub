@@ -11,5 +11,7 @@
     <orderEntry type="library" name="@supabase" level="application" />
     <orderEntry type="library" name="@supabase" level="application" />
     <orderEntry type="library" name="31fe8207f2" level="application" />
+    <orderEntry type="library" name="@supabase" level="application" />
+    <orderEntry type="library" name="31fe8207f2" level="application" />
   </component>
 </module>

@@ -122,6 +122,7 @@ async function loadComment(image, content, author, i, replies, id, dateInfo,user
     postDiv.innerHTML = `
 <hr style="width: 100%; margin-top: 2%; margin-bottom: 2%">
 <div class="hstack" style="align-items: start">
+    <div id="author">
     <div class="vstack goToProfile" style="align-items: start">
        <img src= ${image} class="circularImage" width="55px" height="55px" style=" border-color: #303030; border-width: 2px; border-style: solid; margin-left: 5px" alt="Profile picture">
     </div>
@@ -131,9 +132,11 @@ async function loadComment(image, content, author, i, replies, id, dateInfo,user
        <p class="closeText" style="font-size: small; font-family: Lexend, sans-serif; font-weight: 300">@${username}</p>
        <p class="closeText date" style=" text-align: center">${dateInfo.dayOfWeek},<br>${dateInfo.monthStr} ${dateInfo.day},<br>${dateInfo.year}<br>@${dateInfo.twelveHour}:${dateInfo.minute} ${dateInfo.am}</p>
     </div>
+    </div>
     <p class="closeText" style="text-align: start; font-size: 15px;"> ${content} </p>
 </div>
     `;
+    document.getElementById("author").id = `author${i}`;
     //(await postDiv != null);
     console.log(postDiv);
 
@@ -173,3 +176,7 @@ reply.addEventListener('input', ()=>{
         //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
     }
 });
+
+document.getElementById("postAuthor").addEventListener('click', () =>{
+    //open profile w/ path thingy so it opens the correct profile
+})

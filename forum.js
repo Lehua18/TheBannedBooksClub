@@ -36,7 +36,7 @@ window.addEventListener("load",async() => {
 
     let currentPageSpaces = "";
     for(i=0; i<currentPage.length; i++) {
-
+        //For making post title -- so it puts spaces in between words
         if(currentPage[i] === currentPage[i].toUpperCase()) {
             currentPageSpaces += " ";
         }
