@@ -48,14 +48,22 @@ loginBtn?.addEventListener("click",async () => {
 );
 //Signup
 const signupBtn=document.getElementById("signup-btn");
-signupBtn?.addEventListener("click",async () =>{
-    const email=document.getElementById("email").value;
-    const password=document.getElementById("password").value;
-    const username=document.getElementById("username").value;
-    const displayName=document.getElementById("display-name").value;
+signupBtn?.addEventListener("click",async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+    const displayName = document.getElementById("display-name").value;
+    console.log(email, password, username, displayName);
+    if (email === "" || displayName === "" || username === "" || password === "") {
+        document.getElementById("error-msg").textContent = "Please fill out all fields."
+    }else if(!email.includes('@') || !email.includes('.')) {
+        document.getElementById("error-msg").textContent = "Please enter a valid email address."
+    }else{
+        //MUST CHECK FOR DUPLICATES PRIOR TO SIGNUP
     const{error: signupError, user} = await supabase.auth.signUp({email, password});
     //console.log(user);
     if(signupError){
+        console.log("Error",signupError)
         document.getElementById("error-msg").textContent = signupError.message;
 
 
@@ -66,7 +74,12 @@ signupBtn?.addEventListener("click",async () =>{
 
 
         if(insertError){
-            document.getElementById("error-msg").textContent = insertError.message;
+            console.log("insert Error",insertError)
+            if(insertError.code === "23505"){
+                document.getElementById("error-msg").textContent = "Your username or display name already exists!";
+            }else {
+                document.getElementById("error-msg").textContent = insertError.message;
+            }
         }else{
             window.location.href = 'EditProfile.html';
         }
@@ -90,7 +103,11 @@ signupBtn?.addEventListener("click",async () =>{
         } else {
             //  document.getElementById("error-msg").textContent = "There was an error";
         }
-    }});
+    }
+
+
+    }
+});
 if(document.getElementById("go-to-login-btn") != null) {
     document.getElementById("go-to-login-btn").addEventListener("click", async () => {
         window.location.href = 'Login.html';

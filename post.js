@@ -13,7 +13,7 @@ if(postId === null){
 
 
 window.addEventListener("load",async() => {
-    loadAllData();
+    await loadAllData();
     if(getVisualLineCount(reply)<5){
         reply.rows = getVisualLineCount(reply);
         reply.style.height = reply.rows*21+'px';
@@ -61,7 +61,7 @@ async function loadAllData(){
     console.log('timestamp', originalPosterData.data[0].created_at)
     let dateInfo = await formatTimestamp(postInfo.data[0].created_at);
     console.log(dateInfo);
-    document.getElementById('datePosted').textContent = dateInfo.dayOfWeek + ", "+dateInfo.monthStr+" "+dateInfo.day+", "+dateInfo.year+"\n@"+dateInfo.twelveHour+":"+dateInfo.minute+" "+dateInfo.am;
+    document.getElementById('datePosted').innerHTML = `${dateInfo.dayOfWeek},<br>${dateInfo.monthStr} ${dateInfo.day}, ${dateInfo.year}<br>@${dateInfo.twelveHour}:${dateInfo.minute} ${dateInfo.am}`;
     document.getElementById("postAuthor").addEventListener('click', () =>{
         goToProfile(originalPosterData.data[0].id);
     });
@@ -114,7 +114,7 @@ async function loadAllData(){
         }
     //your comment has been posted pop up?
 }
-async function loadComment(image, content, author, i, replies, id, dateInfo,username) {
+async function loadComment(image, content, author, i, replies, id, dateInfo,memberUsername) {
     const postDiv = document.createElement("div");
     // postDiv.classList.add("replies");
     postDiv.classList.add("vstack");
@@ -125,17 +125,20 @@ async function loadComment(image, content, author, i, replies, id, dateInfo,user
     postDiv.innerHTML = `
 <hr style="width: 100%; margin-top: 2%; margin-bottom: 2%">
 <div class="hstack" style="align-items: start">
-    <div class="goToProfile" style="cursor: pointer">
-    <div class="vstack " style="align-items: start">
+    <div class="goToProfile" style="cursor: pointer; align-items: center">
+    <div class="hstack " style="align-items: start; width: fit-content">
+     <div class="vstack" style="align-items: center; margin-right: 10px">
        <img src= ${image} class="circularImage" width="55px" height="55px" style=" border-color: #303030; border-width: 2px; border-style: solid; margin-left: 5px" alt="Profile picture">
+    
+<!--       <div class="hstack">-->
+   
+       <b class="closeText" style="font-size: small; font-family: Boldonse, sans-serif; font-weight: normal; text-align: center">${author}</b>
+       <p class="closeText" style="font-size: small; font-family: Lexend, sans-serif; font-weight: 300">@${memberUsername}</p>
+       </div>
+       <p class="closeText date" style=" text-align: center; margin-right: 0; width: 90px; margin-left: -15px">${dateInfo.dayOfWeek},<br>${dateInfo.monthStr} ${dateInfo.day},<br>${dateInfo.year}<br>@${dateInfo.twelveHour}:${dateInfo.minute} ${dateInfo.am}</p>
     </div>
-       
-    <div class="vstack" style="align-items: center; margin-right: 10px">
-       <b class="closeText" style="font-size: small; font-family: Boldonse, sans-serif; font-weight: normal">${author}</b>
-       <p class="closeText" style="font-size: small; font-family: Lexend, sans-serif; font-weight: 300">@${username}</p>
-       <p class="closeText date" style=" text-align: center">${dateInfo.dayOfWeek},<br>${dateInfo.monthStr} ${dateInfo.day},<br>${dateInfo.year}<br>@${dateInfo.twelveHour}:${dateInfo.minute} ${dateInfo.am}</p>
     </div>
-    </div>
+<!--    </div>-->
     <p class="closeText" style="text-align: start; font-size: 15px;"> ${content} </p>
 </div>
     `;
@@ -144,10 +147,10 @@ async function loadComment(image, content, author, i, replies, id, dateInfo,user
     document.getElementsByClassName("goToProfile")[0].id = `author${i}`;
     document.getElementById(`author${i}`).addEventListener('click', async() => {
         console.log("clicked")
-       let memberId = await supabase.from("userRecords").select('id').eq('username', username);
-        console.log("id",memberId.data[0].id);
+       let memberId = await supabase.from("userRecords").select('id').eq('username', memberUsername);
+        console.log("id",memberId);
         goToProfile(memberId.data[0].id);
-    })
+    });
     //(await postDiv != null);
     console.log(postDiv);
 

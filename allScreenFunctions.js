@@ -341,5 +341,5 @@ function getVisualLineCount(textarea) { //Won't shrink for some reason?
 
 
  function goToProfile(userId){
-    window.location.href = "Profile.html?path=/"+userId;
+    //window.location.href = "Profile.html?path=/"+userId;
 }
