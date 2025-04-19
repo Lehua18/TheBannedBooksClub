@@ -13,17 +13,26 @@
 <div>
     <div class="hstack header">
         <button id="backBtn" class="backBtn" style="margin-left: 30px">< Back</button>
-
+        <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 30px; visibility: hidden;">
+            <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" width="45" height="45" style="border-color: #000038; border-width: 2px; border-style: solid" alt="profile picture">
+            <div class = vstack>
+                <h2 id="displayName" class="closeText" style="font-size: large; font-family: Lexend, sans-serif; font-weight: 600">TestName</h2>
+                <h3 id="username" class="closeText" style="font-size: medium; font-family: Lexend, sans-serif; font-weight: 300">@testUser</h3>
+            </div>
+            <!-- LOGOUT BTN        <div id="popUp" style="position: absolute; z-index: 2; width: 100px; height: 50px; background-color: gray; top: 50px; right: 75px; border-radius: 10px; border: #000038 solid 2px; align-items: center; vertical-align: center; text-align: center">-->
+            <!--            <button id="logoutBtn" style="margin-top: 10px">Log Out</button>-->
+            <!--        </div>-->
+        </div>
     </div>
 <div id="profile-data" class="vstack container" style=" text-align: center; align-content: center; display: flex; flex-direction: column; align-items: center ">
     <div class="hstack" style="margin-top: 15px">
         <img src="Images/profilePic.png" id="profile-pic" class="circularImage" width="65px" height="65px" style="border-width: 2px; border-color: #000038; border-style: solid;" alt="Profile picture">
         <div class="vstack" style="margin-right: 10px">
-            <h3 id="displayName" class="closeText" style=" font-family: Boldonse, serif; font-size: x-large; font-weight: normal; padding: 0">TestName</h3>
-            <h4 id="username" class="closeText" style="font-family: Lexend, sans-serif; font-weight: normal; padding: 0; font-size: 17px ">@testUser</h4>
+            <h3 id="displayNameMember" class="closeText" style=" font-family: Boldonse, serif; font-size: x-large; font-weight: normal; padding: 0">TestName</h3>
+            <h4 id="usernameMember" class="closeText" style="font-family: Lexend, sans-serif; font-weight: normal; padding: 0; font-size: 17px ">@testUser</h4>
             <p id="dateJoined" class="closeText" style="font-size: 13px; ">Joined January 22, 2025</p>
         </div>
-        <input type="image" class="hoverable" src="Images/editPencilTransparentBg.png" id="editPencil" width="40px" height="40px" alt="edit pencil">
+        <input type="image" class="hoverable" src="Images/editPencilTransparentBg.png" id="editPencil" width="40px" height="40px" alt="edit pencil" style="visibility: hidden">
     </div>
     <div class="hstack" style="margin-top: 15px; display: flex; align-items: flex-start; gap: 5px; flex-wrap: wrap; max-width: 90%; justify-content: center">
     <h4 style=" margin-top: 5px; margin-bottom: 0; margin-right: 5px;  font-family: Trebuchet MS, system-ui; font-weight: bold; font-size: 20px ">Bio:</h4>
@@ -58,14 +67,17 @@
 
 </div>
 </body>
-
-<script src="allScreenFunctions.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     const {createClient} = window.supabase;
     const supabaseURL = "https://kjwtprjrlzyvthlfbgrq.supabase.co";
     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtqd3RwcmpybHp5dnRobGZiZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1ODk5MDEsImV4cCI6MjA1NDE2NTkwMX0.4wA0k6qly4LPUYae2bQz1To1SImnS00WyB9n3zb6ejE";
     const supabase = createClient(supabaseURL, supabaseAnonKey);
+</script>
+<script src="allScreenFunctions.js"></script>
+
+<script>
+
     console.log(supabase);
     window.onload = async() => {
         const session = await getSession();
@@ -80,18 +92,34 @@
             console.log('No user profile found.');
         }
         console.log('User profile:', userProfile);
-        document.getElementById("displayName").textContent = userProfile[0].displayName;
-        document.getElementById("username").textContent = '@'+userProfile[0].username;
-        let dateInfo = await formatTimestamp(userProfile[0].created_at);
+
+        const memberId = window.location.href.substring(window.location.href.lastIndexOf("/") + 1);
+       // if(memberId === userProfile.data[0].id) {
+            const profileMember = await supabase.from("userRecords").select('*').eq('id', memberId);
+        // }else{
+        //     const profileMember = userProfile;
+        // }
+        if(memberId !== userProfile[0].id) {
+            document.getElementById("editPencil").style.visibility = "hidden";
+            document.getElementById("profileBtn").style.visibility = "visible";
+        }else{
+            document.getElementById("editPencil").style.visibility = "visible";
+            document.getElementById("profileBtn").style.visibility = "hidden";
+        }
+        console.log("Profile Member:", profileMember);
+        document.getElementById("displayNameMember").textContent = profileMember.data[0].displayName;
+        document.getElementById("usernameMember").textContent = '@'+profileMember.data[0].username;
+        console.log("Created at", profileMember.data[0].created_at)
+        let dateInfo = await formatTimestamp(profileMember.data[0].created_at);
         document.getElementById("dateJoined").textContent = "Joined "+dateInfo.monthStr + " " +dateInfo.day +", "+dateInfo.year;
 
 
-        document.getElementById("bio").textContent = userProfile[0].bio;
-        document.getElementById("pronouns").textContent = userProfile[0].pronouns;
+        document.getElementById("bio").textContent = profileMember.data[0].bio;
+        document.getElementById("pronouns").textContent = profileMember.data[0].pronouns;
         // document.getElementById("booksRead").textContent = userProfile[0].booksRead.stringify();
         // document.getElementById("dateJoined").textContent = "Joined "+ userProfile[0].dateJoined.stringify();
         const timestamp = new Date().getTime(); // Unique value
-        document.getElementById("profile-pic").src = userProfile[0].pfp + `?t=${timestamp}`;
+        document.getElementById("profile-pic").src = profileMember.data[0].pfp + `?t=${timestamp}`;
     }
     document.getElementById('editPencil').addEventListener('click', async() => {
         window.location.href = "EditProfile.html";

@@ -62,6 +62,9 @@ async function loadAllData(){
     let dateInfo = await formatTimestamp(postInfo.data[0].created_at);
     console.log(dateInfo);
     document.getElementById('datePosted').textContent = dateInfo.dayOfWeek + ", "+dateInfo.monthStr+" "+dateInfo.day+", "+dateInfo.year+"\n@"+dateInfo.twelveHour+":"+dateInfo.minute+" "+dateInfo.am;
+    document.getElementById("postAuthor").addEventListener('click', () =>{
+        goToProfile(originalPosterData.data[0].id);
+    });
     // document.getElementById("profile-pic").src = userProfile[0].pfp + `?t=${timestamp}`;
     // document.getElementById("author").textContent = userProfile[0].displayName;
     // document.getElementById("authorUser").textContent = "@" + userProfile[0].username;
@@ -122,7 +125,8 @@ async function loadComment(image, content, author, i, replies, id, dateInfo,user
     postDiv.innerHTML = `
 <hr style="width: 100%; margin-top: 2%; margin-bottom: 2%">
 <div class="hstack" style="align-items: start">
-    <div class="vstack goToProfile" style="align-items: start">
+    <div class="goToProfile" style="cursor: pointer">
+    <div class="vstack " style="align-items: start">
        <img src= ${image} class="circularImage" width="55px" height="55px" style=" border-color: #303030; border-width: 2px; border-style: solid; margin-left: 5px" alt="Profile picture">
     </div>
        
@@ -131,9 +135,19 @@ async function loadComment(image, content, author, i, replies, id, dateInfo,user
        <p class="closeText" style="font-size: small; font-family: Lexend, sans-serif; font-weight: 300">@${username}</p>
        <p class="closeText date" style=" text-align: center">${dateInfo.dayOfWeek},<br>${dateInfo.monthStr} ${dateInfo.day},<br>${dateInfo.year}<br>@${dateInfo.twelveHour}:${dateInfo.minute} ${dateInfo.am}</p>
     </div>
+    </div>
     <p class="closeText" style="text-align: start; font-size: 15px;"> ${content} </p>
 </div>
     `;
+    // document.getElementById("author").id = `author${i}`;
+    // console.log(document.getElementsByClassName("goToProfile")[0]);
+    document.getElementsByClassName("goToProfile")[0].id = `author${i}`;
+    document.getElementById(`author${i}`).addEventListener('click', async() => {
+        console.log("clicked")
+       let memberId = await supabase.from("userRecords").select('id').eq('username', username);
+        console.log("id",memberId.data[0].id);
+        goToProfile(memberId.data[0].id);
+    })
     //(await postDiv != null);
     console.log(postDiv);
 
@@ -173,3 +187,6 @@ reply.addEventListener('input', ()=>{
         //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
     }
 });
+
+
+

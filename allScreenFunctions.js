@@ -119,14 +119,18 @@ if(document.getElementById("backBtn") != null) {
             window.location.href = 'Home.html';
         })
     }
-    if((localStorage.getItem('postId') != null) /**&& () is document.refferer != post? */){
+    if((localStorage.getItem('postId') != null) /**&& () is document.refferer != post? (I think this was for refresh and is no longer needed, but I forget) */){
         localStorage.removeItem('postId');
     }
 }
 if(document.getElementById("profile-pic-small") != null){
     updateData();
     document.getElementById("profileBtn").addEventListener("click", async () => {
-        window.location.href = "Profile.html";
+        let session = await getSession();
+        console.log("Session",session);
+        let userProfile = await getUserProfile(session);
+        console.log("Profile?",userProfile);
+        goToProfile(await userProfile[0].id);
     })
 }
 
@@ -336,3 +340,6 @@ function getVisualLineCount(textarea) { //Won't shrink for some reason?
 }
 
 
+ function goToProfile(userId){
+    window.location.href = "Profile.html?path=/"+userId;
+}
