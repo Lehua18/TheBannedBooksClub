@@ -143,8 +143,9 @@ async function loadComment(image, content, author, i, replies, id, dateInfo,memb
 </div>
     `;
     // document.getElementById("author").id = `author${i}`;
-    // console.log(document.getElementsByClassName("goToProfile")[0]);
-    document.getElementsByClassName("goToProfile")[0].id = `author${i}`;
+
+    postDiv.getElementsByClassName("goToProfile")[0].id = `author${i}`;
+    console.log("Post:",postDiv.getElementsByClassName("goToProfile")[i]);
     document.getElementById(`author${i}`).addEventListener('click', async() => {
         console.log("clicked")
        let memberId = await supabase.from("userRecords").select('id').eq('username', memberUsername);

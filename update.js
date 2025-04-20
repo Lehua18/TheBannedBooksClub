@@ -28,10 +28,13 @@ window.onload = async() => { //specify for profile vs edit profile
 
 
     if (userProfile) {
-        const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.png'));
-        console.log(imgUrl);
+        // const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.jpg'));
+        let newTimestamp = new Date().getTime();
+        console.log("newTimestamp:", newTimestamp);
+        const imgUrl = userProfile[0].pfp + `?t=${newTimestamp}`
+        console.log("IMGURL",imgUrl);
         // const time = new Date().getTime();
-        // let pic = await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.png'+`?t=${time}`);
+        // let pic = await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.jpg'+`?t=${time}`);
         //
         // //   const email = document.getElementById("update-email").value;
         // const userId = pic.data[0].id;
@@ -75,7 +78,7 @@ window.onload = async() => { //specify for profile vs edit profile
         // console.log("Data:", data);
         userProfile = await getUserProfile(session);
         const timestamp = new Date().getTime(); // Unique value
-        document.getElementById("profile-pic").src = imgUrl.substring(imgUrl.indexOf('h'), imgUrl.lastIndexOf("\""))+`?t=${timestamp}`;
+        document.getElementById("profile-pic").src = userProfile[0].pfp + `?t=${timestamp}`
 
         //document.getElementById("profile-pic").src = ;
          }
@@ -231,7 +234,7 @@ updateBtn?.addEventListener("click",async () => {
             if ((`${document.referrer}`).includes("Signup")) {
                 window.location.href = 'Home.html';
             } else {
-                window.location.href = 'Profile.html';
+                goToProfile(await userProfile[0].id);
             }
 
         }
@@ -251,12 +254,12 @@ updateBtn?.addEventListener("click",async () => {
 //     ctx.drawImage(img, 0, 0);
 //
 //     // Get the data-URL formatted image
-//     // Firefox supports PNG and JPEG. You could check img.src to
+//     // Firefox supports jpg and JPEG. You could check img.src to
 //     // guess the original format, but be aware the using "image/jpg"
 //     // will re-encode the image.
-//     const dataURL = canvas.getPublicUrl("image/png");
+//     const dataURL = canvas.getPublicUrl("image/jpg");
 //
-//     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+//     return dataURL.replace(/^data:image\/(jpg|jpg);base64,/, "");
 // }
 
 document.getElementById('editPencil').addEventListener('click', async() => {
@@ -295,7 +298,7 @@ async function uploadImg(){
         // const {data, error} = await supabase
         //     .storage
         //     .from('pfps')
-        //     .upload(userProfile[0].username + '/png', new Image(uploadedImg));
+        //     .upload(userProfile[0].username + '/jpg', new Image(uploadedImg));
      const uploadedImgFile = await base64ToFile(await toBase64(uploadedImg));
      console.log("Img string:",uploadedImgFile);
     if(!(uploadedImgFile instanceof File)){
@@ -305,15 +308,15 @@ async function uploadImg(){
     const { data, error } = await supabase
         .storage
         .from('pfps')
-        .upload(userProfile[0].username+'.png', uploadedImgFile, {
+        .upload(userProfile[0].username+'.jpg', uploadedImgFile, {
             cacheControl: '3600',
             upsert: true,
-         //   contentType: "img/png"
+         //   contentType: "img/jpg"
         })
     if(error) {
         console.log('Error uploading img:', error);
     }
-    // const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.png'));
+    // const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.jpg'));
     // console.log(imgUrl);
     // const {data2, error2} = await supabase
     //     .from('userRecords')
@@ -326,19 +329,19 @@ async function uploadImg(){
     try{userProfile = await getUserProfile(session)}catch(error){console.log(error)};
     console.log("User Profile:",userProfile);
     //userProfile[0].pfp = uploadedImgFile;
-    // let img = await supabase.storage.from('pfps').download(userProfile[0].username+'.png');
+    // let img = await supabase.storage.from('pfps').download(userProfile[0].username+'.jpg');
     const timestamp = new Date().getTime(); // Unique value
     console.log("uploadedimg",uploadedImg.name)
-    userProfile[0].pfp = "https://kjwtprjrlzyvthlfbgrq.supabase.co/storage/v1/object/public/pfps/"+userProfile[0].username+'.png';
+    userProfile[0].pfp = "https://kjwtprjrlzyvthlfbgrq.supabase.co/storage/v1/object/public/pfps/"+userProfile[0].username+'.jpg';
     const {data3,error3} = await supabase.from('userRecords').upsert({pfp: userProfile[0].pfp}).eq("id", userProfile[0].id);
     if(error3){
         console.log(error3);
     }
-    const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.png'));
+    const imgUrl = JSON.stringify(await supabase.storage.from('pfps').getPublicUrl(userProfile[0].username+'.jpg'));
     document.getElementById("profile-pic").src = imgUrl.substring(imgUrl.indexOf('h'), imgUrl.lastIndexOf("\""))+`?t=${timestamp}`;
 
     // await supabase.from('userRecords').update({pfp: imgUrl /* image path from bucket */}).eq('id', userId);
-    // document.getElementById("profile-pic").src = await supabase.storage.from('pfps').download(userProfile[0].username+'.png');
+    // document.getElementById("profile-pic").src = await supabase.storage.from('pfps').download(userProfile[0].username+'.jpg');
 
 }
 async function toBase64(file) {
@@ -364,9 +367,9 @@ async function base64ToFile(base64String, filename, mimeType) {
         byteArrays.push(byteArray);
     }
 
-    const blob = new Blob(byteArrays, { type: 'image/png' });
+    const blob = new Blob(byteArrays, { type: 'image/jpg' });
     //console.log(blob);
-    return new File([blob], filename, { type: 'image/png' });
+    return new File([blob], filename, { type: 'image/jpg' });
 }
 
 const bioEdit = document.getElementById('bioEdit');

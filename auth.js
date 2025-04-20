@@ -58,6 +58,10 @@ signupBtn?.addEventListener("click",async () => {
         document.getElementById("error-msg").textContent = "Please fill out all fields."
     }else if(!email.includes('@') || !email.includes('.')) {
         document.getElementById("error-msg").textContent = "Please enter a valid email address."
+    }else if(await checkForDuplicates("username", username)) {
+        document.getElementById("error-msg").textContent = "This username already exists. Please choose a different one.";
+    }else if(await checkForDuplicates("displayName", displayName)) {
+        document.getElementById("error-msg").textContent = "This display name already exists. Please choose a different one.";
     }else{
         //MUST CHECK FOR DUPLICATES PRIOR TO SIGNUP
     const{error: signupError, user} = await supabase.auth.signUp({email, password});
@@ -75,11 +79,11 @@ signupBtn?.addEventListener("click",async () => {
 
         if(insertError){
             console.log("insert Error",insertError)
-            if(insertError.code === "23505"){
-                document.getElementById("error-msg").textContent = "Your username or display name already exists!";
-            }else {
-                document.getElementById("error-msg").textContent = insertError.message;
-            }
+            // if(insertError.code === "23505"){
+                // document.getElementById("error-msg").textContent = "Your username or display name already exists!";
+            // }else {
+                document.getElementById("error-msg").textContent = insertError.message+". Please contact the website owner to complete sign up.";
+            // }
         }else{
             window.location.href = 'EditProfile.html';
         }
@@ -120,3 +124,17 @@ if(document.getElementById("go-to-signup-btn") != null) {
     });
 }
 
+async function checkForDuplicates(columnName, enteredValue){
+    let column = await supabase.from("userRecords").select(columnName);
+    console.log("column",column.data);
+    let isDuplicate = false;
+
+    for(let i=0; i<column.data.length; i++){
+        if(column.data[i][columnName] === enteredValue){
+            isDuplicate = true;
+        }
+    }
+    return isDuplicate;
+}
+
+//
