@@ -14,7 +14,7 @@
 <!--<input id="file" name="file" type="file" style="display: none">-->
     <div id="profile-data" class="vstack container" style=" text-align: center; align-content: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 0 ">
         <div class="hstack" style="margin-top: 15px">
-            <img src="Images/profilePic.png" id="profile-pic" class="circularImage" width="65px" height="65px" style="border-width: 2px; border-color: #000038; border-style: solid; z-index: 0; position: absolute" alt="Profile picture">
+            <img src="Images/profilePic.png" id="profile-pic" class="circularImage" width="65px" height="65px" style="border-width: 2px; border-color: #000038; border-style: solid; z-index: 0; position: absolute; " alt="Profile picture">
             <input type="image" src="Images/editPencilBlackBg.png" id="editPencil" class="circularImage hoverable" width="65px" height="65px"  style="z-index: 1; border-width: 1px; border-color: black; border-style: solid;">
 
             <div class="vstack" style="margin-right: 10px">
@@ -83,7 +83,14 @@
 <!--<script src="update.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
-
+<script>
+    window.addEventListener('load', () => {
+        let editPencil = document.getElementById('editPencil');
+        let pfp = document.getElementById('profile-pic');
+        editPencil.width = pfp.offsetWidth;
+        editPencil.height = pfp.offsetHeight;
+    });
+</script>
 <script src="allScreenFunctions.js"></script>
 <script src="update.js"></script>
 <script src="Data.js"></script>

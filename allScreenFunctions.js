@@ -39,10 +39,29 @@ window.addEventListener("load", async() =>{
      resize();
     let allElements = document.getElementsByTagName('*');
     console.log("All elements",allElements);
-    //if dark mode on supabase == true
-    for(let i = 0; i < allElements.length; i++){
-        allElements[i].classList.add('darkMode');
+    console.log("running:", await supabase.auth.getSession());
+    console.log(supabase);
+    const session = await supabase.auth.getSession();
+    if (!session) {
+        console.log("No active session found.");
+        // return;
     }
+    let userProfile = await getUserProfile(session);
+    console.log("MODE",(await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]);
+    if((await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]) {
+        for (let i = 0; i < allElements.length; i++) {
+            allElements[i].classList.add('darkMode');
+        }
+        let body = document.getElementsByTagName("body");
+        console.log("Body", body[0]);
+        if (document.getElementById("discordLogo") != null) {
+            document.getElementById("discordLogo").src = "Images/discordWhite.png";
+        }
+        if (document.getElementById("editPencil") != null) {
+            document.getElementById("editPencil").src = "Images/editPencilBlackBg.png";
+        }
+    }
+    // body.classList.add('darkMode');
     //change discord logo to white
 });
 function resize(){
