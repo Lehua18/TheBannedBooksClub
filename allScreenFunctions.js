@@ -37,7 +37,13 @@ window.addEventListener("load", async() =>{
 
     }
      resize();
-
+    let allElements = document.getElementsByTagName('*');
+    console.log("All elements",allElements);
+    //if dark mode on supabase == true
+    for(let i = 0; i < allElements.length; i++){
+        allElements[i].classList.add('darkMode');
+    }
+    //change discord logo to white
 });
 function resize(){
     if(document.getElementById("siteName") != null && document.getElementById("dateEst") != null){

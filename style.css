@@ -19,6 +19,11 @@ body{
     max-height: 100vh;
 
 }
+
+.darkMode{
+    /*color: white;*/
+}
+
 .hstack{
     display: flex;
     flex-direction: row;
