@@ -3,7 +3,7 @@
 //     const supabaseURL = "https://kjwtprjrlzyvthlfbgrq.supabase.co";
 //     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtqd3RwcmpybHp5dnRobGZiZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1ODk5MDEsImV4cCI6MjA1NDE2NTkwMX0.4wA0k6qly4LPUYae2bQz1To1SImnS00WyB9n3zb6ejE";
 //     const supabase = createClient(supabaseURL, supabaseAnonKey);
-window.addEventListener( "DOMContentLoaded", function() { //Might not work if user gets link from other website (cookies?)
+window.addEventListener( "DOMContentLoaded", function() { //Might not work if user gets link from other website (cookies?) (make new array with session storage?) --> see line 33-ish
     console.log("Window history:", window.history)
     console.log("document referrer", document.referrer)
     if(window.history.length === 1) {
@@ -11,22 +11,79 @@ window.addEventListener( "DOMContentLoaded", function() { //Might not work if us
     }
 });
 window.addEventListener("load", async() =>{
+    //favicon
     const link = document.createElement('link');
     link.rel = 'icon';
     link.type = 'image/png';
     link.href = 'Images/logo.png';
-
     const existingIcons = document.querySelectorAll('link[rel*="icon"]');
     existingIcons.forEach(icon => icon.remove());
-
     document.head.appendChild(link);
-    if(window.innerWidth < 670){
-        document.getElementById("siteName").style.visibility = "hidden";
-        document.getElementById("dateEst").style.visibility = "hidden";
-    }else{
-        document.getElementById("siteName").style.visibility = "visible";
-        document.getElementById("dateEst").style.visibility = "visible";
+
+    //more sizing
+    resize();
+    // if(window.innerWidth < 670){
+    //     document.getElementById("siteName").style.visibility = "hidden";
+    //     document.getElementById("dateEst").style.visibility = "hidden";
+    // }else{
+    //     document.getElementById("siteName").style.visibility = "visible";
+    //     document.getElementById("dateEst").style.visibility = "visible";
+    // }
+
+    //for back btn
+    if(sessionStorage.getItem("pageBack") == null || sessionStorage.getItem("pageBack") === ""){
+        console.log("CREATED NEW");
+        sessionStorage.setItem("pageBack", "[]");
     }
+    console.log("Page back",sessionStorage.getItem("pageBack"));
+    let pageBack =  JSON.parse(sessionStorage.getItem("pageBack"));
+   // pageBack.push(window.location.href);
+    if (pageBack[pageBack.length - 2] !== window.location.href) {
+        pageBack.push(window.location.href);
+    }
+    console.log("History page",pageBack);
+    sessionStorage.setItem("pageBack", JSON.stringify(pageBack));
+    console.log("History string", sessionStorage.getItem("pageBack"));
+    //back button
+    if(document.getElementById("backBtn") != null) { //fix 4/23
+        // const history = JSON.parse(sessionStorage.getItem("navHistory") || "[]");
+        // // remove current page
+        // history.pop();
+        // // get last visited page
+        // const last = history.pop();
+        // console.log("last",last)
+        // sessionStorage.setItem("navHistory", JSON.stringify(history));
+
+        // let history = JSON.parse(sessionStorage.getItem("pageBack"));
+        let pageBack =  JSON.parse(sessionStorage.getItem("pageBack"));
+        console.log("History",pageBack);
+        let lastPage = pageBack[pageBack.length - 2];
+        console.log("History last page",lastPage);
+        if (((!lastPage.includes("Signup") && !lastPage.includes("Login")) || (window.location.href.includes("Signup") || window.location.href.includes("Login"))) && !lastPage.includes("EditProfile")) { //window.history? (gets referrer, which may not be actual last page)
+            document.getElementById("backBtn").addEventListener("click", async () => {
+                console.log("Historied")
+                pageBack = pageBack.slice(0, -1);
+                console.log("History",pageBack);
+                window.location.href = lastPage;
+                sessionStorage.setItem("pageBack", JSON.stringify(pageBack));
+
+            });
+        }else if(!lastPage.includes("EditPost")) {
+            document.getElementById("backBtn").addEventListener("click", async () => {
+                window.location.href ="Home.html"; //fix
+            });
+        }else{
+            document.getElementById("backBtn").addEventListener("click", async () => {
+                window.location.href = 'Home.html';
+            })
+        }
+        if((localStorage.getItem('postId') != null) /**&& () is document.refferer != post? (I think this was for refresh and is no longer needed, but I forget) */){
+            localStorage.removeItem('postId');
+        }
+    }
+
+
+    //user can't access pages past login if not logged in
     if(!(`${document.location}`).includes("Startup") && !(`${document.location}`).includes("Login") && !(`${document.location}`).includes("Signup") && !(`${document.location}`).includes("Error")){
         const { data: { session } } = await supabase.auth.getSession();
 
@@ -36,34 +93,41 @@ window.addEventListener("load", async() =>{
         }
 
     }
+
      resize();
-    let allElements = document.getElementsByTagName('*');
-    console.log("All elements",allElements);
-    console.log("running:", await supabase.auth.getSession());
-    console.log(supabase);
-    const session = await supabase.auth.getSession();
-    if (!session) {
-        console.log("No active session found.");
-        // return;
-    }
-    let userProfile = await getUserProfile(session);
-    console.log("MODE",(await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]);
-    if((await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]) {
-        for (let i = 0; i < allElements.length; i++) {
-            allElements[i].classList.add('darkMode');
+
+    //dark mode
+    console.log("Current page", window.location.href);
+    if(!window.location.href.includes("Error.html") && !window.location.href.includes("Login.html") && !window.location.href.includes("Signup.html") && !window.location.href.includes("Startup.html")) {
+        let allElements = document.getElementsByTagName('*');
+        console.log("All elements", allElements);
+        console.log("running:", await supabase.auth.getSession());
+        console.log(supabase);
+        const session = await supabase.auth.getSession();
+        if (!session) {
+            console.log("No active session found.");
+            // return;
         }
-        let body = document.getElementsByTagName("body");
-        console.log("Body", body[0]);
-        if (document.getElementById("discordLogo") != null) {
-            document.getElementById("discordLogo").src = "Images/discordWhite.png";
-        }
-        if (document.getElementById("editPencil") != null) {
-            document.getElementById("editPencil").src = "Images/editPencilBlackBg.png";
+        let userProfile = await getUserProfile(session);
+        console.log("MODE", (await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]);
+        if ((await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]) {
+            for (let i = 0; i < allElements.length; i++) {
+                allElements[i].classList.add('darkMode');
+            }
+            let body = document.getElementsByTagName("body");
+            console.log("Body", body[0]);
+            if (document.getElementById("discordLogo") != null) {
+                document.getElementById("discordLogo").src = "Images/discordWhite.png";
+            }
+            if (document.getElementById("editPencil") != null) {
+                document.getElementById("editPencil").src = "Images/editPencilBlackBg.png";
+            }
         }
     }
     // body.classList.add('darkMode');
     //change discord logo to white
 });
+
 function resize(){
     if(document.getElementById("siteName") != null && document.getElementById("dateEst") != null){
         if(window.innerWidth < 670){
@@ -117,37 +181,21 @@ window.addEventListener("resize", async() =>{
 //     sizing();
 // });
 
+//link elements
 if(document.getElementById("discordLogo") != null){
     document.getElementById("discordLogo").addEventListener("click", async () => {
         window.open("https://discord.gg/yqt8kkEukA", '_blank').focus()
     })
 }
-
 if(document.getElementById("logos") != null){
     document.getElementById("logos").addEventListener("click", async () => {
         window.open("https://www.google.com/", '_self').focus() //check default engine?
     })
 }
 
-if(document.getElementById("backBtn") != null) {
 
-    if (((!document.referrer.includes("Signup") && !document.referrer.includes("Login")) || (window.location.href.includes("Signup") || window.location.href.includes("Login"))) && !document.referrer.includes("EditProfile")) { //window.history? (gets referrer, which may not be actual last page)
-        document.getElementById("backBtn").addEventListener("click", async () => {
-            window.history.back();
-        })
-    }else if(!document.referrer.includes("EditPost")) {
-        document.getElementById("backBtn").addEventListener("click", async () => {
-        window.location.href ="Home.html"; //fix
-        });
-}else{
-        document.getElementById("backBtn").addEventListener("click", async () => {
-            window.location.href = 'Home.html';
-        })
-    }
-    if((localStorage.getItem('postId') != null) /**&& () is document.refferer != post? (I think this was for refresh and is no longer needed, but I forget) */){
-        localStorage.removeItem('postId');
-    }
-}
+
+//on screen pfp
 if(document.getElementById("profile-pic-small") != null){
     updateData();
     document.getElementById("profileBtn").addEventListener("click", async () => {
