@@ -63,6 +63,24 @@
     const supabaseURL = "https://kjwtprjrlzyvthlfbgrq.supabase.co";
     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtqd3RwcmpybHp5dnRobGZiZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1ODk5MDEsImV4cCI6MjA1NDE2NTkwMX0.4wA0k6qly4LPUYae2bQz1To1SImnS00WyB9n3zb6ejE";
     const supabase = createClient(supabaseURL, supabaseAnonKey);
+    async function getSessionStartup(){
+        setTimeout(async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            console.log("Session after sign out:", session);
+        }, 500);
+    }
+    getSessionStartup();
+    const allCookies = document.cookie;
+    const cookiesArray = allCookies.split(';');
+    const cookies = {};
+
+    cookiesArray.forEach(cookieStr => {
+        const [name, value] = cookieStr.trim().split('=');
+        cookies[name] = value;
+    });
+
+    console.log("Cookies",cookies);
+
 </script>
 <script src="allScreenFunctions.js"></script>
 </html>

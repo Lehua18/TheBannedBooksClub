@@ -329,6 +329,10 @@ hr{
     height: auto;
 }
 
+#logos:hover{
+    cursor: pointer;
+}
+
 
 
 .header{

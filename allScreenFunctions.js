@@ -38,7 +38,7 @@ window.addEventListener("load", async() =>{
     console.log("Page back",sessionStorage.getItem("pageBack"));
     let pageBack =  JSON.parse(sessionStorage.getItem("pageBack"));
    // pageBack.push(window.location.href);
-    if (pageBack[pageBack.length - 2] !== window.location.href) {
+    if (pageBack[pageBack.length - 1] !== window.location.href) {
         pageBack.push(window.location.href);
     }
     console.log("History page",pageBack);
@@ -204,8 +204,89 @@ if(document.getElementById("profile-pic-small") != null){
         let userProfile = await getUserProfile(session);
         console.log("Profile?",userProfile);
         goToProfile(await userProfile[0].id);
-    })
+    });
+    document.getElementById("profileBtn").addEventListener("mouseover", async () => {  const hoverDiv = document.createElement("div");
+
+    });
+
+    let timeout;
+    let hoverDiv;
+
+    const showMenu = async () => {  //start 4/24
+        if (!hoverDiv) {
+            //hoverDiv properties
+            hoverDiv = document.createElement("div");
+            hoverDiv.id = "hoverDiv";
+            hoverDiv.style.backgroundColor = "black";
+            hoverDiv.style.color = "white";
+            hoverDiv.style.width = `${document.getElementById("profileBtn").offsetWidth}px` ;
+            hoverDiv.style.height = "250px";
+            hoverDiv.style.position = "absolute";
+            hoverDiv.style.borderRadius = "10px";
+            hoverDiv.style.marginTop = "5px"
+            hoverDiv.classList.add("vstack")
+            hoverDiv.style.zIndex = "2";
+
+            // Position near the button
+            const btn = document.getElementById("profileBtn");
+            const rect = btn.getBoundingClientRect();
+            hoverDiv.style.left = `${rect.left + window.scrollX}px`;
+            hoverDiv.style.top = `${rect.bottom + window.scrollY}px`;
+
+            //inner html
+            hoverDiv.innerHTML = `
+            <button id="HomeBtn" style="width: 85%">Home</button>
+            <button id ="profileMenuBtn" style="width: 85%">View Profile</button>
+            <button id="signoutBtn" style="width: 85%">Sign out</button>
+            <button id="settingsBtn" style="width: 85%">Settings</button>
+            <button id="contactBtn" style="width: 85%">Contact us!</button>
+         `;
+
+            // Mouse listeners for hover-stay
+            hoverDiv.addEventListener("mouseenter", () => clearTimeout(timeout));
+            hoverDiv.addEventListener("mouseleave", hideMenu);
+
+            document.body.appendChild(hoverDiv);
+
+            //button clicks
+            let session = await getSession();
+            console.log("Session",session);
+            let userProfile = await getUserProfile(session);
+            console.log("Profile?",userProfile);
+            await clickBtn("HomeBtn", "Home.html");
+            await clickBtn("profileMenuBtn", "Profile.html?path=/"+userProfile[0].id);
+            await clickBtn("signoutBtn", "Startup.html");
+            // await clickBtn("signoutBtn");
+            // await clickBtn("settingsBtn");
+            // await clickBtn("contactBtn");
+
+        }
+    };
+    const hideMenu = () => {
+        timeout = setTimeout(() => {
+            if (hoverDiv) {
+                hoverDiv.remove();
+                hoverDiv = null;
+            }
+        }, 75); // short delay so you can move between button and menu
+    };
+
+    const btn = document.getElementById("profileBtn");
+    btn.addEventListener("mouseenter", showMenu);
+    btn.addEventListener("mouseleave", hideMenu);
 }
+
+async function clickBtn(buttonId, destination){
+    console.log("Button id", buttonId);
+        console.log("clicked");
+        document.getElementById(buttonId).addEventListener("click", async () => {
+            window.location.href = destination;
+            if(buttonId === "signoutBtn"){
+                console.log("signing out");
+                await signOut();
+            }
+        })
+    }
 
  async function updateData(){
 
@@ -415,4 +496,39 @@ function getVisualLineCount(textarea) { //Won't shrink for some reason?
 
  function goToProfile(userId){
     window.location.href = "Profile.html?path=/"+userId;
+}
+
+async function signOut() { //start 4/25
+    try {
+        console.log("Signing out with global scope...");
+
+        // Call Supabase signOut
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.error("Supabase signOut error:", error.message);
+        }
+
+        // Manual clean-up
+        console.log("Clearing sessionStorage/localStorage...");
+        sessionStorage.clear();
+        localStorage.clear();
+
+        console.log("Clearing all accessible cookies...");
+        // Remove cookies (except HttpOnly)
+        document.cookie.split(";").forEach((cookie) => {
+            document.cookie = cookie
+                .replace(/^ +/, "")
+                .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+
+        // Check session immediately after logout
+        const { data } = await supabase.auth.getSession();
+        console.log("Session after full cleanup:", data.session); // Should be null
+
+        // Optional: Force reload to ensure all session state is reset
+        location.reload(); // optional, but forces a memory reset
+
+    } catch (e) {
+        console.error("Force sign-out failed:", e);
+    }
 }
