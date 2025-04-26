@@ -2,7 +2,16 @@
 //     const {createClient} = window.supabase;
 //     const supabaseURL = "https://kjwtprjrlzyvthlfbgrq.supabase.co";
 //     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtqd3RwcmpybHp5dnRobGZiZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1ODk5MDEsImV4cCI6MjA1NDE2NTkwMX0.4wA0k6qly4LPUYae2bQz1To1SImnS00WyB9n3zb6ejE";
-//     const supabase = createClient(supabaseURL, supabaseAnonKey);
+//     const supabase = createClient(supabaseURL, supabaseAnonKey, {
+//   global: {
+//     fetch: (input, init) => {
+//       return fetch(input, {
+//         ...init,
+//         credentials: 'include' // CRUCIAL: Sends cookies cross-origin
+//       });
+//     }
+//   }
+// });
 window.addEventListener( "DOMContentLoaded", function() { //Might not work if user gets link from other website (cookies?) (make new array with session storage?) --> see line 33-ish
     console.log("Window history:", window.history)
     console.log("document referrer", document.referrer)
@@ -21,7 +30,7 @@ window.addEventListener("load", async() =>{
     document.head.appendChild(link);
 
     //more sizing
-    resize();
+    await resize();
     // if(window.innerWidth < 670){
     //     document.getElementById("siteName").style.visibility = "hidden";
     //     document.getElementById("dateEst").style.visibility = "hidden";
@@ -94,7 +103,7 @@ window.addEventListener("load", async() =>{
 
     }
 
-     resize();
+   //  await resize();
 
     //dark mode
     console.log("Current page", window.location.href);
@@ -123,20 +132,45 @@ window.addEventListener("load", async() =>{
                 document.getElementById("editPencil").src = "Images/editPencilBlackBg.png";
             }
         }
+    }else{
+        console.log("Not there yet/error");
     }
     // body.classList.add('darkMode');
     //change discord logo to white
 });
 
-function resize(){
-    if(document.getElementById("siteName") != null && document.getElementById("dateEst") != null){
-        if(window.innerWidth < 670){
-            document.getElementById("siteName").style.visibility = "hidden";
-            document.getElementById("dateEst").style.visibility = "hidden";
+async function resize(){
+   //need to make pfp move over too
+        if(window.innerWidth < 500){
+            if(document.getElementById("displayName") != null && document.getElementById("username") != null) {
+                document.getElementById("displayName").remove();
+                document.getElementById("username").remove();
+            }
+            if(document.getElementById("profileDiv") != null){
+                document.getElementById("profileDiv").remove()
+            }
         }else{
-            document.getElementById("siteName").style.visibility = "visible";
-            document.getElementById("dateEst").style.visibility = "visible";
+            if(document.getElementById("displayName") == null && document.getElementById("username") == null && document.getElementById("profileBtn") != null){
+                let profileDiv = document.createElement("div");
+                document.getElementById("profileBtn").appendChild(profileDiv);
+
+                profileDiv.classList.add("vstack");
+                profileDiv.id = "profileDiv";
+                profileDiv.innerHTML = `
+                 <h2 id="displayName" class="closeText" style="font-size: large; font-family: Lexend, sans-serif; font-weight: 600">TestName</h2>
+                <h3 id="username" class="closeText" style="font-size: medium; font-family: Lexend, sans-serif; font-weight: 300">@testUser</h3>
+                `
+                 await updateData();
+            }
         }
+    if(document.getElementById("logos") != null && document.getElementById("discordLogo") != null){
+            if(window.innerWidth < 670){
+                document.getElementById("siteName").style.visibility = "hidden";
+                document.getElementById("dateEst").style.visibility = "hidden";
+            }else{
+                document.getElementById("siteName").style.visibility = "visible";
+                document.getElementById("dateEst").style.visibility = "visible";
+            }
     }
     // let containers = document.getElementsByClassName('container');
     // let container = containers[0];
@@ -159,8 +193,8 @@ function resize(){
     // }
 }
 window.addEventListener("resize", async() =>{
-    resize();
-})
+   await resize();
+});
 
 // window.addEventListener('beforeunload', async() => {
 //     sessionStorage.clear();
@@ -205,9 +239,10 @@ if(document.getElementById("profile-pic-small") != null){
         console.log("Profile?",userProfile);
         goToProfile(await userProfile[0].id);
     });
-    document.getElementById("profileBtn").addEventListener("mouseover", async () => {  const hoverDiv = document.createElement("div");
-
-    });
+    // document.getElementById("profileBtn").addEventListener("mouseover", async () => {
+    //     const hoverDiv = document.createElement("div");
+    //
+    // });
 
     let timeout;
     let hoverDiv;
@@ -217,30 +252,41 @@ if(document.getElementById("profile-pic-small") != null){
             //hoverDiv properties
             hoverDiv = document.createElement("div");
             hoverDiv.id = "hoverDiv";
-            hoverDiv.style.backgroundColor = "black";
+            hoverDiv.style.backgroundColor = "green";
             hoverDiv.style.color = "white";
-            hoverDiv.style.width = `${document.getElementById("profileBtn").offsetWidth}px` ;
             hoverDiv.style.height = "250px";
             hoverDiv.style.position = "absolute";
             hoverDiv.style.borderRadius = "10px";
             hoverDiv.style.marginTop = "5px"
             hoverDiv.classList.add("vstack")
             hoverDiv.style.zIndex = "2";
+            if(document.getElementById("profileBtn").offsetWidth > 150){
+                hoverDiv.style.width = `${document.getElementById("profileBtn").offsetWidth}px` ;
+            }else{
+                hoverDiv.style.width = '150px';
+            }
 
             // Position near the button
             const btn = document.getElementById("profileBtn");
             const rect = btn.getBoundingClientRect();
-            hoverDiv.style.left = `${rect.left + window.scrollX}px`;
+            if(btn.offsetWidth > 150){
+                hoverDiv.style.left = `${rect.left + window.scrollX}px`;
+            }else{
+                hoverDiv.style.right = "0";
+                hoverDiv.style.marginRight = "40px";
+            }
+
             hoverDiv.style.top = `${rect.bottom + window.scrollY}px`;
 
             //inner html
             hoverDiv.innerHTML = `
-            <button id="HomeBtn" style="width: 85%">Home</button>
-            <button id ="profileMenuBtn" style="width: 85%">View Profile</button>
-            <button id="signoutBtn" style="width: 85%">Sign out</button>
-            <button id="settingsBtn" style="width: 85%">Settings</button>
-            <button id="contactBtn" style="width: 85%">Contact us!</button>
+            <button id="HomeBtn" style="width: 85%; background-color: #ffa697;">Home</button>
+            <button id ="profileMenuBtn" style="width: 85%; background-color: #ffc494">View Profile</button>
+            <button id="signoutBtn" style="width: 85%; background-color: #fee198 ">Sign out</button>
+            <button id="settingsBtn" style="width: 85%; background-color: #83cea3 ">Settings</button>
+            <button id="contactBtn" style="width: 85%; background-color: #80a9cb">Contact us!</button>
          `;
+           // relinkStylesheet();
 
             // Mouse listeners for hover-stay
             hoverDiv.addEventListener("mouseenter", () => clearTimeout(timeout));
@@ -279,13 +325,16 @@ if(document.getElementById("profile-pic-small") != null){
 async function clickBtn(buttonId, destination){
     console.log("Button id", buttonId);
         console.log("clicked");
-        document.getElementById(buttonId).addEventListener("click", async () => {
-            window.location.href = destination;
-            if(buttonId === "signoutBtn"){
-                console.log("signing out");
-                await signOut();
-            }
-        })
+        if(buttonId != null && buttonId !== undefined) {
+            document.getElementById(buttonId).addEventListener("click", async () => {
+                if (buttonId === "signoutBtn") {
+                    console.log("signing out");
+                    await signOut();
+                }
+                window.location.href = destination;
+
+            })
+        }
     }
 
  async function updateData(){
@@ -300,9 +349,11 @@ async function clickBtn(buttonId, destination){
 
     let userProfile = await getUserProfile(session);
     const timestamp = new Date().getTime(); // Unique value
-    document.getElementById("profile-pic-small").src = userProfile[0].pfp + `?t=${timestamp}`;
-     document.getElementById("displayName").textContent = userProfile[0].displayName;
-     document.getElementById("username").textContent = "@" + userProfile[0].username;
+     document.getElementById("profile-pic-small").src = userProfile[0].pfp + `?t=${timestamp}`;
+     if(document.getElementById("displayName") != null && document.getElementById("username") != null) {
+         document.getElementById("displayName").textContent = userProfile[0].displayName;
+         document.getElementById("username").textContent = "@" + userProfile[0].username;
+     }
 }
 
 
@@ -503,7 +554,7 @@ async function signOut() { //start 4/25
         console.log("Signing out with global scope...");
 
         // Call Supabase signOut
-        const { error } = await supabase.auth.signOut();
+        const { error } = await supabase.auth.signOut({ scope: 'global' });
         if (error) {
             console.error("Supabase signOut error:", error.message);
         }
@@ -516,6 +567,7 @@ async function signOut() { //start 4/25
         console.log("Clearing all accessible cookies...");
         // Remove cookies (except HttpOnly)
         document.cookie.split(";").forEach((cookie) => {
+            console.log(cookie)
             document.cookie = cookie
                 .replace(/^ +/, "")
                 .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
@@ -531,4 +583,25 @@ async function signOut() { //start 4/25
     } catch (e) {
         console.error("Force sign-out failed:", e);
     }
+}
+
+function relinkStylesheet() {
+    console.log("Relinking stylesheet...");
+    const oldLink = document.querySelector('link[rel="stylesheet"]');
+    const newLink = document.createElement('link');
+
+    newLink.rel = 'stylesheet';
+    newLink.type = 'text/css';
+    newLink.href = 'style.css';
+
+    newLink.onload = () => {
+        oldLink.remove();
+        document.head.appendChild(newLink);
+    };
+
+    newLink.onerror = () => {
+        console.error('Error loading CSS file:', cssFilepath);
+    };
+
+    document.head.appendChild(newLink);
 }

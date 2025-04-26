@@ -380,4 +380,19 @@ hr{
 
 }
 
+#HomeBtn:hover{
+    background-color: #cc8277;
+}
 
+#profileMenuBtn:hover{
+    background-color: #cc9e74;
+}
+#signoutBtn:hover{
+    background-color: #ccb874;
+}
+#settingsBtn:hover{
+    background-color: #5da582;
+}
+#contactBtn:hover{
+    background-color: #5f87a6;
+}
