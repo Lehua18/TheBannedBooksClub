@@ -231,14 +231,10 @@ if(document.getElementById("logos") != null){
 
 //on screen pfp
 if(document.getElementById("profile-pic-small") != null){
-    updateData();
-    document.getElementById("profileBtn").addEventListener("click", async () => {
-        let session = await getSession();
-        console.log("Session",session);
-        let userProfile = await getUserProfile(session);
-        console.log("Profile?",userProfile);
-        goToProfile(await userProfile[0].id);
-    });
+     updateData(); //supposed to be await but not allowed?
+    // document.getElementById("profileBtn").addEventListener("click", async () => {
+    //   await showMenu();
+    // });
     // document.getElementById("profileBtn").addEventListener("mouseover", async () => {
     //     const hoverDiv = document.createElement("div");
     //
@@ -246,7 +242,50 @@ if(document.getElementById("profile-pic-small") != null){
 
     let timeout;
     let hoverDiv;
+    let state = {isLockedOpen: false}; // <--- NEW: tracks if menu is locked open
+    let proxy = new Proxy(state, { //fix 4/27
+        set(target, property, value) {
+            if (property === "isLockedOpen") { // Only react when "flag" is changed
+                let elements = getAllElementsWithClickListener();
+                console.log("ELEMENTS: ", elements);
+                if (value === true) {
+                    console.log("Flag is true! Running commands for TRUE...");
+                    elements.forEach(element => {
+                        if(element.id !== "logos" && element.id !== "discordLogo") {
+                            element.disabled = true;
+                        }
+                    });
+                } else if (value === false) {
+                    console.log("Flag is false! Running commands for FALSE...");
 
+                   elements.forEach(element => {
+                       element.disabled = false;
+                   })
+                }
+            }
+
+            target[property] = value; // Actually set the value
+            return true;
+        }
+    });
+    function getAllElementsWithClickListener() {
+        const allElements = document.getElementsByTagName('*');
+        const elementsWithListeners = [];
+
+        for (let i = 0; i < allElements.length; i++) {
+            const element = allElements[i];
+            const onclickAttribute = element.getAttribute('onclick');
+            const directOnClick = typeof element.onclick === 'function'; // Better than hasOwnProperty
+
+            if (onclickAttribute || directOnClick) {
+                elementsWithListeners.push(element);
+            }
+        }
+
+        return elementsWithListeners;
+    }
+
+    const elementsWithClickListener = getAllElementsWithClickListener();
     const showMenu = async () => {  //start 4/24
         if (!hoverDiv) {
             //hoverDiv properties
@@ -290,7 +329,11 @@ if(document.getElementById("profile-pic-small") != null){
 
             // Mouse listeners for hover-stay
             hoverDiv.addEventListener("mouseenter", () => clearTimeout(timeout));
-            hoverDiv.addEventListener("mouseleave", hideMenu);
+            hoverDiv.addEventListener("mouseleave", () => {
+                if(!proxy.isLockedOpen){
+                    hideMenu();
+                } clearTimeout(timeout);
+            });
 
             document.body.appendChild(hoverDiv);
 
@@ -310,16 +353,49 @@ if(document.getElementById("profile-pic-small") != null){
     };
     const hideMenu = () => {
         timeout = setTimeout(() => {
-            if (hoverDiv) {
+            if (hoverDiv && !proxy.isLockedOpen) { // <--- UPDATED
                 hoverDiv.remove();
                 hoverDiv = null;
             }
-        }, 75); // short delay so you can move between button and menu
+        }, 75);
     };
 
+
     const btn = document.getElementById("profileBtn");
-    btn.addEventListener("mouseenter", showMenu);
-    btn.addEventListener("mouseleave", hideMenu);
+    btn.addEventListener("mouseenter", async () => {
+        if(!proxy.isLockedOpen) await showMenu();
+    });
+    btn.addEventListener("mouseleave", () => {
+        if(!proxy.isLockedOpen) hideMenu();
+    });
+
+    const toggleMenuLock = async () => {
+        if (!hoverDiv) {
+            await showMenu();
+            proxy.isLockedOpen = true; // <--- Lock open after showing
+        } else if (proxy.isLockedOpen) {
+            hoverDiv.remove();
+            hoverDiv = null;
+            proxy.isLockedOpen = false; // <--- Unlock when clicked again
+        } else {
+            proxy.isLockedOpen = true; // <--- Lock it if it was open by hover
+        }
+    };
+
+    btn.addEventListener("click", toggleMenuLock);
+    document.addEventListener("click", (event) => {
+        const btn = document.getElementById("profileBtn");
+        if (
+            hoverDiv && proxy.isLockedOpen &&
+            !hoverDiv.contains(event.target) &&
+            !btn.contains(event.target)
+        ) {
+            hoverDiv.remove();
+            hoverDiv = null;
+            proxy.isLockedOpen = false;
+        }
+    });
+
 }
 
 async function clickBtn(buttonId, destination){
@@ -577,7 +653,7 @@ async function signOut() { //start 4/25
         const { data } = await supabase.auth.getSession();
         console.log("Session after full cleanup:", data.session); // Should be null
 
-        // Optional: Force reload to ensure all session state is reset
+        // Optional: Force reload to ensure all session proxy is reset
         location.reload(); // optional, but forces a memory reset
 
     } catch (e) {
