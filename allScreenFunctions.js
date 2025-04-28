@@ -329,6 +329,15 @@ if(document.getElementById("profile-pic-small") != null){
             hoverDiv.classList.add("vstack")
             hoverDiv.style.zIndex = "600";
             hoverDiv.style.border = "3px solid #000038";
+            let session = await supabase.auth.getSession();
+            if (!session) {
+                console.log("No active session found.");
+                // return;
+            }
+            let userProfile = await getUserProfile(session);
+            if ((await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]){
+                hoverDiv.style.borderColor = "dimgray";
+            }
             if(document.getElementById("profileBtn").offsetWidth > 150){
                 hoverDiv.style.width = `${document.getElementById("profileBtn").offsetWidth}px` ;
             }else{
@@ -355,6 +364,52 @@ if(document.getElementById("profile-pic-small") != null){
             <button id="settingsBtn" style="width: 85%; background-color: #83cea3 ">Settings</button>
             <button id="contactBtn" style="width: 85%; background-color: #80a9cb">Contact us!</button>
          `;
+            let buttons = hoverDiv.getElementsByTagName("button");
+            console.log("Button", buttons)
+            for(let i = 0; i < buttons.length; i++){ //finish 4/28
+                let bgColor = buttons[i].style.backgroundColor;
+                console.log("BgColor", bgColor);
+                //convert rbg to hsl
+                let red = bgColor.substring(bgColor.indexOf("(")+1, bgColor.indexOf(","));
+                bgColor = bgColor.substring(bgColor.indexOf(",")+1);
+                let green = bgColor.substring(0, bgColor.indexOf(","));
+                bgColor = bgColor.substring(bgColor.indexOf(",")+1);
+                let blue = bgColor.substring(0, bgColor.indexOf(")"));
+                console.log(red,green,blue);
+                let rprime = parseFloat(red)/255;
+                let gprime = parseFloat(green)/255;
+                let bprime = parseFloat(blue)/255;
+                let cmax = Math.max(rprime, gprime, bprime);
+                let cmin = Math.min(rprime, gprime, bprime);
+                let delta = cmax - cmin;
+                let h, s, l;
+                if(delta === 0){
+                    h = 0;
+                }else if(cmax === rprime){
+                    h = (60 * (((gprime-bprime)/delta)%6));
+                }else if(cmax === gprime){
+                    h = (60 * (((bprime-rprime)/delta) + 2));
+                }else if(cmax === bprime){
+                    h = (60 * (((rprime-gprime)/delta)+4));
+                }else{
+                    console.error("Error getting h value")
+                }
+                if(h !== null){
+                    h = Math.round(h);
+                }
+                l = (Math.round(10*((cmax+cmin)/2)))/10;
+
+                 if(delta === 0){
+                     s = 0
+                 }else{
+                     s = (delta/(1-Math.abs((2*l)-1)));
+                 }
+                 s = (Math.round(10*s))/10
+                 console.log(h,s,l);
+
+
+
+            }
             // document.getElementById("HomeBtn").addEventListener("mouseover", () =>{
             //     document.getElementById("HomeBtn").style.backgroundColor = "#cc8277";
             // });
@@ -372,9 +427,9 @@ if(document.getElementById("profile-pic-small") != null){
             document.body.appendChild(hoverDiv);
 
             //button clicks
-            let session = await getSession();
-            console.log("Session",session);
-            let userProfile = await getUserProfile(session);
+            // let session = await getSession();
+            // console.log("Session",session);
+            // let userProfile = await getUserProfile(session);
             console.log("Profile?",userProfile);
             await clickBtn("HomeBtn", "Home.html");
             await clickBtn("profileMenuBtn", "Profile.html?path=/"+userProfile[0].id);
@@ -450,6 +505,8 @@ async function clickBtn(buttonId, destination){
             })
         }
     }
+
+
 
  async function updateData(){
 
