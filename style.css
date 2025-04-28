@@ -111,8 +111,10 @@ button.darkMode{
 }
 button:hover{
     background-color: #d16c00;
+    /*filter: brightness(0.8);*/
     color: white;
 }
+
 button.darkMode:hover{
     background-color: #ffbe69;
 }

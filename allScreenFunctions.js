@@ -355,6 +355,9 @@ if(document.getElementById("profile-pic-small") != null){
             <button id="settingsBtn" style="width: 85%; background-color: #83cea3 ">Settings</button>
             <button id="contactBtn" style="width: 85%; background-color: #80a9cb">Contact us!</button>
          `;
+            // document.getElementById("HomeBtn").addEventListener("mouseover", () =>{
+            //     document.getElementById("HomeBtn").style.backgroundColor = "#cc8277";
+            // });
            // relinkStylesheet();
 
             // Mouse listeners for hover-stay
@@ -378,7 +381,7 @@ if(document.getElementById("profile-pic-small") != null){
             await clickBtn("signoutBtn", "Startup.html");
             // await clickBtn("signoutBtn");
             // await clickBtn("settingsBtn");
-            // await clickBtn("contactBtn");
+            await clickBtn("contactBtn", "mailto:bannedbooklover@outlook.com");
 
         }
     };
