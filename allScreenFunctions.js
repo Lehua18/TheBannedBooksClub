@@ -243,62 +243,92 @@ if(document.getElementById("profile-pic-small") != null){
     let timeout;
     let hoverDiv;
     let state = {isLockedOpen: false}; // <--- NEW: tracks if menu is locked open
-    let proxy = new Proxy(state, { //fix 4/27
-        set(target, property, value) {
-            if (property === "isLockedOpen") { // Only react when "flag" is changed
-                let elements = getAllElementsWithClickListener();
-                console.log("ELEMENTS: ", elements);
-                if (value === true) {
-                    console.log("Flag is true! Running commands for TRUE...");
-                    elements.forEach(element => {
-                        if(element.id !== "logos" && element.id !== "discordLogo") {
-                            element.disabled = true;
-                        }
-                    });
-                } else if (value === false) {
-                    console.log("Flag is false! Running commands for FALSE...");
+    let overlay = null; // We'll create it once and reuse it
 
-                   elements.forEach(element => {
-                       element.disabled = false;
-                   })
+    let proxy = new Proxy(state, {
+        set(target, property, value) {
+            if (property === "isLockedOpen") {
+               // let allowedDiv = [document.getElementById("logos"), document.getElementById("hoverDiv"), document.getElementById("discordLogo")]; // CHANGE this to your div's id
+
+                if (value === true) {
+                    console.log("Locking everything except allowedDiv!");
+
+                    // Create overlay if it doesn't exist
+                    if (!overlay) {
+                        overlay = document.createElement("div");
+                        overlay.style.position = "fixed";
+                        overlay.style.top = "0";
+                        overlay.style.left = "0";
+                        overlay.style.width = "100vw";
+                        overlay.style.height = "85vh";
+                        overlay.style.backgroundColor = "rgba(0, 0, 0, 0)"; // fully transparent
+                        overlay.style.zIndex = "500"; // on top of everything
+                        overlay.style.pointerEvents = "auto"; // it will block clicks
+                        document.body.appendChild(overlay);
+                    }
+
+                    overlay.style.display = "block";
+
+                    // Allow clicks through the allowed div
+                    // if (allowedDiv) {
+                    //     console.log("working on allowedDiv!");
+                    //     for(let i = 0; i < allowedDiv.length; i++) {
+                    //         allowedDiv[i].style.position = "relative"; // Make sure it can have z-index
+                    //         allowedDiv[i].style.zIndex = "10000"; // Higher than the overlay
+                    //     }
+                    // }
+                } else if (value === false) {
+                    console.log("Unlocking everything!");
+
+                    if (overlay) {
+                        overlay.style.display = "none";
+                    }
+
+                    // if (allowedDiv) {
+                    //     for(let i = 0; i < allowedDiv.length; i++){
+                    //         allowedDiv[0].style.zIndex = ""; // Reset
+                    //     }
+                    // }
                 }
             }
 
-            target[property] = value; // Actually set the value
+            target[property] = value;
             return true;
         }
     });
-    function getAllElementsWithClickListener() {
-        const allElements = document.getElementsByTagName('*');
-        const elementsWithListeners = [];
 
-        for (let i = 0; i < allElements.length; i++) {
-            const element = allElements[i];
-            const onclickAttribute = element.getAttribute('onclick');
-            const directOnClick = typeof element.onclick === 'function'; // Better than hasOwnProperty
+    // function getAllElementsWithClickListener() {
+    //     const allElements = document.getElementsByTagName('*');
+    //     const elementsWithListeners = [];
+    //
+    //     for (let i = 0; i < allElements.length; i++) {
+    //         const element = allElements[i];
+    //         const onclickAttribute = element.getAttribute('onclick');
+    //         const directOnClick = typeof element.onclick === 'function'; // Better than hasOwnProperty
+    //
+    //         if (onclickAttribute || directOnClick) {
+    //             elementsWithListeners.push(element);
+    //         }
+    //     }
+    //
+    //     return elementsWithListeners;
+    // }
 
-            if (onclickAttribute || directOnClick) {
-                elementsWithListeners.push(element);
-            }
-        }
-
-        return elementsWithListeners;
-    }
-
-    const elementsWithClickListener = getAllElementsWithClickListener();
+    // const elementsWithClickListener = getAllElementsWithClickListener();
     const showMenu = async () => {  //start 4/24
         if (!hoverDiv) {
             //hoverDiv properties
             hoverDiv = document.createElement("div");
             hoverDiv.id = "hoverDiv";
-            hoverDiv.style.backgroundColor = "green";
+            hoverDiv.style.backgroundColor = "#8374a0";
             hoverDiv.style.color = "white";
             hoverDiv.style.height = "250px";
             hoverDiv.style.position = "absolute";
             hoverDiv.style.borderRadius = "10px";
             hoverDiv.style.marginTop = "5px"
             hoverDiv.classList.add("vstack")
-            hoverDiv.style.zIndex = "2";
+            hoverDiv.style.zIndex = "600";
+            hoverDiv.style.border = "3px solid #000038";
             if(document.getElementById("profileBtn").offsetWidth > 150){
                 hoverDiv.style.width = `${document.getElementById("profileBtn").offsetWidth}px` ;
             }else{
@@ -331,8 +361,9 @@ if(document.getElementById("profile-pic-small") != null){
             hoverDiv.addEventListener("mouseenter", () => clearTimeout(timeout));
             hoverDiv.addEventListener("mouseleave", () => {
                 if(!proxy.isLockedOpen){
+                    console.log("check")
                     hideMenu();
-                } clearTimeout(timeout);
+                }
             });
 
             document.body.appendChild(hoverDiv);
@@ -401,7 +432,7 @@ if(document.getElementById("profile-pic-small") != null){
 async function clickBtn(buttonId, destination){
     console.log("Button id", buttonId);
         console.log("clicked");
-        if(buttonId != null && buttonId !== undefined) {
+        if(document.getElementById(buttonId) != null && document.getElementById(buttonId) !== undefined) {
             document.getElementById(buttonId).addEventListener("click", async () => {
                 if (buttonId === "signoutBtn") {
                     console.log("signing out");
@@ -409,6 +440,10 @@ async function clickBtn(buttonId, destination){
                 }
                 window.location.href = destination;
 
+            })
+        } else{
+            document.addEventListener("DOMContentLoaded", async () => {
+                await clickBtn(buttonId, destination);
             })
         }
     }
@@ -659,25 +694,4 @@ async function signOut() { //start 4/25
     } catch (e) {
         console.error("Force sign-out failed:", e);
     }
-}
-
-function relinkStylesheet() {
-    console.log("Relinking stylesheet...");
-    const oldLink = document.querySelector('link[rel="stylesheet"]');
-    const newLink = document.createElement('link');
-
-    newLink.rel = 'stylesheet';
-    newLink.type = 'text/css';
-    newLink.href = 'style.css';
-
-    newLink.onload = () => {
-        oldLink.remove();
-        document.head.appendChild(newLink);
-    };
-
-    newLink.onerror = () => {
-        console.error('Error loading CSS file:', cssFilepath);
-    };
-
-    document.head.appendChild(newLink);
 }
