@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Homemade+Apple&family=Lexend:wght@100..900&family=Ultra&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/31fe8207f2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="hstack header">
+    <button id="backBtn" class="backBtn" style="margin-left: 30px">< Back</button>
+    <div id = "profileBtn" class="hstack" style="position: absolute; right: 0; margin-right: 30px">
+        <img src="Images/profilePic.png" id="profile-pic-small" class="circularImage" style="border-color: #000038; border-width: 2px; border-style: solid; width: 45px; height: 45px" alt="profile picture">
+        <div class = vstack>
+            <h2 id="displayName" class="closeText" style="font-size: large; font-family: Lexend, sans-serif; font-weight: 600">TestName</h2>
+            <h3 id="username" class="closeText" style="font-size: medium; font-family: Lexend, sans-serif; font-weight: 300">@testUser</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
+<div class="hstack" style="margin-top: 15px">
+    <img src="Images/profilePic.png" id="profile-pic" class="circularImage" style="border-width: 2px; border-color: #000038; border-style: solid; width: 65px; height: 65px" alt="Profile picture">
+    <div class="vstack" style="margin-right: 10px">
+        <h3 id="displayNameMember" class="closeText" style=" font-family: Boldonse, serif; font-size: x-large; font-weight: normal; padding: 0">TestName</h3>
+        <h4 id="usernameMember" class="closeText" style="font-family: Lexend, sans-serif; font-weight: normal; padding: 0; font-size: 17px ">@testUser</h4>
+        <p id="dateJoined" class="closeText" style="font-size: 13px; ">Joined January 22, 2025</p>
+    </div>
+    <input type="image" class="hoverable" src="Images/editPencilTransparentBg.png" id="editPencil" width="40px" height="40px" alt="edit pencil" style="visibility: hidden">
+</div>
+    <div class="hstack">
+        <h2 style="font-family: Lexend, sans-serif; font-size: 24px; font-weight: 400">Dark Mode</h2>
+        <label class="toggle-switch">
+            <input id="darkModeSlider" type="checkbox" />
+            <span class="slider"></span>
+        </label>
+        <h4 id = "darkModeOnOff" style="margin-left: 15px; font-family: Lexend, sans-serif; font-size: 24px; font-weight: 400">Off</h4>
+    </div>
+    <h2 id="saveMsg" style="font-family: Lexend, sans-serif; font-weight: 325; font-size: 18px; visibility: hidden" >Please click save to save your changes</h2>
+    <button id="submitSettings" style="margin-top: 0; width: fit-content">Save Changes</button>
+
+</div>
+
+<div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex; height: max-content">
+    <div id="logos" class="hstack" style="width: 100%; position: relative;">
+        <div class="hstack" style="position: absolute; left: 0; margin: 0">
+            <img src="Images/logo.png" class="circularImage" style="border-color: #000038; border-width: 2px; border-style: solid; width: 65px; height: 65px" alt="Logo">
+            <div class="vstack">
+                <h3 id="siteName" class="closeText" style="font-family: 'Homemade Apple', serif; text-wrap: auto">The Banned Books Club</h3>
+                <i id="dateEst" class="closeText">Est. 2024</i>
+            </div>
+        </div>
+    </div>
+    <input type="image" id="discordLogo" src="Images/discordBlack.png" width="221px" height="42px" style="position: absolute; right: 0; margin-right: 30px;" alt="Discord">
+
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const {createClient} = window.supabase;
+    const supabaseURL = "https://kjwtprjrlzyvthlfbgrq.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtqd3RwcmpybHp5dnRobGZiZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1ODk5MDEsImV4cCI6MjA1NDE2NTkwMX0.4wA0k6qly4LPUYae2bQz1To1SImnS00WyB9n3zb6ejE";
+    const supabase = createClient(supabaseURL, supabaseAnonKey);
+</script>
+<script src="Data.js"></script>
+<script src="allScreenFunctions.js"></script>
+<script src="settings.js"></script>
+
+</html>

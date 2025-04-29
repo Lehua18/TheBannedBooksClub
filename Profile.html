@@ -74,6 +74,7 @@
     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtqd3RwcmpybHp5dnRobGZiZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1ODk5MDEsImV4cCI6MjA1NDE2NTkwMX0.4wA0k6qly4LPUYae2bQz1To1SImnS00WyB9n3zb6ejE";
     const supabase = createClient(supabaseURL, supabaseAnonKey);
 </script>
+<script src="Data.js"></script>
 <script src="allScreenFunctions.js"></script>
 
 <script>
@@ -104,7 +105,7 @@
             document.getElementById("profileBtn").style.visibility = "visible";
         }else{
             document.getElementById("editPencil").style.visibility = "visible";
-            document.getElementById("profileBtn").style.visibility = "hidden";
+            document.getElementById("profileBtn").style.visibility = "visible";
         }
         console.log("Profile Member:", profileMember);
         document.getElementById("displayNameMember").textContent = profileMember.data[0].displayName;
@@ -126,5 +127,5 @@
 
     });
 </script>
-<script src="Data.js"></script>
+
 </html>

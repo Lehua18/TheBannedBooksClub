@@ -382,19 +382,66 @@ hr{
 
 }
 
-#HomeBtn:hover{
-    background-color: #cc8277;
+/*#HomeBtn:hover{*/
+/*    background-color: #cc8277;*/
+/*}*/
+
+/*#profileMenuBtn:hover{*/
+/*    background-color: #cc9e74;*/
+/*}*/
+/*#signoutBtn:hover{*/
+/*    background-color: #ccb874;*/
+/*}*/
+/*#settingsBtn:hover{*/
+/*    background-color: #5da582;*/
+/*}*/
+/*#contactBtn:hover{*/
+/*    background-color: #5f87a6;*/
+/*}*/
+/* Container for the toggle */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
 }
 
-#profileMenuBtn:hover{
-    background-color: #cc9e74;
+/* Hide default checkbox */
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
-#signoutBtn:hover{
-    background-color: #ccb874;
+
+/* The track */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 24px;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.3s;
 }
-#settingsBtn:hover{
-    background-color: #5da582;
+
+/* The circular slider */
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
 }
-#contactBtn:hover{
-    background-color: #5f87a6;
+
+/* Toggled state */
+.toggle-switch input:checked+.slider {
+    background-color: #4caf50;
+}
+
+.toggle-switch input:checked+.slider::before {
+    transform: translateX(26px);
 }

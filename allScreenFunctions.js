@@ -118,8 +118,8 @@ window.addEventListener("load", async() =>{
             // return;
         }
         let userProfile = await getUserProfile(session);
-        console.log("MODE", (await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]);
-        if ((await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]) {
+        console.log("MODE", (await supabase.from("userRecords").select("darkMode").eq("id", userProfile[0].id).single()).data["darkMode"]);
+        if ((await supabase.from("userRecords").select("darkMode").eq("id", userProfile[0].id).single()).data["darkMode"]) {
             for (let i = 0; i < allElements.length; i++) {
                 allElements[i].classList.add('darkMode');
             }
@@ -335,7 +335,7 @@ if(document.getElementById("profile-pic-small") != null){
                 // return;
             }
             let userProfile = await getUserProfile(session);
-            if ((await supabase.from("userRecords").select("dark-mode").eq("id", userProfile[0].id).single()).data["dark-mode"]){
+            if ((await supabase.from("userRecords").select("darkMode").eq("id", userProfile[0].id).single()).data["darkMode"]){
                 hoverDiv.style.borderColor = "dimgray";
             }
             if(document.getElementById("profileBtn").offsetWidth > 150){
@@ -410,7 +410,7 @@ if(document.getElementById("profile-pic-small") != null){
                  console.log(h,s,l);
                  buttons[i].addEventListener("mouseover", () => {
                      console.log("added for button", i)
-                     buttons[i].style.setProperty( 'background-color', `hsl(${h},${s/2}%, ${l/2}%)`);
+                     buttons[i].style.setProperty( 'background-color', `hsl(${h},${3*s/4}%, ${3*l/4}%)`);
                  });
                  buttons[i].addEventListener("mouseout", () => {
                      console.log("out added for button", i)
@@ -445,7 +445,7 @@ if(document.getElementById("profile-pic-small") != null){
             await clickBtn("profileMenuBtn", "Profile.html?path=/"+userProfile[0].id);
             await clickBtn("signoutBtn", "Startup.html");
             // await clickBtn("signoutBtn");
-            // await clickBtn("settingsBtn");
+            await clickBtn("settingsBtn", "settings.html");
             await clickBtn("contactBtn", "mailto:bannedbooklover@outlook.com");
 
         }
