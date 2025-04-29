@@ -379,8 +379,10 @@ if(document.getElementById("profile-pic-small") != null){
                 let rprime = parseFloat(red)/255;
                 let gprime = parseFloat(green)/255;
                 let bprime = parseFloat(blue)/255;
+                console.log(rprime, gprime, bprime);
                 let cmax = Math.max(rprime, gprime, bprime);
                 let cmin = Math.min(rprime, gprime, bprime);
+                console.log(cmax, cmin);
                 let delta = cmax - cmin;
                 let h, s, l;
                 if(delta === 0){
@@ -395,17 +397,25 @@ if(document.getElementById("profile-pic-small") != null){
                     console.error("Error getting h value")
                 }
                 if(h !== null){
-                    h = Math.round(h);
+                    h = Math.floor(h);
                 }
-                l = (Math.round(10*((cmax+cmin)/2)))/10;
+                l = Math.round(1000*((cmax+cmin)/2))/10;
 
                  if(delta === 0){
                      s = 0
                  }else{
-                     s = (delta/(1-Math.abs((2*l)-1)));
+                     s = Math.floor((delta/(1-Math.abs((2*(l/100))-1)))*100);
                  }
-                 s = (Math.round(10*s))/10
+                 // s = (Math.round(10*s))/10
                  console.log(h,s,l);
+                 buttons[i].addEventListener("mouseover", () => {
+                     console.log("added for button", i)
+                     buttons[i].style.setProperty( 'background-color', `hsl(${h},${s/2}%, ${l/2}%)`);
+                 });
+                 buttons[i].addEventListener("mouseout", () => {
+                     console.log("out added for button", i)
+                     buttons[i].style.setProperty('background-color', `hsl(${h},${s}%, ${l}%)`);
+                 })
 
 
 
