@@ -192,8 +192,15 @@ async function resize(){
     //     for(let i = 0; i < texts.length; i++){}
     // }
 }
-window.addEventListener("resize", async() =>{
-   await resize();
+let resizeTimeout2;
+
+window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout2);
+    resizeTimeout2 = setTimeout(() => {
+        requestAnimationFrame(() => {
+            resize(); // no await here
+        });
+    }, 200);
 });
 
 // window.addEventListener('beforeunload', async() => {
@@ -244,6 +251,7 @@ if(document.getElementById("profile-pic-small") != null){
     let hoverDiv;
     let state = {isLockedOpen: false}; // <--- NEW: tracks if menu is locked open
     let overlay = null; // We'll create it once and reuse it
+    let isMenuReady = false;
 
     let proxy = new Proxy(state, {
         set(target, property, value) {
@@ -317,6 +325,7 @@ if(document.getElementById("profile-pic-small") != null){
     // const elementsWithClickListener = getAllElementsWithClickListener();
     const showMenu = async () => {  //start 4/24
         if (!hoverDiv) {
+            isMenuReady = false;
             //hoverDiv properties
             hoverDiv = await document.createElement("div");
             hoverDiv.id = "hoverDiv";
@@ -418,7 +427,7 @@ if(document.getElementById("profile-pic-small") != null){
                  })
 
 
-
+                isMenuReady = true
             }
             // document.getElementById("HomeBtn").addEventListener("mouseover", () =>{
             //     document.getElementById("HomeBtn").style.backgroundColor = "#cc8277";
@@ -427,10 +436,10 @@ if(document.getElementById("profile-pic-small") != null){
 
             // Mouse listeners for hover-stay
             hoverDiv.addEventListener("mouseenter", () => clearTimeout(timeout));
-            hoverDiv.addEventListener("mouseleave", () => {
+            hoverDiv.addEventListener("mouseleave", async () => {
                 if(!proxy.isLockedOpen){
                     console.log("check")
-                    hideMenu();
+                    await hideMenu();
                 }
             });
 
@@ -450,13 +459,20 @@ if(document.getElementById("profile-pic-small") != null){
 
         }
     };
-    const hideMenu = () => {
-        timeout = setTimeout(() => {
-            if (hoverDiv && !proxy.isLockedOpen) { // <--- UPDATED
-                hoverDiv.remove();
-                hoverDiv = null;
+
+    const hideMenu = async() => {
+        const waitUntilReady = setInterval(() => {
+            if (isMenuReady) {
+                clearInterval(waitUntilReady);
+                timeout = setTimeout(() => {
+                    if (hoverDiv && !proxy.isLockedOpen) {
+                        hoverDiv.remove();
+                        hoverDiv = null;
+                        isMenuReady = false;
+                    }
+                }, 75);
             }
-        }, 75);
+        }, 10); // check every 10ms
     };
 
 
@@ -464,8 +480,8 @@ if(document.getElementById("profile-pic-small") != null){
     btn.addEventListener("mouseenter", async () => {
         if(!proxy.isLockedOpen) await showMenu();
     });
-    btn.addEventListener("mouseleave", () => {
-        if(!proxy.isLockedOpen) hideMenu();
+    btn.addEventListener("mouseleave", async() => {
+        if(!proxy.isLockedOpen) await hideMenu();
     });
 
     const toggleMenuLock = async () => {
@@ -718,7 +734,17 @@ function getVisualLineCount(textarea) { //Won't shrink for some reason?
     console.log('lineheight',lineHeight);
     const height = textarea.scrollHeight;
     console.log('height',height);
+    // const nonEmptyLines = textarea.value.split('\n').filter(line => line.trim() !== '');
+    // console.log("Non-empty lines", nonEmptyLines);
     let numLines = Math.floor(height/lineHeight);
+    for (let i = 0; i < numLines; i++) {
+        let testText = document.createElement('span');
+        testText.style.visibility = "hidden";
+        testText.style.width = "75%";
+
+
+        //need full line
+    }
     let lastChar = textarea.value.substring(textarea.value.length-1);
     console.log("LAST CHAR",lastChar);
 
