@@ -87,7 +87,22 @@ window.addEventListener("load",async() => {
         console.log("No active session found.");
         // return;
     }
+    let userProfile = await getUserProfile(session);
+    console.log("Profile?",userProfile);
+
+    //mod?
+    if(currentPage === "NewsAndAnnouncements" || currentPage === "BookOfTheMonth"){
+        if(!userProfile[0].moderator){
+            document.getElementById("addPost").style.visibility = "hidden";
+        }else{
+            document.getElementById("addPost").style.visibility = "visible";
+        }
+
+    }else{
+        document.getElementById("addPost").style.visibility = "visible";
+    }
     // let userProfile = await getUserProfile(session);
+    //get posts
     const table = await supabase.from('forumPosts').select('*')
     console.log('table', table);
     console.log("Count", (await supabase.from('forumPosts').select('*',{ count: 'exact', head: true})).count)

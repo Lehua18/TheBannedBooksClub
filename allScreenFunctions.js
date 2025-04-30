@@ -15,8 +15,8 @@
 window.addEventListener( "DOMContentLoaded", function() { //Might not work if user gets link from other website (cookies?) (make new array with session storage?) --> see line 33-ish
     console.log("Window history:", window.history)
     console.log("document referrer", document.referrer)
-    if(window.history.length === 1) {
-        alert("Press the logo at the bottom of the screen to exit immediately.")
+    if(sessionStorage.getItem("pageBack") == null) {
+        alert("Press the logo at the bottom of the screen or the escape key to exit immediately.")
     }
 });
 window.addEventListener("load", async() =>{
@@ -223,7 +223,7 @@ if(document.getElementById("discordLogo") != null){
 }
 if(document.getElementById("logos") != null){
     document.getElementById("logos").addEventListener("click", async () => {
-        window.open("https://www.google.com/", '_self').focus() //check default engine?
+        window.open("https://weather.com/", '_self').focus() //check default engine?
     })
 }
 
@@ -318,7 +318,7 @@ if(document.getElementById("profile-pic-small") != null){
     const showMenu = async () => {  //start 4/24
         if (!hoverDiv) {
             //hoverDiv properties
-            hoverDiv = document.createElement("div");
+            hoverDiv = await document.createElement("div");
             hoverDiv.id = "hoverDiv";
             hoverDiv.style.backgroundColor = "#8374a0";
             hoverDiv.style.color = "white";
@@ -765,3 +765,11 @@ async function signOut() { //start 4/25
         console.error("Force sign-out failed:", e);
     }
 }
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        e.preventDefault();
+        console.log('Escape key pressed!');
+        window.open("https://weather.com/", '_self').focus();
+    }
+});
