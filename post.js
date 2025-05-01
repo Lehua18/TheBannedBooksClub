@@ -14,8 +14,8 @@ if(postId === null){
 
 window.addEventListener("load",async() => {
     await loadAllData();
-    if(getVisualLineCount(reply)<5){
-        reply.rows = getVisualLineCount(reply);
+    if(getVisualLineCount(reply,5)<5){
+        reply.rows = getVisualLineCount(reply,5);
         reply.style.height = reply.rows*21+'px';
     }else{
         console.log('elsed')
@@ -180,9 +180,9 @@ document.getElementById("submitBtn").addEventListener('click', async() =>{
 
 const reply = document.getElementById('commentTextBox');
 reply.addEventListener('input', ()=>{
-    console.log("COUNT", getVisualLineCount(reply));
-    if(getVisualLineCount(reply)<5){
-        reply.rows = getVisualLineCount(reply);
+    console.log("COUNT", getVisualLineCount(reply,5));
+    if(getVisualLineCount(reply,5)<5){
+        reply.rows = getVisualLineCount(reply,5);
         reply.style.height = reply.rows*21+'px';
     }else{
         console.log('elsed')

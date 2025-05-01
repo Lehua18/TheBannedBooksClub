@@ -51,8 +51,8 @@ window.onload = async() => { //specify for profile vs edit profile
         let dateInfo = await formatTimestamp(userProfile[0].created_at);
         document.getElementById("dateJoined").textContent = "Joined "+dateInfo.monthStr + " " +dateInfo.day +", "+dateInfo.year;
         const bioEdit = document.getElementById('bioEdit');
-        if(getVisualLineCount(bioEdit)<10){
-            bioEdit.rows = getVisualLineCount(bioEdit);
+        if(getVisualLineCount(bioEdit, 10)<10){
+            bioEdit.rows = getVisualLineCount(bioEdit,10);
             bioEdit.style.height = bioEdit.scrollHeight+'px';
         }else{
             bioEdit.rows = 10;
@@ -374,9 +374,9 @@ async function base64ToFile(base64String, filename, mimeType) {
 
 const bioEdit = document.getElementById('bioEdit');
 bioEdit.addEventListener('keydown', ()=>{
-    console.log("COUNT", getVisualLineCount(bioEdit));
-    if(getVisualLineCount(bioEdit)<10){
-        bioEdit.rows = getVisualLineCount(bioEdit);
+    console.log("COUNT", getVisualLineCount(bioEdit,10));
+    if(getVisualLineCount(bioEdit,10)<10){
+        bioEdit.rows = getVisualLineCount(bioEdit,10);
         bioEdit.style.height = bioEdit.rows*21+'px';
     }else{
         console.log('elsed')

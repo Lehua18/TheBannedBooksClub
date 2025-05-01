@@ -68,7 +68,7 @@ window.addEventListener("load", async() =>{
         console.log("History",pageBack);
         let lastPage = pageBack[pageBack.length - 2];
         console.log("History last page",lastPage);
-        if (((!lastPage.includes("Signup") && !lastPage.includes("Login")) || (window.location.href.includes("Signup") || window.location.href.includes("Login"))) && !lastPage.includes("EditProfile")) { //window.history? (gets referrer, which may not be actual last page)
+        if (((!lastPage.includes("Signup") && !lastPage.includes("Login")) || (window.location.href.includes("Signup") || window.location.href.includes("Login"))) && !lastPage.includes("EditProfile") && !lastPage.includes("EditPost")) { //window.history? (gets referrer, which may not be actual last page)
             document.getElementById("backBtn").addEventListener("click", async () => {
                 console.log("Historied")
                 pageBack = pageBack.slice(0, -1);
@@ -727,29 +727,135 @@ async function formatTimestamp(timestamp) {
     }
 }
 
-function getVisualLineCount(textarea) { //Won't shrink for some reason?
+function getVisualLineCount(textarea, paramater) { //Won't shrink for some reason?
+//     // const style = window.getComputedStyle(textarea);
+//     // console.log('Style',style)
+//     // const lineHeight = parseFloat(textarea.style.lineHeight);
+//     // console.log('lineheight',lineHeight);
+//     // const height = textarea.scrollHeight;
+//     // console.log('height',height);
+//     // const nonEmptyLines = textarea.value.split('\n').filter(line => line.trim() !== '');
+//     // console.log("Non-empty lines", nonEmptyLines);
+//     // let numLines = Math.floor(height/lineHeight);
+//     // for (let i = 0; i < numLines; i++) {
+//
+//         let text = textarea.value;
+//         let charArray = [];
+//         let length = textarea.value.length;
+//         for (let j = 0; j < length; j++) {
+//             charArray.push(text.substring(0,1));
+//             text = text.substring(1);
+//         }
+//         let k = 0;
+//         let done = false;
+//         let lines = [];
+//         while(!done) {
+//             let endOfLine = false;
+//             let testText = document.createElement('span');
+//             testText.style.visibility = "hidden";
+//             testText.style.width = textarea.style.width;
+//             testText.textContent = "";
+//             while (!endOfLine) {
+//                 if (k >= charArray.length) {
+//                     endOfLine = true;
+//                 }else{
+//                     testText.textContent += charArray[k];
+//                     while(testText.clientWidth < testText.scrollWidth) {
+//                         endOfLine = true;
+//                         testText.substring(0,testText.textContent.length -2);
+//                         k--;
+//                     }
+//                     if(endOfLine && testText.textContent.indexOf(" ") !== -1) {
+//                         let additionalText = testText.textContent.substring(testText.textContent.lastIndexOf(" ")+1);
+//                         testText.textContent = testText.textContent.substring(0, testText.textContent.lastIndexOf(" ") - 1);
+//                         k -= additionalText.length;
+//                     }
+//                 }
+//             }
+//             lines.push(testText.textContent);
+//             if(k >= charArray.length) {
+//                 done = true;
+//             }
+//         }
+//         console.log(lines);
+// //
+//     //
+//     //
+//     //     need full line
+//     // }
+//     let lastChar = textarea.value.substring(textarea.value.length-1);
+//     console.log("LAST CHAR",lastChar);
+//
+//    return lines.length;
     const style = window.getComputedStyle(textarea);
-    console.log('Style',style)
-    const lineHeight = parseFloat(textarea.style.lineHeight);
-    console.log('lineheight',lineHeight);
+    const lineHeight = parseFloat(style.lineHeight);
+    // const style = window.getComputedStyle(textarea);
     const height = textarea.scrollHeight;
     console.log('height',height);
-    // const nonEmptyLines = textarea.value.split('\n').filter(line => line.trim() !== '');
-    // console.log("Non-empty lines", nonEmptyLines);
     let numLines = Math.floor(height/lineHeight);
-    for (let i = 0; i < numLines; i++) {
-        let testText = document.createElement('span');
-        testText.style.visibility = "hidden";
-        testText.style.width = "75%";
-
-
-        //need full line
+    if (!lineHeight || isNaN(lineHeight)) {
+        console.warn("Could not determine line height");
+        return 0;
     }
-    let lastChar = textarea.value.substring(textarea.value.length-1);
-    console.log("LAST CHAR",lastChar);
+    console.log("numLines", numLines);
+// if(numLines>= paramater) {
+    const div = document.createElement('div');
+    div.style.position = 'absolute';
+    div.style.visibility = 'hidden';
+    div.style.whiteSpace = 'pre-wrap';
+    div.style.wordBreak = 'break-word';
+    div.style.boxSizing = style.boxSizing;
+    div.style.padding = style.padding;
+    div.style.width = style.width;
+    div.style.font = style.font;
+    div.style.lineHeight = style.lineHeight;
+    div.style.letterSpacing = style.letterSpacing;
+    div.style.border = style.border;
 
-    return numLines;
+    document.body.appendChild(div);
+
+    let totalLines = 0;
+    // const rawLines = textarea.value.split('\n');
+
+    const rawLines = textarea.value.split('\n');
+
+// Don't trim user-entered blank lines — keep all input lines.
+    const lines = rawLines;
+
+// But after counting, trim wrapped lines that are just visual overflow (empty-looking).
+    let lastNonWhitespaceIndex = lines.length - 1;
+    while (lastNonWhitespaceIndex >= 0 && lines[lastNonWhitespaceIndex].trim() === '') {
+        lastNonWhitespaceIndex--;
+    }
+    const visibleLineCount = lines.reduce((acc, line, index) => {
+        div.textContent = line || ' ';
+        const height = div.scrollHeight;
+        const wrappedLines = Math.round(height / lineHeight);
+
+        // Keep all wrapped lines if they were entered by the user (even blank ones)
+        // But trim trailing visual-only wrapped lines beyond last meaningful content
+        if (index > lastNonWhitespaceIndex && line.trim() === '') {
+            return acc; // skip trailing blank lines
+        }
+
+        return acc + wrappedLines;
+    }, 0);
+
+
+    lines.forEach(line => {
+        div.textContent = line || ' '; // Ensure even empty lines take up space
+        const height = div.scrollHeight;
+        const linesInBlock = Math.round(height / lineHeight);
+        totalLines += linesInBlock;
+    })
+
+    document.body.removeChild(div);
+    return totalLines;
+// }else{
+//     return numLines;
+// }
 }
+
 
 
  function goToProfile(userId){

@@ -6,13 +6,13 @@ const supabase = createClient(supabaseURL, supabaseAnonKey);
 const currentPage = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("."));
 let previousPage = localStorage.getItem('pageLast')
 window.addEventListener('load', ()=>{
-    console.log("COUNT", getVisualLineCount(contentEdit));
-    if(getVisualLineCount(contentEdit)<10){
-        contentEdit.rows = getVisualLineCount(contentEdit);
+    console.log("COUNT", getVisualLineCount(contentEdit,5));
+    if(getVisualLineCount(contentEdit,5)<5){
+        contentEdit.rows = getVisualLineCount(contentEdit,5);
         contentEdit.style.height = contentEdit.rows*21+'px';
     }else{
         console.log('elsed')
-        contentEdit.rows = 10;
+        contentEdit.rows = 5;
         contentEdit.style.height = '210px';
         //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
     }
@@ -47,9 +47,9 @@ contentEdit.addEventListener('input', ()=>{
     // const value = contentEdit.value;
     // contentEdit.value = '';
     // contentEdit.value = value;
-    console.log("COUNT", getVisualLineCount(contentEdit));
-    if(getVisualLineCount(contentEdit)<5){
-        contentEdit.rows = getVisualLineCount(contentEdit);
+    console.log("COUNT", getVisualLineCount(contentEdit,5));
+    if(getVisualLineCount(contentEdit,5)<5){
+        contentEdit.rows = getVisualLineCount(contentEdit,5);
         contentEdit.style.height = contentEdit.rows*21+'px';
     }else{
         console.log('elsed')

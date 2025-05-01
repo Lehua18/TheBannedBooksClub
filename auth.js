@@ -62,7 +62,9 @@ signupBtn?.addEventListener("click",async () => {
         document.getElementById("error-msg").textContent = "This username already exists. Please choose a different one.";
     }else if(await checkForDuplicates("displayName", displayName)) {
         document.getElementById("error-msg").textContent = "This display name already exists. Please choose a different one.";
-    }else{
+    }else if(!isValid(username)){
+        document.getElementById("error-msg").textContent = "Please only include numbers, letters, and the characters ! - _ . * ' () in your username";
+    }else {
         //MUST CHECK FOR DUPLICATES PRIOR TO SIGNUP
     const{error: signupError, user} = await supabase.auth.signUp({email, password});
     //console.log(user);
@@ -135,6 +137,17 @@ async function checkForDuplicates(columnName, enteredValue){
         }
     }
     return isDuplicate;
+}
+
+function isValid(enteredValue){
+    let isValid = true;
+    for(let i=0; i<enteredValue.length; i++){
+        let charCode = enteredValue.charCodeAt(i);
+        if((charCode !== 32) && (charCode !== 33) && !(charCode >=39 && charCode<=42) && (charCode !== 45) && (charCode !== 46) && !(charCode>=48 && charCode<=57) && !(charCode>=65 && charCode<=90) && (charCode !== 95) && !(charCode>=97 && charCode<=122)){
+         isValid = false;
+        }
+    }
+    return isValid;
 }
 
 //
