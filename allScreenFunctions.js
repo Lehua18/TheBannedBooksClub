@@ -470,7 +470,7 @@ if(document.getElementById("profile-pic-small") != null){
                         hoverDiv = null;
                         isMenuReady = false;
                     }
-                }, 75);
+                }, 100);
             }
         }, 10); // check every 10ms
     };
