@@ -905,3 +905,8 @@ document.addEventListener('keydown', (e) => {
         window.open("https://weather.com/", '_self').focus();
     }
 });
+
+function purifyUserInput(userInput){
+    //need to fix
+    return userInput;
+}

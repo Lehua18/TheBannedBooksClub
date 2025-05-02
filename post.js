@@ -46,9 +46,11 @@ async function loadAllData(){
         let postInfo = await supabase.from('forumPosts').select('*').eq('id', postId);
     console.log("post info",postInfo);
     const title = postInfo.data[0].title;
-    document.getElementById("postTitle").innerHTML = title + " | The Banned Books Club";
-    document.getElementById("title").innerHTML = title;
-    document.getElementById("postText").innerHTML = postInfo.data[0].text;
+    document.getElementById("postTitle").innerHTML = purifyUserInput(title) + " | The Banned Books Club";
+    document.getElementById("title").innerHTML = purifyUserInput(title);
+    document.getElementById("postText").innerHTML = purifyUserInput(postInfo.data[0].text);
+    // const clean = DOMPurify.sanitize('<b>hello there</b>');
+    // console.log('Purified?',clean);
    // let userProfile = await getUserProfile(session);
    //  const originalPoster = await supabase.from(previousPage).select('originalPoster').eq('id', postId);
     const originalPosterData = await supabase.from("userRecords").select('*').eq('username', postInfo.data[0].originalPoster);
@@ -115,6 +117,10 @@ async function loadAllData(){
     //your comment has been posted pop up?
 }
 async function loadComment(image, content, author, i, replies, id, dateInfo,memberUsername) {
+    author = purifyUserInput(author);
+    content = purifyUserInput(content);
+    memberUsername = purifyUserInput(memberUsername);//can member username even be used for malicious purposes w/ char restrictions?
+    console.log(author, content);
     const postDiv = document.createElement("div");
     // postDiv.classList.add("replies");
     postDiv.classList.add("vstack");

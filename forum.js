@@ -151,6 +151,9 @@ async function loadPost(image,title, content, author, i, posts, id) {
     if(content.length > 200 ){
         content = content.substring(0,200)+"...";
     }
+    if(title.length > 175){
+        title = title.substring(0,175)+"...";
+    }
     postDiv.innerHTML = `
 <!--Maybe add in author?-->
        <img src= ${image} class="circularImage" width="50px" height="50px" style=" border-color: #303030; border-width: 2px; border-style: solid; margin-left: 5px" alt="Profile picture">
