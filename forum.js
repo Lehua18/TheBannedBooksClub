@@ -149,6 +149,8 @@ async function loadPost(image,title, content, author, i, posts, id) {
     posts.appendChild(postDiv);
     console.log("Lengths!", content.length, title.length)
     postDiv.style.cssText ='width: 100%; cursor: pointer; white-space: wrap';
+    content = purifyUserInput(content);
+    title = purifyUserInput(title);
     if(content.length > 200 ){
         content = content.substring(0,200)+"...";
     }

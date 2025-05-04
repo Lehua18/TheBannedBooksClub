@@ -907,6 +907,11 @@ document.addEventListener('keydown', (e) => {
 });
 
 function purifyUserInput(userInput){
-    //need to fix
-    return userInput;
+    const badHtml = ["<form","<input","<textarea","<button","<select","<optgroup","<option", "<label","<fieldset", "<legend","<output","<datalist","<frame", "<frameset", "<noframes", "<iframe", "<img", "<map", "<area", "<canvas", "<figcaption", "<figure","<picture","<svg","<audio","<video","<source","<track","<a","<nav", "<link", "<table","<caption","<th", "<td", "<tr","<thead", "<tbody","<tfoot","<col","<colgroup","<style","<div","<span", "<header","<hgroup","<footer","<main","<section","<search","<details","<dialog","<data","<summary","<head", "<meta", "<base","<basefront", "<script", "<noscript","<applet","<embed","<object","<param"]
+    if(badHtml.some(substring => userInput.includes(substring))) {
+        console.warn("Potentially malicious html code found in", userInput);
+        return "removed"
+    }else{
+        return userInput;
+    }
 }
