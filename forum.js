@@ -35,13 +35,17 @@ window.addEventListener("load",async() => {
     //     console.log("path", path);
 
     let currentPageSpaces = "";
-    for(i=0; i<currentPage.length; i++) {
+    for(let i=0; i<currentPage.length; i++) {
 
         if(currentPage[i] === currentPage[i].toUpperCase()) {
             currentPageSpaces += " ";
         }
         currentPageSpaces += currentPage.charAt(i);
 
+    }
+    console.log("spaces",currentPageSpaces);
+    if(currentPageSpaces.includes( "Writers Corner")) {
+        currentPageSpaces = "Writer's Corner";
     }
         document.getElementById("blogTitle").textContent = currentPageSpaces+" | The Banned Books Club"
         document.getElementById("page-title").textContent = currentPageSpaces;
