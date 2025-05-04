@@ -51,13 +51,14 @@ window.onload = async() => { //specify for profile vs edit profile
         let dateInfo = await formatTimestamp(userProfile[0].created_at);
         document.getElementById("dateJoined").textContent = "Joined "+dateInfo.monthStr + " " +dateInfo.day +", "+dateInfo.year;
         const bioEdit = document.getElementById('bioEdit');
-        if(getVisualLineCount(bioEdit, 10)<10){
-            bioEdit.rows = getVisualLineCount(bioEdit,10);
-            bioEdit.style.height = bioEdit.scrollHeight+'px';
-        }else{
-            bioEdit.rows = 10;
-            bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
-        }
+        optimizeRowNumber(bioEdit);
+        // if(getVisualLineCount(bioEdit, 10)<10){
+        //     bioEdit.rows = getVisualLineCount(bioEdit,10);
+        //     bioEdit.style.height = bioEdit.scrollHeight+'px';
+        // }else{
+        //     bioEdit.rows = 10;
+        //     bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+        // }
         // document.getElementById("booksRead").textContent = userProfile[0].booksRead.stringify();
         // document.getElementById("dateJoined").textContent = "Joined "+ userProfile[0].dateJoined.stringify();
 
@@ -374,6 +375,10 @@ async function base64ToFile(base64String, filename, mimeType) {
 
 const bioEdit = document.getElementById('bioEdit');
 bioEdit.addEventListener('keydown', ()=>{
+    optimizeRowNumber(bioEdit);
+});
+
+function optimizeRowNumber(bioEdit){
     console.log("COUNT", getVisualLineCount(bioEdit,10));
     if(getVisualLineCount(bioEdit,10)<10){
         bioEdit.rows = getVisualLineCount(bioEdit,10);
@@ -382,11 +387,9 @@ bioEdit.addEventListener('keydown', ()=>{
         console.log('elsed')
         bioEdit.rows = 10;
         bioEdit.style.height = '210px';
-       //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
+        //bioEdit.style.height = bioEdit.style.lineHeight*10+'px';
     }
-});
-
-
+}
 
 
 // function checkImgStatus(){

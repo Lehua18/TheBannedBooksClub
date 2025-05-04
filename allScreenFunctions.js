@@ -472,7 +472,7 @@ if(document.getElementById("profile-pic-small") != null){
                     }
                 }, 100);
             }
-        }, 10); // check every 10ms
+        }, 25); // check every 10ms
     };
 
 

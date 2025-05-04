@@ -463,3 +463,17 @@ hr{
     border: none !important;
     filter: invert(1) !important;
 }
+.posts:hover{
+    transform: scale(1.075);
+    box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 1;
+}
+
+#title.darkMode{
+    color: lightsteelblue !important;
+}
+
+#commentTextBox.darkMode{
+
+}
