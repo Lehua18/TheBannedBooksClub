@@ -145,6 +145,9 @@ async function loadPost(image,title, content, author, i, posts, id) {
     const postDiv = document.createElement("div");
     postDiv.classList.add("posts");
     postDiv.classList.add("hstack");
+    if(await supabase.from('userRecords').select('darkMode')){
+        postDiv.classList.add("darkMode");
+    }
     postDiv.id = `${i}`;
     posts.appendChild(postDiv);
     console.log("Lengths!", content.length, title.length)

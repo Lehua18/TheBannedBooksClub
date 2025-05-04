@@ -445,3 +445,21 @@ hr{
 .toggle-switch input:checked+.slider::before {
     transform: translateX(26px);
 }
+
+#page-title.darkMode{
+    color: lightsteelblue !important;
+}
+
+.posts.darkMode{
+    background-color: midnightblue !important;
+    color: whitesmoke !important;
+    border-color: slategray !important;
+}
+.posts.darkMode img{
+    border-color: slategray !important;
+}
+
+#addPost.darkMode{
+    border: none !important;
+    filter: invert(1) !important;
+}
