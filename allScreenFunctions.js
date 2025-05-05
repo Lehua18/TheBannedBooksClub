@@ -481,7 +481,13 @@ if(document.getElementById("profile-pic-small") != null){
         if(!proxy.isLockedOpen) await showMenu();
     });
     btn.addEventListener("mouseleave", async() => {
-        if(!proxy.isLockedOpen) await hideMenu();
+        if (!proxy.isLockedOpen) {
+            timeout = setTimeout(async() => {
+                if (!hoverDiv.matches(':hover')) {
+                    await hideMenu();
+                }
+            }, 100); // slightly longer than the time needed to move cursor
+        }
     });
 
     const toggleMenuLock = async () => {
