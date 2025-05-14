@@ -11,16 +11,16 @@
 </head>
 <body>
 
-<div class="container" style="align-items: center; overflow-y: hidden; height: 100%; justify-content: center; text-align: center">
+<div class="container" style="align-items: center; overflow-y: hidden; height: calc(100vh - 100px); justify-content: center; text-align: center">
    <div class="vstack">
-       <h3 class="closeText" style="font-family: 'Homemade Apple', serif; font-size: 50px">The Banned Books Club</h3>
-       <img src="Images/logo.png" alt="Banned Books Club Logo" class="circularImage" width="200px" height="200px" style="align-items: center; justify-content: center; border: black 3px solid;">
+       <h3 class="closeText" style="font-family: 'Homemade Apple', serif; font-size: 70px">The Banned Books Club</h3>
+       <img src="Images/logo.png" alt="Banned Books Club Logo" class="circularImage" style="align-items: center; justify-content: center; border: black 3px solid; width: 250px; height: 250px">
    </div>
-    <h1 class="closeText" style="text-align: center; font-family: Boldonse, sans-serif; font-size: 50px ">Welcome!</h1>
-    <h2 class="closeText" style="text-align: center; margin-bottom: 20px; font-family: Lexend, sans-serif; font-weight: normal">We're so happy you're here.</h2>
+    <h1 class="closeText" style="text-align: center; font-family: Boldonse, sans-serif; font-size: 60px ">Welcome!</h1>
+    <h2 class="closeText" style="text-align: center; margin-bottom: 20px; font-family: Lexend, sans-serif; font-weight: normal; font-size: 30px">We're so happy you're here.</h2>
     <div  style="text-align: center">
-        <button id="login-btn">Log In</button>
-        <button id="signup-btn">Sign Up</button>
+        <button id="login-btn" style="width: 100px; margin-right: 10px">Log In</button>
+        <button id="signup-btn" style="width: 100px;">Sign Up</button>
         <script>
             document.getElementById("login-btn").addEventListener("click", async () => {
                 window.location.href = 'Login.html'
@@ -44,7 +44,7 @@
 <div class="hstack" style="bottom: 0; position: sticky; width: 100%; margin-right: 30px; margin-top: 47px;  display: flex; height: 10%">
     <div id="logos" class="hstack" style="width: 100%; position: relative;">
         <div class="hstack" style="position: absolute; left: 0; margin: 0">
-            <img src="Images/logo.png" class="circularImage" width="65px" height="65px" style="border-color: #000038; border-width: 2px; border-style: solid" alt="Logo">
+            <img src="Images/logo.png" class="circularImage" style="border-color: #000038; border-width: 2px; border-style: solid; width: 65px; height: 65px" alt="Logo">
             <div class="vstack">
                 <h3 id="siteName" class="closeText" style="font-family: 'Homemade Apple', serif; text-wrap: auto">The Banned Books Club</h3>
                 <i id="dateEst" class="closeText">Est. 2024</i>
