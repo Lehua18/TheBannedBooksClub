@@ -371,7 +371,7 @@ if(document.getElementById("profile-pic-small") != null){
             <button id ="profileMenuBtn" style="width: 85%; background-color: #ffc494">View Profile</button>
             <button id="signoutBtn" style="width: 85%; background-color: #fee198 ">Sign out</button>
             <button id="settingsBtn" style="width: 85%; background-color: #83cea3 ">Settings</button>
-            <button id="contactBtn" style="width: 85%; background-color: #80a9cb">Contact us!</button>
+            <button id="aboutBtn" style="width: 85%; background-color: #80a9cb">About us!</button>
          `;
             let buttons = hoverDiv.getElementsByTagName("button");
             console.log("Button", buttons)
@@ -455,7 +455,7 @@ if(document.getElementById("profile-pic-small") != null){
             await clickBtn("signoutBtn", "Startup.html");
             // await clickBtn("signoutBtn");
             await clickBtn("settingsBtn", "settings.html");
-            await clickBtn("contactBtn", "mailto:bannedbooklover@outlook.com");
+            await clickBtn("aboutBtn", "About.html");
 
         }
     };
