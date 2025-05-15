@@ -5,6 +5,7 @@ const supabase = createClient(supabaseURL, supabaseAnonKey);
 //let postId = null;
 const currentPage = document.URL.substring(document.URL.lastIndexOf("/") + 1);
 
+
 window.addEventListener("load",async() => {
     // const userProfile = await fetchProfile(supabase);
     // console.log(userProfile);
@@ -105,8 +106,12 @@ window.addEventListener("load",async() => {
     }else{
         document.getElementById("addPost").style.visibility = "visible";
     }
-    // let userProfile = await getUserProfile(session);
-    //get posts
+
+    //dark mode
+    // let darkMode;
+    // darkMode = !!userProfile[0].darkMode;
+    // // let userProfile = await getUserProfile(session);
+    // //get posts
     const table = await supabase.from('forumPosts').select('*')
     console.log('table', table);
     console.log("Count", (await supabase.from('forumPosts').select('*',{ count: 'exact', head: true})).count)
@@ -149,8 +154,20 @@ async function loadPost(image,title, content, author, i, posts, id) {
     const postDiv = document.createElement("div");
     postDiv.classList.add("posts");
     postDiv.classList.add("hstack");
-    if(await supabase.from('userRecords').select('darkMode')){
+    if (!session) {
+        console.log("No active session found.");
+        // return;
+    }
+    let userProfile = await getUserProfile(session);
+    console.log("Profile?",userProfile);
+    let darkMode;
+    darkMode = !!userProfile[0].darkMode;
+    if(darkMode){
+        console.log("darkMode");
         postDiv.classList.add("darkMode");
+    }else{
+        console.log("no darkMode");
+        postDiv.style.backgroundColor = "lightblue"
     }
     postDiv.id = `${i}`;
     posts.appendChild(postDiv);

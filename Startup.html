@@ -13,11 +13,11 @@
 
 <div class="container" style="align-items: center; overflow-y: hidden; height: calc(100vh - 100px); justify-content: center; text-align: center">
    <div class="vstack">
-       <h3 class="closeText" style="font-family: 'Homemade Apple', serif; font-size: 70px">The Banned Books Club</h3>
-       <img src="Images/logo.png" alt="Banned Books Club Logo" class="circularImage" style="align-items: center; justify-content: center; border: black 3px solid; width: 250px; height: 250px">
+       <h3 class="closeText" style="font-family: 'Homemade Apple', serif; font-size: 45px">The Banned Books Club</h3>
+       <img src="Images/logo.png" alt="Banned Books Club Logo" class="circularImage" style="align-items: center; justify-content: center; border: black 3px solid; width: 200px; height: 200px; margin-top: 0">
    </div>
-    <h1 class="closeText" style="text-align: center; font-family: Boldonse, sans-serif; font-size: 60px ">Welcome!</h1>
-    <h2 class="closeText" style="text-align: center; margin-bottom: 20px; font-family: Lexend, sans-serif; font-weight: normal; font-size: 30px">We're so happy you're here.</h2>
+    <h1 class="closeText" style="text-align: center; font-family: Boldonse, sans-serif; font-size: 30px ">Welcome!</h1>
+    <h2 class="closeText" style="text-align: center; margin-bottom: 20px; font-family: Lexend, sans-serif; font-weight: normal; font-size: 25px">We're so happy you're here.</h2>
     <div  style="text-align: center">
         <button id="login-btn" style="width: 100px; margin-right: 10px">Log In</button>
         <button id="signup-btn" style="width: 100px;">Sign Up</button>
@@ -80,6 +80,24 @@
     });
 
     console.log("Cookies",cookies);
+
+    window.addEventListener('load', () => {
+        resizer();
+    });
+    window.addEventListener('resize', () => {
+        resizer();
+    })
+
+    function resizer(){
+        console.log("resize");
+        console.log("container", document.getElementsByClassName("container"));
+        if(window.innerHeight < 650){
+            document.getElementsByClassName("container")[0].style.overflowY = "scroll";
+        }
+        else{
+            document.getElementsByClassName("container")[0].style.overflowY = "none";
+        }
+    }
 
 </script>
 <script src="allScreenFunctions.js"></script>

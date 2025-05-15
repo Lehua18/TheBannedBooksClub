@@ -24,7 +24,7 @@ window.addEventListener("load", async() =>{
     const link = document.createElement('link');
     link.rel = 'icon';
     link.type = 'image/png';
-    link.href = 'Images/logo.png';
+    link.href = 'Images/logoCircle.png';
     const existingIcons = document.querySelectorAll('link[rel*="icon"]');
     existingIcons.forEach(icon => icon.remove());
     document.head.appendChild(link);
