@@ -47,6 +47,8 @@ window.addEventListener("load",async() => {
     console.log("spaces",currentPageSpaces);
     if(currentPageSpaces.includes( "Writers Corner")) {
         currentPageSpaces = "Writer's Corner";
+    }else if (currentPageSpaces.includes("F A Qs")){
+        currentPageSpaces = "FAQs";
     }
         document.getElementById("blogTitle").textContent = currentPageSpaces+" | The Banned Books Club"
         document.getElementById("page-title").textContent = currentPageSpaces;

@@ -69,21 +69,29 @@ window.addEventListener("load", async() =>{
         let lastPage = pageBack[pageBack.length - 2];
         console.log("History last page",lastPage);
         if (((!lastPage.includes("Signup") && !lastPage.includes("Login")) || (window.location.href.includes("Signup") || window.location.href.includes("Login"))) && !lastPage.includes("EditProfile") && !lastPage.includes("EditPost")) { //window.history? (gets referrer, which may not be actual last page)
+            console.log("HERE IT IS :)");
             document.getElementById("backBtn").addEventListener("click", async () => {
-                console.log("Historied")
                 pageBack = pageBack.slice(0, -1);
                 console.log("History",pageBack);
                 window.location.href = lastPage;
                 sessionStorage.setItem("pageBack", JSON.stringify(pageBack));
 
             });
-        }else if(!lastPage.includes("EditPost")) {
+        }else if(lastPage.includes("EditPost") && window.location.href.includes("Post")) {
             document.getElementById("backBtn").addEventListener("click", async () => {
-                window.location.href ="Home.html"; //fix
+                let postId = window.location.href.substring(window.location.href.lastIndexOf("/")+1)
+                console.log(postId)
+                let forumId = await supabase.from("forumPosts").select("forumId").eq('id', postId)
+                forumId = forumId.data[0].forumId
+                console.log(forumId);
+                pageBack = pageBack.slice(0, -1);
+                window.location.href ='forum.html?path=/'+forumId; //fix
+                sessionStorage.setItem("pageBack", JSON.stringify(pageBack));
             });
         }else{
             document.getElementById("backBtn").addEventListener("click", async () => {
                 window.location.href = 'Home.html';
+                pageBack = pageBack.slice(0, -1);
             })
         }
         if((localStorage.getItem('postId') != null) /**&& () is document.refferer != post? (I think this was for refresh and is no longer needed, but I forget) */){
