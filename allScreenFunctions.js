@@ -85,13 +85,14 @@ window.addEventListener("load", async() =>{
                 forumId = forumId.data[0].forumId
                 console.log(forumId);
                 pageBack = pageBack.slice(0, -1);
-                window.location.href ='forum.html?path=/'+forumId; //fix
+                window.location.href ='forum.html?path=/'+forumId;
                 sessionStorage.setItem("pageBack", JSON.stringify(pageBack));
             });
         }else{
             document.getElementById("backBtn").addEventListener("click", async () => {
                 window.location.href = 'Home.html';
                 pageBack = pageBack.slice(0, -1);
+                sessionStorage.setItem("pageBack", JSON.stringify(pageBack));
             })
         }
         if((localStorage.getItem('postId') != null) /**&& () is document.refferer != post? (I think this was for refresh and is no longer needed, but I forget) */){
