@@ -26,11 +26,11 @@
   <h1 id="heading" style="font-family: Ultra, serif; font-weight: normal; font-size: 48px; text-align: center">Create a new post:</h1>
   <div class="hstack" style="align-items: center; margin-bottom: 25px; display: flex">
     <h2 style="font-family: Lexend, sans-serif; margin-right: 5px; font-weight: 400; font-size: 36px; margin-top: 0; margin-bottom: 0">Title:</h2>
-  <input type="text" id="title" style="margin-bottom: 0; margin-top: 10px; font-size: 24px; font-family: 'Lexend',sans-serif; font-weight: 250; overflow-x: scroll; display: inline-block">
+  <input type="text" id="title" style="margin-bottom: 0; margin-top: 10px; font-size: 24px; font-family: 'Lexend',sans-serif; font-weight: 250; overflow-x: scroll; display: inline-block" maxlength="10000">
   </div>
   <div class="hstack" style=" align-items: flex-start; margin-top: 0; display: flex; gap: 5px; flex-wrap: wrap; max-width: 90%; justify-content: center">
     <h2 style="font-family: Lexend, sans-serif; margin-right: 5px; font-weight: 400; font-size: 36px; margin-top: 0; margin-bottom: 0">Text:</h2>
-  <textarea id="postText" style="max-width: 75%; overflow-wrap: normal; margin-bottom: 10px; margin-top: 5px; text-align: center; resize: none; line-height: 21px; font-size: 16px; font-family: 'Lexend',sans-serif; font-weight: 250; height: 21px; word-break: break-word" rows="1" cols="100"></textarea>
+  <textarea id="postText" style="max-width: 75%; overflow-wrap: normal; margin-bottom: 10px; margin-top: 5px; text-align: center; resize: none; line-height: 21px; font-size: 16px; font-family: 'Lexend',sans-serif; font-weight: 250; height: 21px; word-break: break-word" rows="1" cols="100" maxlength="10000"></textarea>
   </div>
   <p id="error-msg" class="error-msg"></p>
   <button id="submitProfile" style="margin-top: 5px">Submit</button>
